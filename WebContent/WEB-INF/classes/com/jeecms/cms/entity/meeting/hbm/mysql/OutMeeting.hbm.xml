@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jeecms.cms.entity.meeting">
+	<class name="OutMeeting" table="ozs_out_meeting" dynamic-update="true">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+    	<id name="id" type="java.lang.Integer" column="id"><generator class="identity"/></id>
+	    <property column="name" name="name" type="string" />
+	    <property column="host_units" name="hostUnits" type="string" />
+	    <property column="sponsoring_units" name="sponsoringUnits" type="string" />
+	    <property column="overseas_partners" name="overseasPartners" type="string" />
+	    <property column="address" name="address" type="string" />
+	    <property column="meeting_size" name="meetingSize" type="java.lang.Integer" />
+	    <property column="presenter" name="presenter" type="string" />
+	    <property column="work_language" name="workLanguage" type="string" />
+	    <property column="contacts" name="contacts" type="string" />
+	    <property column="start_time" name="startTime" type="timestamp" />
+	    <property column="end_time" name="endTime" type="timestamp" />
+	    <property column="contact_phone" name="contactPhone" type="string" />
+	    <property column="contact_email" name="contactEmail" type="string" />
+	    <property column="content" name="content" type="string" />
+	    <property column="agenda" name="agenda" type="string" />
+	    <property column="invitation" name="invitation" type="java.lang.Integer" />
+	    <property column="related_data" name="relatedData" type="java.lang.Integer" />
+	    <property column="hoster" name="hoster" type="string" />
+	    <property column="phone" name="phone" type="string" />
+	    <property column="position" name="position" type="string" />
+	    <property column="type" name="type" type="java.lang.Integer" />
+	    <property column="is_stay" name="isStay" type="java.lang.Byte" />
+	    <property column="stay_start" name="stayStart" type="timestamp" />
+	    <property column="stay_end" name="stayEnd" type="timestamp" />
+	    <property column="stay_hotel" name="stayHotel" type="string" />
+	    <property column="is_foreign_ticket" name="isForeignTicket" type="java.lang.Byte" />
+	    <property column="foreign_start" name="foreignStart" type="timestamp" />
+	    <property column="foreigh_end" name="foreighEnd" type="timestamp" />
+	    <property column="is_domestic_ticket" name="isDomesticTicket" type="java.lang.Byte" />
+	    <property column="domestic_start" name="domesticStart" type="timestamp" />
+	    <property column="domestic_end" name="domesticEnd" type="timestamp" />
+	    <property column="is_food" name="isFood" type="java.lang.Byte" />
+	    <property column="breakfast_start" name="breakfastStart" type="timestamp" />
+	    <property column="breakfase_end" name="breakfaseEnd" type="timestamp" />
+	    <property column="lunch_start" name="lunchStart" type="timestamp" />
+	    <property column="lunch_end" name="lunchEnd" type="timestamp" />
+	    <property column="dinner_start" name="dinnerStart" type="timestamp" />
+	    <property column="dinner_end" name="dinnerEnd" type="timestamp" />
+	    <property column="is_drive" name="isDrive" type="java.lang.Byte" />
+	    <!-- <property column="publisher" name="publisher" type="java.lang.Integer" /> -->
+	    <property column="publish_time" name="publishTime" type="timestamp" />
+	    <property column="update_time" name="updateTime" type="timestamp" />
+	    <!-- <property column="update_by" name="updateBy" type="java.lang.Integer" /> -->
+	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
+	    <many-to-one name="publisher" column="publisher" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+	    <many-to-one name="updateBy" column="update_by" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+  </class>
+</hibernate-mapping>

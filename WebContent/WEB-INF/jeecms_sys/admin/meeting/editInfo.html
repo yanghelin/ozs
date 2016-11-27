@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jeecms_sys/head.html"/>
+<script type="text/javascript">
+
+function getTableForm() {
+	return document.getElementById('jvForm');
+}
+
+</script>
+<style type="text/css">
+h1{text-align:center;font-size:18px;}
+.info{text-align:center;}
+</style>
+</head>
+<body>
+<div class="box-positon">
+	<div class="rpos"><@s.m "global.position"/>:  <@s.m "content.function"/> - <@s.m "content.opt.view"/></div>
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';" class="return-button"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<div class="body-box">
+
+<div style="background:url(${base}/res/common/img/theme/boxTitleBG.jpg) repeat-x; height:20px; overflow:hidden;">
+<input class="del-button" type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/ style="float:left; border-right:1px solid #ffffff;"></div>
+</form>
+<form id="viewInFront" action="${base}/login/main/meetingList.do" target="_blank" method="get"></form>
+<div style="border:1px solid #ccc;">
+	<h1>${meeting.meetingTitle}</h1>
+	<p class="info">
+		<@s.m "content.user"/>: ${meeting.createPerson!}
+		&nbsp; <@s.m "content.releaseDate"/>: ${meeting.insertTimeHis?string("yyyy-MM-dd HH:mm:ss")}		
+	</p>
+	<div>
+	${meeting.content!}
+	</div>
+</div>
+<div>
+
+<@p.table value=userMeetingList ;cmsUser,i,has_next><#rt/>
+	<@p.column code="cmsMeetingView" align="center">
+		<#if cmsUser.path??>
+			${cmsUser.userName} :<a href="${base}/servlet/ServletDownload?registId=${cmsUser.registId}&meetingId=${cmsUser.meetingId}">下载</a><br/>
+		<#else>
+			${cmsUser.userName}:<a>该用户没有上传文件</a>
+		</#if>
+	</@p.column><#t/>
+</@p.table>
+
+</div>
+</body>
+</html>

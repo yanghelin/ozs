@@ -1,0 +1,798 @@
+﻿<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>首页 - 英文 - 中国中东欧国家智库交流与合作网络</title>
+<meta http-equiv="keywords" content=""/>
+<meta http-equiv="description" content=""/>
+<head>
+<!--[if lt IE 9]>
+<script src="/cepc/r/cms/html5.js" type="text/javascript"></script>
+<![endif]-->
+<!-- 新增CSS start -->
+	<link href="/cepc/r/cms/cepen/cepen/css/bootstrap/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/cepc/r/cms/cepen/cepen/css/compiled/elements.css">
+	<link rel="stylesheet" href="/cepc/r/cms/cepen/cepen/css/compiled/signin.css" type="text/css" media="screen" />
+<!-- end -->
+<!-- 新增js start -->
+<!--     <script src="http://code.jquery.com/jquery-latest.js"></script>
+ -->   <!--  <script src="/cepc/r/cms/cepen/cepen/js/bootstrap.min.js"></script> -->
+    <script src="/cepc/r/cms/cepen/cepen/js/theme.js"></script>
+<!-- end -->
+<link href="/cepc/r/cms/cepen/cepen/css/html5.css" rel="stylesheet" type="text/css"/>
+<script src="/cepc/r/cms/cepen/cepen/js/indexshow.js" type="text/javascript"></script>
+<script src="/cepc/r/cms/cepen/cepen/js/imgFlip.js" type="text/javascript"></script>
+
+<link href="/cepc/r/cms/front.css" rel="stylesheet" type="text/css"/>
+<link href="/cepc/r/cms/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="/cepc/r/cms/jquery.js" type="text/javascript"></script>
+<script src="/cepc/r/cms/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="/cepc/r/cms/front.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	document.getElementById("regist-open").style.display="none";
+	document.getElementById("subscribe-open").style.display="none";
+});
+$(function(){
+    $('#top_regist').click(function(){
+    	document.getElementById("regist-open").style.display="block";
+	});
+    $('#Submit1').click(function(){
+		var userName = $("input[name='userName']").val();
+		var password = $("input[name='password']").val();
+		var userMail = $("input[name='userMail']").val();
+		var userTitle = $("input[name='userTitle']").val();
+		var userCompany = $("input[name='userCompany']").val();
+		var userPosition = $("input[name='userPosition']").val();
+		/* var userEducation = $("input[name='userEducation']").val(); */
+		if(userName == null || userName == ""){
+			alert("Account cannot be empty");
+			return false;
+		}
+		if(userName != null || userName != ""){
+			var reg = /[a-zA-Z0-9_]{3,16}/;
+			if(!reg.test(userName)){
+				alert('Input is not legal！');
+				return false;
+			}
+		}
+		if(password == null || password == ""){
+			alert("Password cannot be empty");
+			return false;
+		}
+		
+		if(userMail == null || userMail == ""){
+			alert("Email cannot be empty");
+			return false;
+		}
+		if(userMail != null && userMail != ""){
+    		var reg =  /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    		if (!reg.test(userMail)){ 
+    			alert('Your E-mail format is not correct');
+	    		 return false;
+    		}
+    	}
+		if(userTitle == null || userTitle == ""){
+			alert("Job Title cannot be empty");
+			return false;
+		}
+		if(userCompany == null || userCompany == ""){
+			alert("The company can't be empty");
+			return false;
+		}
+		if(userPosition == null || userPosition == ""){
+			alert("Post cannot be empty");
+			return false;
+		}
+		/* if(userEducation == null || userEducation == ""){
+			alert("Education can't be empty");
+			return false;
+		} */
+		if(userTitle == null || userTitle == ""){
+			alert("Job Title cannot be empty");
+			return false;
+		}
+		if(userName != null || userName != "" && password != null || password != "" && userMail != null || userMail != ""  && userTitle != null || userTitle != "" && userCompany != null || userCompany != "" 
+			&& userPosition != null || userPosition != ""){
+			$.ajax({
+				  url				:	'/cepc/login/main/add_member_regist.do'		
+				, type			: 	'POST'
+			    , dataType		: 	'text'
+			    , scriptCharset	: 	'UTF-8'
+			    , async			: 	true
+			    , timeout		: 	99999
+			    , error			: 	function( XMLHttpRequest, textStatus, errorThrown ){
+			    }
+			    , data 	: {userName : userName, password:password, userMail:userMail,userCompany:userCompany, userPosition:userPosition, userTitle:userTitle}
+			    , success : function(data){
+			    	var text = data;
+			    	$("input[name='userName']").val("");
+			    	$("input[name='password']").val("");
+					$("input[name='userMail']").val("");
+					$("input[name='userTitle']").val("");
+					$("input[name='userCompany']").val("");
+					$("input[name='userPosition']").val("");
+			    	document.getElementById("regist-open").style.display="none";
+			    	if(text == "success"){
+			    		alert("Registered successfully");
+			    	}
+			    	if(text == "fail"){
+			    		alert("Registration failed");
+			    	}
+			    	if(text == "exist"){
+			    		alert("Your account has been in existence");
+			    		
+			    	}
+			    }
+			});
+		}
+	});
+});
+$(function(){
+	$('#regist-close').click(function(){
+		document.getElementById("regist-open").style.display="none";
+	});
+});
+$(function(){
+    $('#top_subscribe').click(function(){
+    	document.getElementById("subscribe-open").style.display="block";
+    });
+    $('#Submit2').click(function(){
+    	var email = $("input[name='email']").val();
+    	if(email ==null || email == ""){
+    		alert("Email cannot be empty");
+    		return false;
+    	}
+    	if(email != null && email != ""){
+    		var reg =  /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    		if (!reg.test(email)){ 
+    			alert('Your E-mail format is not correct');
+	    		 return false;
+    		}
+    	}
+		$.ajax({
+			  url				:	'/cepc/login/main/add_email.do'		
+			, type			: 	'POST'
+		    , dataType		: 	'text'
+		    , scriptCharset	: 	'UTF-8'
+		    , async			: 	true
+		    , timeout		: 	99999
+		    , error			: 	function( XMLHttpRequest, textStatus, errorThrown ){
+		    }
+		    , data 	: {userEmail : email}
+		    , success : function(data){
+		    	var text = data;
+				$("input[name='email']").val("");
+		    	document.getElementById("subscribe-open").style.display="none";
+		    	if(text == "success"){
+		    		alert("Subscribe to the success");
+		    	}
+		    	if(text == "fail"){
+		    		alert("Subscribe to the failure");
+		    	}
+		    	if(text == "exist"){
+		    		alert("Your email has been in existence");
+		    	}
+		    }
+		});
+    	
+    });
+    
+});
+$(function(){
+	$('#subscribe-close').click(function(){
+		document.getElementById("subscribe-open").style.display="none";
+	});
+});
+$(function() {
+	Cms.siteFlow("/cepc", location.href, document.referrer);
+	$.cookie("_site_id_cookie","2",{path: '/cepc' });
+});
+
+//JavaScript Document
+$(document).ready(function(e) {
+	/***不需要自动滚动，去掉即可***/
+	time = window.setInterval(function(){
+		$('.og_next').click();	
+	},5000);
+	/***不需要自动滚动，去掉即可***/
+	linum = $('.mainlist li').length;//图片数量
+	w = 4 * 230;//ul宽度
+	
+	$('.og_next').click(function(){
+		
+		if($('.mainlist').is(':animated')){
+			$('.mainlist').stop(true,true);
+		}
+		
+		if($('.mainlist li').length>4){//多于4张图片
+			ml = parseInt($('.mainlist').css('left'));//默认图片ul位置
+			if(ml<=0 && ml>w*-1){//默认图片显示时
+				$('.mainlist').animate({left: ml - 230 + 'px'},'slow');//默认图片滚动				
+				if(ml==(230*linum)*-1){//默认图片最后一屏时
+					$('.mainlist').animate({left: '0px'},'slow');//交换图片滚动
+				}
+			}else{//交换图片显示时
+				$('.mainlist').css({left: '0px'})//默认图片放在显示区域右
+			}
+		}
+	})
+	$('.og_prev').click(function(){
+		
+		if($('.mainlist').is(':animated')){
+			$('.mainlist').stop(true,true);
+		}
+		
+		if($('.mainlist li').length>4){
+			ml = parseInt($('.mainlist').css('left'));
+			if(ml<=0 && ml>w*-1){
+				$('.mainlist').animate({left: ml + 230 + 'px'},'slow');				
+				if(ml==0){
+				}
+			}else{
+				$('.mainlist').css({left: 0 + 'px'});
+			}
+		}
+	})    
+});
+</script>
+
+</head>
+<body>
+<!-- <div class="theTop">
+    <div class="header_top">
+    	<p><a class="swsy" onclick="SetHome(window.location)"href="javascript:void(0)">Set Home</a><a class="jrsc" onclick="AddFavorite(window.location,document.title)"href="javascript:void(0)">Join Collection</a></p>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+   //加入收藏
+       function AddFavorite(sURL, sTitle) {
+           sURL =encodeURI(sURL); 
+       try{   
+          window.external.addFavorite(sURL, sTitle);   
+       }catch(e) {   
+          try{   
+              window.sidebar.addPanel(sTitle, sURL, "");   
+           }catch (e){   
+              alert("Your browser does not support automatic add collection function, please use Ctrl + D to add, or manually set in the browser.");
+          }   
+       }
+   }
+   
+   //设为首页
+   function SetHome(url){
+       if (document.all) {
+          document.body.style.behavior='url(#default#homepage)';
+             document.body.setHomePage(url);
+       }else{
+           alert("Your browser does not support automatic Settings page for the home page, please manually set up this page for home page in the browser!");
+       }
+   }
+</script> -->
+<div class="login-wrapper"  id="regist-open">
+     <div class="box" >
+         <div class="content-wrap">
+             <h6> User Registration</h6>
+            <form>
+                <table> 
+                    <tr>
+                        <td><input class="form-control" type="text"  name="userName"placeholder="Account number（required ）"></td>
+                        <td><input class="form-control" type="password"  name="password"placeholder="Password（required ）"></td>
+                    </tr>
+                    <tr>
+                        <!-- <td><input class="form-control" type="text" name="userEducation" placeholder="Education（required ）"></td> -->
+                        <td><input class="form-control" type="text" name="userMail" placeholder="E-mail（required ）"></td>
+                        <td><input class="form-control" type="text" name="userTitle" placeholder="Job Title（required ）"></td>
+                    </tr>
+                     <tr>
+                        <td><input class="form-control" type="text" name="userCompany" placeholder="Company（required ）"></td>
+                        <td><input class="form-control" type="text" name="userPosition" placeholder="Position（required ）"></td>
+                    </tr>
+                    <!-- <tr>
+                        <td><input class="form-control" type="password" placeholder="password（必填）"></td>
+                        <td><input class="form-control" type="password" placeholder="确认密码（必填）"></td>
+                    </tr> -->
+                </table>
+                <div class="login-submit">
+                    <button class="btn-glow primary login" id="Submit1" type="button" >Commit</button>
+                </div>
+                </form>
+            </div>
+         <a class="logout" style="padding-left:420px;" id="regist-close">[Exit]</a>
+     </div>
+ </div>
+ <div class="login-wrapper" id="subscribe-open">
+        <div class="box" >
+            <div class="content-wrap">
+                <h6>Subscribe</h6>
+                <form>
+	                <table> 
+	                    <tr>
+	                        <td><input class="form-control" type="text" style="width:450px" name="email" placeholder="E-mail（required ）"></td>
+	                    </tr>
+	                </table>
+                <div class="login-submit">
+                    <button class="btn-glow primary login" id="Submit2" type="button" >Commit</button> 
+                </div>
+                </form>
+            </div>
+            <a class="logout" style="padding-left:420px;" id="subscribe-close">[Exit]</a>
+        </div>
+    </div>
+<div class="container">
+	
+﻿<script>
+//delay延迟时间（毫秒）
+$(function() {
+	$("input[name=q]").autocomplete({
+		 source: "/cepc/search/v_ajax_list.jspx",
+		 minLength: 2,
+		 max:5,
+		 delay:100,
+		 autoFocus: true,
+		 select: function(e, ui) {
+			 $("input[name='q']").val(ui.item.value);
+			 $("#searchForm").submit();
+		 },
+		 success: function( data ) {
+			    response( $.map( data.items, function( item ) {
+			        return {
+			         label: '<B>' + item.id + '</B><br>' + item.label,
+			         value: item.id
+			        }
+			       }));
+		}
+	});
+});
+function qkeypress(){
+	var q=$("input[name=q]");
+	if(q.val().trim()!=""){
+		$("input[name=q]").autocomplete("enable");
+	}else{
+		$("input[name=q]").autocomplete("disable");
+	}
+}
+</script>
+<div class="pageTitle">
+    <!-- LOGO_begin -->
+    <div class="webLogo">
+		<img src="/cepc/r/cms/cepen/cepen/img/index/webLogo.gif" />
+    </div>
+    <!-- LOGO_end -->
+    <!-- 搜索_begin -->
+    <!-- <div class="searchCon">
+        <form action="/cepc/search.jspx" target="_blank" id="searchForm">
+        <div class="ui-widget">
+            <div class="searchBg">
+            	<input name="q" value="Please enter the keywords" type="text" onfocus="if(this.value=='Please enter the keywords')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='Please enter the keywords'"  maxlength="50" autocomplete="off" / style="border:0;width:98%;">
+            </div>
+		</div>
+            <input type="submit" class="searchMenu" value=""/ >
+        </form>
+    </div>
+     -->
+    <div class="search">
+    	<form action="/cepc/search.jspx" target="_blank" id="searchForm">
+    		<input class="znss" name="q" value="Please enter the keywords" type="text" onfocus="if(this.value=='Please enter the keywords')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='Please enter the keywords'"  maxlength="50" autocomplete="off" />
+	     		<input type="submit" class="button" value=""/ >
+	         <a href="/cepc/zh/index.jhtml">中文</a>
+         </form>
+     </div>
+    <!-- 搜索_end -->
+</div>
+<div class="clear"></div>    <div class="site-nav-sign">
+		<a id="top_regist" >[FREE SIGNUP]</a>&nbsp;&nbsp;
+		<a id="top_subscribe" >[SUBSCRIBE]</a>
+		<a id="top_login" >[LOGIN IN]</a>
+	</div>
+ <!-- <div id="menu" class="page box relative">
+    <dl id="topmenu">  
+               <dt class="menu_first">
+        <a href="http://192.168.1.8:8080/cepc//index.html" target="_self" class="selected"><span>Home</span></a>
+        </dt>
+        <dt>
+        <a href="http://192.168.1.8:8080/cepc/en/1/index.jhtml"  target="_self" ><span>Research Achievement</span></a>
+        </dt>
+        <dt>
+        <a href="http://192.168.1.8:8080/cepc/en/2/index.jhtml"  target="_self" ><span>National Conditions</span></a>
+        </dt>
+        <dt>
+        <a href="http://192.168.1.8:8080/cepc/en/3/index.jhtml"  target="_self" ><span>China-CEEC Thinktanks' Cooperaion</span></a>
+        </dt>
+        <dt>
+        <a href="http://192.168.1.8:8080/cepc/en/4/index.jhtml"  target="_self" ><span>About us</span></a>
+        </dt>
+        <dt>
+        <a href="http://192.168.1.8:8080/cepc/en/5/index.jhtml"  target="_self" ><span>Academic Exchange</span></a>
+        </dt>
+        <dt>
+        <a href="http://192.168.1.8:8080/cepc/en/6/index.jhtml"  target="_self" ><span>About CEECs' Thinktanks</span></a>
+        </dt>
+        <dt>
+        <a href="http://192.168.1.8:8080/cepc/en/7/index.jhtml"  target="_self" ><span>High-Level Symposium of Thinktanks of China-CEECs</span></a>
+        </dt>
+    </dl>
+    </div>
+    -->
+    <div class="nav">
+       	<ul>
+          	<li >
+          		<a href="http://192.168.1.8:8080/cepc//index.html" target="_self" class="selected">Home</a>
+          	</li>
+        		
+	        	<li class="three_li">
+	        		<a href="http://192.168.1.8:8080/cepc/en/1/index.jhtml"  target="_self" >Research Achievement</a>
+	        	</li>
+	        	
+        		
+	        	<li class="three_li">
+	        		<a href="http://192.168.1.8:8080/cepc/en/2/index.jhtml"  target="_self" >National Conditions</a>
+	        	</li>
+	        	
+        		
+	        	<li class="first_li">
+	        		<a href="http://192.168.1.8:8080/cepc/en/3/index.jhtml"  target="_self" >China-CEEC Thinktanks' Cooperaion</a>
+	        	</li>
+	        	
+        		
+	        	<li>
+	        		<a href="http://192.168.1.8:8080/cepc/en/4/index.jhtml"  target="_self" >About us</a>
+	        	</li>
+	        	
+        		
+	        	<li class="three_li">
+	        		<a href="http://192.168.1.8:8080/cepc/en/5/index.jhtml"  target="_self" >Academic Exchange</a>
+	        	</li>
+	        	
+        		
+	        	<li class="three_li">
+	        		<a href="http://192.168.1.8:8080/cepc/en/6/index.jhtml"  target="_self" >About CEECs' Thinktanks</a>
+	        	</li>
+	        	
+        		
+	        	<li class="first_li">
+	        		<a href="http://192.168.1.8:8080/cepc/en/7/index.jhtml"  target="_self" >High-Level Symposium of Thinktanks of China-CEECs</a>
+	        	</li>
+	        	
+          </ul>       
+       </div>
+
+<div class="clear"></div>    <div class="main">
+    	<div class="w670">
+        	<div class="hundred100">
+        		<!-- Dynamic news_begin -->
+            	<div class="gjNews">
+            		<div class="top_title">
+            			 <a href="http://192.168.1.8:8080/cepc/en/11/index.jhtml" target="_blank">
+		                more>></a>
+                    	
+                        <p><span class="t_left"></span><span>Dynamic news</span><span class="t_right"></span></p>
+                    </div>
+		            
+		                <ul class="news_ul">
+		                  <li>
+		                <a href="/cepc/11/20151111/719.html" title="Zhang Gaoli's visit to Serbia" target="_blank">Zhang Gaoli's visit to Serbia
+		                	<img src="/cepc//r/cms/www/new.gif"/>
+		                </a>
+		                </li>
+		                  <li>
+		                <a href="/cepc/11/20151111/718.html" title="Li Keqiang and Serbia Prime Minister Wu Qiqi jointly attended the signing ceremony" target="_blank">Li Keqiang and Serbia Prime Minister W...
+		                	<img src="/cepc//r/cms/www/new.gif"/>
+		                </a>
+		                </li>
+		                </ul>
+		            
+		        </div>
+        		<!--Dynamic news_end -->
+                <div class="w310 mt10">
+                    <!-- 焦点图代码宽310_begin -->
+                    <div class="comiis_wrapad" id="slideContainer">
+                        <div id="frameHlicAe" class="frame cl">
+                            <div class="temp"></div>
+                            <div class="block">
+                                <div class="cl">
+                                    <ul class="slideshow" id="slidesImgs">
+                                    <li>
+                                        <a href="/cepc/1/20151110/693.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepen/201511/1717445201lb.gif" alt="BYD electric bus K9 debut in the capital of Romania" width="100%" />
+                                        </a>
+                                        <span>
+BYD electric bus K9 debut in the c...                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="/cepc/1/20151110/688.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepen/201511/11095820koqu.gif" alt="Fifth China - the Middle East European countries cooperation National Coordinator meeting held in Beijing" width="100%" />
+                                        </a>
+                                        <span>
+Fifth China - the Middle East Euro...                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="/cepc/1/20151110/686.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepen/201511/11095847idkw.jpg" alt="Liu Yandong held talks with Czech Prime Minister Sobotka" width="100%" />
+                                        </a>
+                                        <span>
+Liu Yandong held talks with Czech ...                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="/cepc/1/20151110/684.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepen/201511/11095940fz07.gif" alt="Xi Jinping, chairman of the call to congratulate Vee Johnny J was elected president of Latvia" width="100%" />
+                                        </a>
+                                        <span>
+Xi Jinping, chairman of the call t...                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="/cepc/1/20151110/683.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepen/201511/11095916nvip.gif" alt="Xi Jinping meets with President Nikolic of Serbia" width="100%" />
+                                        </a>
+                                        <span>
+Xi Jinping meets with President Ni...                                        </span>
+                                    </li>
+                                    </ul>
+                                </div>
+                                <div class="slidebar" id="slideBar">
+                                    <ul>
+                                        <li class="on">1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                        <li>5</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        SlideShow(3000);
+                    </script>
+                    
+                </div>
+                    <div class="clear"></div>
+                <div style="width:980px; overflow:hidden;">
+                    <!--学术交流-->
+                    <div class="gjNews">
+			   	    	<div class="top_title">
+	            			 <a href="http://192.168.1.8:8080/cepc/en/1/index.jhtml" target="_blank">
+			                more>></a>
+	                    	
+	                        <p><span class="t_left"></span><span>  Research Result </span><span class="t_right"></span></p>
+	                    </div>
+			            
+			                <ul class="dtbox Achievement">
+			                  <li>
+			                <a href="/cepc/1/20151110/693.html" title="BYD electric bus K9 debut in the capital of Romania" target="_blank">BYD electric bus K9 debut in the capit...</a>
+			                </li>
+			                  <li>
+			                <a href="/cepc/1/20151110/688.html" title="Fifth China - the Middle East European countries cooperation National Coordinator meeting held in Beijing" target="_blank">Fifth China - the Middle East European...</a>
+			                </li>
+			                  <li>
+			                <a href="/cepc/1/20151110/686.html" title="Liu Yandong held talks with Czech Prime Minister Sobotka" target="_blank">Liu Yandong held talks with Czech Prim...</a>
+			                </li>
+			                  <li>
+			                <a href="/cepc/1/20151110/684.html" title="Xi Jinping, chairman of the call to congratulate Vee Johnny J was elected president of Latvia" target="_blank">Xi Jinping, chairman of the call to co...</a>
+			                </li>
+			                  <li>
+			                <a href="/cepc/1/20151110/683.html" title="Xi Jinping meets with President Nikolic of Serbia" target="_blank">Xi Jinping meets with President Nikoli...</a>
+			                </li>
+			                </ul>
+			           
+			        </div>
+			        
+			        <div class="gjNews" style="float:left; width:612px;">
+			   	    	<div class="top_title">
+	            			 <a href="http://192.168.1.8:8080/cepc/en/5/index.jhtml" target="_blank">
+			                more>></a>
+	                    	
+	                        <p><span class="t_left"></span><span> Academic Exchange</span><span class="t_right"></span></p>
+	                    </div>
+			           
+			                 <ul class="dtbox">
+			                  <li>
+			                  <span style="color:#999">2015-11-10</span>
+			                <a href="/cepc/5/20151110/691.html" title="Liu Yandong met with house speaker Hama Cheik of Czech" target="_blank">Liu Yandong met with house speaker Ham...</a>
+			                </li>
+			                </ul>
+			           
+			        </div>
+                    <!-- 学术交流_end -->
+                </div>
+                    <div class="clear"></div>
+            
+            	
+            </div>
+        	<div class="clear"></div>
+            <!-- 广告_begin -->
+            <div class="hundred100 mt10">
+                <img src="../../cepc/r/cms/cepen/cepen/img/index/banner1.jpg" width="100%">
+        </div>
+            <!-- 广告_end -->
+			<div class="clear"></div>
+            <div class="hundred100">
+            	<div class="gjNews">
+			   	    	<div class="top_title">
+	            			 <a href="http://192.168.1.8:8080/cepc/en/3/index.jhtml" target="_blank">
+			                more>></a>
+	                    	
+	                        <p><span class="t_left"></span><span>China-CEEC Thinktanks' Cooperaion</span><span class="t_right"></span></p>
+	                    </div>
+			            
+			                <ul class="dtbox Achievement">
+				                 <dl class="cooperimg" style="overflow: hidden;margin-bottom: 10px;">
+	              	                    <dt style="text-align: center; width: 150px; display: block; float: left;"><a href="/cepc/3/20151118/747.html" target="_blank"><img  src="/r/cms/www/no_picture.gif"  width="134" height="134"></a></dt>
+	                                    <dd style="width: 180px; float: left;">
+	                  	              		<p style="word-break:break-all;line-height: 2;"><a href="/cepc/3/20151118/747.html" title="321321321321" target="_blank" style="color:#333;">321321321321321321321321321321321321</a></p>
+	                                    </dd>
+	                              </dl>
+		                             <li>
+						                <a href="/cepc/3/20151118/746.html" title="321321321321321321321321321321321321" target="_blank">321321321321321321321321321321321321</a>
+					               	 </li>
+		                             <li>
+						                <a href="/cepc/3/20151118/745.html" title="321321321321321321321321321321321321" target="_blank">321321321321321321321321321321321321</a>
+					               	 </li>
+		                             <li>
+						                <a href="/cepc/3/20151118/744.html" title="321321321321" target="_blank">321321321321</a>
+					               	 </li>
+		                             <li>
+						                <a href="/cepc/3/20151118/743.html" title="321321321" target="_blank">321321321</a>
+					               	 </li>
+			                </ul>
+			          
+			        </div>
+			        
+			        <div class="gjNews"  style="float:left; width:612px;">
+			   	    	<div class="top_title">
+	            			 <a href="http://192.168.1.8:8080/cepc/en/6/index.jhtml" target="_blank">
+			                more>></a>
+	                    	
+	                        <p><span class="t_left"></span><span>About CEECs' Thinktanks </span><span class="t_right"></span></p>
+	                    </div>
+			                 <ul class="dtbox">
+				                 <dl class="cooperimg" style="display:block;overflow:hidden;margin-buttom:10px">
+	              	                    <dt style="text-align: center; width: 150px; float: left;"><a href="/cepc/6/20151118/742.html" target="_blank"><img  src="/r/cms/www/no_picture.gif"  width="134" height="134"></a></dt>
+	                                    <dd style="width: 430px; float: left; margin-left: 15px;">
+	                  	              		<p style="word-break:break-all;line-height: 2;"><a href="/cepc/6/20151118/742.html" title="ReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewr" target="_blank"  style="color:#333;">ReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewr</a></p>
+	                                    </dd>
+	                              </dl>
+		                             <li>
+		                                <span style="color:#999">2015-11-18</span>
+						                <a href="/cepc/6/20151118/741.html" title="Reewrewrewr" target="_blank">Reewrewrewr</a>
+					               	 </li>
+		                             <li>
+		                                <span style="color:#999">2015-11-18</span>
+						                <a href="/cepc/6/20151118/740.html" title="Reewrewrewr" target="_blank">Reewrewrewr</a>
+					               	 </li>
+		                             <li>
+		                                <span style="color:#999">2015-11-18</span>
+						                <a href="/cepc/6/20151118/739.html" title="444444444444444" target="_blank">444444444444444</a>
+					               	 </li>
+		                             <li>
+		                                <span style="color:#999">2015-11-18</span>
+						                <a href="/cepc/6/20151118/738.html" title="321321" target="_blank">321321</a>
+					               	 </li>
+			                </ul>
+			           
+			        </div>
+            <!-- 视频_end -->
+            </div>
+          </div>
+          <div class="clear"></div>
+			<div class="hundred100 mt10">
+            	<!-- 图库_begin -->
+                <div class="top_title">
+           			 <a href="http://192.168.1.8:8080/cepc/en/1/index.jhtml" target="_blank">
+	                more>></a>
+                   	
+                       <p><span class="t_left"></span><span>High-Level Symposium of Thinktanks of China-CEECs</span><span class="t_right"></span></p>
+                   </div>
+                <!-- <div class="AreaContent1">
+                    <ul class="box">
+                    </ul>
+                </div> -->
+                <div class="symbox">
+                        <div class="box">
+                            <div class="picbox">
+                                 <ul class="piclist mainlist">
+                                    <li>
+                                        <a href="/cepc/7/20151111/724.html" title="Fifth China - the Middle East European countries cooperation National Coordinator meeting held in Beijing" target="_blank">
+                                        	<div class="toll_img">
+                                           		 <img src="/cepc/u/cms/cepen/201511/11130836n7zk.gif" alt="Fifth China - the Middle East European countries cooperation National Coordinator meeting held in Beijing" width="100%" />
+                                           	</div>
+                                           	<div class="toll_info">	 
+                                           	<p>Fifth China - the Middle East Europe</p>
+			                            	</div>
+                                        </a>
+                                        <span class="title">
+Fifth China - the Middle East Euro...                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="/cepc/7/20151111/717.html" title="Li Keqiang and Serbia Prime Minister Wu Qiqi jointly attended the signing ceremony" target="_blank">
+                                        	<div class="toll_img">
+                                           		 <img src="/cepc/u/cms/cepen/201511/111044111bdj.gif" alt="Li Keqiang and Serbia Prime Minister Wu Qiqi jointly attended the signing ceremony" width="100%" />
+                                           	</div>
+                                           	<div class="toll_info">	 
+                                           	<p>Li Keqiang and Serbia Prime Minister</p>
+			                            	</div>
+                                        </a>
+                                        <span class="title">
+Li Keqiang and Serbia Prime Minist...                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="/cepc/7/20151111/716.html" title="In June 17, 2015, foreign minister Xie Dina held talks with Poland's foreign minister, Wang Yi, in Beijing and China." target="_blank">
+                                        	<div class="toll_img">
+                                           		 <img src="/cepc/u/cms/cepen/201511/11104201939v.gif" alt="In June 17, 2015, foreign minister Xie Dina held talks with Poland's foreign minister, Wang Yi, in Beijing and China." width="100%" />
+                                           	</div>
+                                           	<div class="toll_info">	 
+                                           	<p>In June 17, 2015, foreign minister X</p>
+			                            	</div>
+                                        </a>
+                                        <span class="title">
+In June 17, 2015, foreign minister...                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="/cepc/7/20151111/715.html" title="Wang Yi and Poland Foreign Minister Xie Tina held talks and co chaired the wave inter governmental cooperation committee plenary meeting for the first" target="_blank">
+                                        	<div class="toll_img">
+                                           		 <img src="/cepc/u/cms/cepen/201511/11104048qdqe.jpg" alt="Wang Yi and Poland Foreign Minister Xie Tina held talks and co chaired the wave inter governmental cooperation committee plenary meeting for the first" width="100%" />
+                                           	</div>
+                                           	<div class="toll_info">	 
+                                           	<p>Wang Yi and Poland Foreign Minister </p>
+			                            	</div>
+                                        </a>
+                                        <span class="title">
+Wang Yi and Poland Foreign Ministe...                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="/cepc/7/20151111/699.html" title="Joint press release of the first plenary session of the government of the people's Republic of China and the Republic of Poland" target="_blank">
+                                        	<div class="toll_img">
+                                           		 <img src="/cepc/u/cms/cepen/201511/11103114ljod.jpg" alt="Joint press release of the first plenary session of the government of the people's Republic of China and the Republic of Poland" width="100%" />
+                                           	</div>
+                                           	<div class="toll_info">	 
+                                           	<p>Joint press release of the first ple</p>
+			                            	</div>
+                                        </a>
+                                        <span class="title">
+Joint press release of the first p...                                        </span>
+                                    </li>
+                    			</ul>
+                            </div>
+                            <div class="og_prev"></div>
+                            <div class="og_next"></div>
+                        </div>
+                    </div>
+              <!-- 图库_end -->
+             </div>
+        </div>
+    </div>
+<div class="clear"></div>
+
+<div class="link" style="width:980px; margin:0 auto;">
+                	<div class="top_title">
+                        <p><span class="t_left"></span><span>friendship link</span><span class="t_right"></span></p>
+                    </div>
+                    <div class="linkbox">
+                <div style="margin-left:1.5%; float:left;">
+        <a href="http://baidu.com" onclick="$.get('/cepc/friendlink_view.jspx?id=7')" target="_blank">Tourism Cooperation</a>
+        </div>
+        <div style="margin-left:1.5%; float:left;">
+        <a href="http://baidu.com" onclick="$.get('/cepc/friendlink_view.jspx?id=8')" target="_blank">Agricultural Cooperation</a>
+        </div>
+        <div style="margin-left:1.5%; float:left;">
+        <a href="http://baidu.com" onclick="$.get('/cepc/friendlink_view.jspx?id=9')" target="_blank">Transportation Infrastructure</a>
+        </div>
+        <div style="margin-left:1.5%; float:left;">
+        <a href="http://baidu.com" onclick="$.get('/cepc/friendlink_view.jspx?id=10')" target="_blank">Logistics Cooperation</a>
+        </div>
+        <div style="margin-left:1.5%; float:left;">
+        <a href="http://baidu.com" onclick="$.get('/cepc/friendlink_view.jspx?id=11')" target="_blank"> Business Cooperation</a>
+        </div>
+        <div style="margin-left:1.5%; float:left;">
+        <a href="http://baidu.com" onclick="$.get('/cepc/friendlink_view.jspx?id=12')" target="_blank">The investment promotion work</a>
+        </div>
+                    </div>
+                </div>
+<div class="clear-10"></div>
+<div class="footer">
+    <div class="clear-10"></div>
+  		Copyright belongs to China's central and eastern Europe, a think-tank, exchanges and cooperation network 2004-2015 All Rights Reserved<br />
+ 		 Copyright © www.16plus1-thinktank.com, China's central and eastern Europe, a think-tank, exchanges and cooperation in network Beijing ICP for 12030723
+</div></div>
+</body>
+</html>

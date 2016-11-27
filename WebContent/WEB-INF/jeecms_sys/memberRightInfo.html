@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jeecms_sys/head.html"/>
+<script type="text/javascript">
+/* $(function() {
+	$("#rejectDialog").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 380,
+		height: 200,
+		position: ["center",50],
+		buttons: {
+			"OK": function() {
+				rejectSubmit();
+			}
+		}
+	});
+}); */
+/* function optReject() {
+	$("#rejectDialog").dialog("open");
+}
+ */
+
+function getTableForm() {
+	return document.getElementById('jvForm');
+}
+
+</script>
+<style type="text/css">
+h1{text-align:center;font-size:18px;}
+.info{text-align:center;}
+</style>
+</head>
+<body>
+<div class="box-positon">
+	<div class="rpos"><@s.m "global.position"/>:  <@s.m "content.function"/> - <@s.m "content.opt.view"/></div>
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';" class="return-button"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<div class="body-box">
+
+<form id="viewInFront" action="${base}/login/main/meetingList.do" target="_blank" method="get"></form>
+<div style="border:1px solid #ccc;">
+	<h1>${meeting.meetingTitle}</h1>
+	<p class="info">
+		<@s.m "content.user"/>: ${meeting.createPerson!}
+		&nbsp; <@s.m "content.releaseDate"/>: ${meeting.insertTimeHis?string("yyyy-MM-dd HH:mm:ss")}		
+	</p>
+	<div>
+	${meeting.content!}
+	</div>
+</div>
+</div>
+	<form action="${base}/servlet/UploadHandleServlet?registId=${registMeeting.registId}&meetingId=${registMeeting.meetingId}"  enctype="multipart/form-data" method="post">
+<!-- 		<input type="hidden" name="registId" value="${registMeeting.registId}"/><br/>
+		<input type="hidden" name="meetingId" value="${registMeeting.meetingId}"/><br/> -->
+    上传文件：<input type="file" name="file"><br/>
+    <input type="submit" value="提交">
+  </form>
+<div>
+
+</div>
+</body>
+</html>

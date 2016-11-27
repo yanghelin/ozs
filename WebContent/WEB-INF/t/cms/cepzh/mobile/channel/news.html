@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${channel.title!channel.name} - ${site.name} - 中国中东欧国家智库交流与合作网络</title>
+<meta http-equiv="keywords" content="${channel.keywords!}"/>
+<meta http-equiv="description" content="${channel.description!}"/>
+
+<!--[if lt IE 9]>
+<script src="${resSys}/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link href="/${res}/css/html5.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<script src="/${res}/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	Cms.siteFlow("${base}", location.href, document.referrer);
+});
+</script>
+</head>
+
+<body>
+<div class="container">
+	[#include "../include/header.html"/]
+    [#include "../include/search_csi.html"/]
+    [#include "../include/navi.html"/]
+	<!-- 左栏_begin -->
+	<div class="w670 mt10">
+        <div class="website">Current Position：<a href="${base}/">Home</a> > [#list channel.nodeList as n]<a href="${n.url}" target="_blank">${n.name}</a>[#if n_has_next] > [/#if][/#list]</div>
+        <div class="clear"></div>
+        [@cms_content_page count='10' orderBy='4' channelId=channel.id channelOption='2' dateFormat='yyyy-MM-dd']
+        [#list tag_pagination.list as a]
+        <div class="hdNews hasPic">
+            
+            [#if a.typeImg??]
+            <a href="${a.url}" target="_blank" class="pic" style="border:1px solid #ccc;">
+            <img src="${a.typeImg!site.typeImg}" />
+            </a>
+            [/#if]
+            <a href="${a.url}" title="${a.title}" target="_blank">
+            <h2>[@text_cut s=a.title len=22 /][#if a.new]<img src="${base}/${site.newPic!}"/>[/#if]</h2>
+            </a>
+            <p>
+            [@text_cut s=a.desc len=60 append='...'/]
+            <span style="color:#999">(${a.date?string(dateFormat)})</span>
+            </p>
+        </div>
+        [/#list]
+        <div style="clear:both;"></div>
+        <div class="pagesite">
+        [@cms_pagination sysPage='1'/]
+        </div>
+        [/@cms_content_page]
+    </div>
+    <!-- 左栏_end -->
+    [#include "../include/friend_link.html"/]
+    [#include "../include/footer.html"/]
+</div>
+</body>
+</html>

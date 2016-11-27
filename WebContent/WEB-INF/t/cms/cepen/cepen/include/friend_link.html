@@ -1,0 +1,16 @@
+<div class="clear"></div>
+
+<div class="link" style="width:980px; margin:0 auto;">
+                	<div class="top_title">
+                        <p><span class="t_left"></span><span>friendship link</span><span class="t_right"></span></p>
+                    </div>
+                    <div class="linkbox">
+        [@cms_friendlink_list]
+        [#list tag_list as link]
+        <div style="margin-left:1.5%; float:left;">
+        <a href="${link.domain}" onclick="$.get('${base}/friendlink_view.jspx?id=${link.id}')" target="_blank">${link.name}</a>
+        </div>
+        [/#list]
+        [/@cms_friendlink_list]
+                    </div>
+                </div>

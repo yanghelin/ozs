@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jeecms.cms.entity.meeting">
+	<class name="OzsMessageDetail" table="ozs_message_detail" dynamic-update="true">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+    	<id name="id" type="java.lang.Integer" column="id"><generator class="identity"/></id>
+	    <!-- <property column="message_id" name="messageId" type="INTEGER" /> -->
+	    <property column="message_title" name="messageTitle" type="string" />
+	    <property column="message_content" name="messageContent" type="string" />
+	    <!-- <property column="sender" name="sender" type="INTEGER" />
+	    <property column="receiver" name="receiver" type="INTEGER" /> -->
+	    <property column="create_time" name="createTime" type="timestamp" />
+	    <property column="is_read" name="isRead" type="java.lang.Byte" />
+	    <property column="read_time" name="readTime" type="timestamp" />
+	    <property column="is_reply" name="isReply" type="java.lang.Byte" />
+	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
+	    <many-to-one name="messageId" column="message_id" class="com.jeecms.cms.entity.meeting.OzsMessage" not-null="false"></many-to-one>
+	    <many-to-one name="sender" column="sender" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+	    <many-to-one name="receiver" column="receiver" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+  </class>
+</hibernate-mapping>

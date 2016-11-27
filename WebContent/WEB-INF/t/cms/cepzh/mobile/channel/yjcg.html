@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<title>${channel.title!channel.name} - ${site.name} - 中国中东欧国家智库交流与合作网络</title>
+<meta http-equiv="keywords" content="${channel.keywords!}"/>
+<meta http-equiv="description" content="${channel.description!}"/>
+
+<!--[if lt IE 9]>
+<script src="${resSys}/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link href="/${res}/css/html5.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<script src="/${res}/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	Cms.siteFlow("${base}", location.href, document.referrer);
+});
+</script>
+</head>
+
+<body>
+<!-- [#include "../include/header.html"/] -->
+<div class="container">
+	
+    [#include "../include/search_csi.html"/]
+    [#include "../include/navi.html"/]
+  
+	<!-- 左栏_begin -->
+	<div class="w670">
+        <div class="top">当前位置：<a href="${base}/">首页</a> > [#list channel.nodeList as n]<a href="${n.url}" target="_blank" class="blue">${n.name}</a>[#if n_has_next] > [/#if][/#list]</div>
+        <div class="clear"></div>
+        
+        <!-- 新闻_begin -->
+	    <div class="left">
+	    	<div class="hotnews">
+	            <div class="title">
+	             [@cms_channel id='90']<a href="${tag_bean.url}" target="_blank">
+	          更多>></a>[/@cms_channel]
+	          		<span>热点新闻</span>
+	            </div>
+	            
+			          <ul>
+			          [@cms_content_list count='75' orderBy='4' titLen='13' channelId='90'  channelOption='1']
+			          [#list tag_list as a]
+			            <li>
+			          <a href="${a.url}" title="${a.title}" target="_blank">[@text_cut s=a.title len=titLen append='...'/]</a>
+			          </li>
+			          [/#list]
+			          [/@cms_content_list]
+			          </ul>
+	      		
+	        </div>
+	    </div>
+	    
+	<!-- 新闻_end -->
+        <div class="right">
+			<div class="right_tit">[#list channel.nodeList as n]${n.name}[#if n_has_next] > [/#if][/#list]</div>
+			<div class="rightbox">
+				<ul class="newslist">
+					 [@cms_content_page count='10' orderBy='4' channelId=channel.id channelOption='2' dateFormat='yyyy-MM-dd']
+		        [#list tag_pagination.list as a]
+					
+					<li>
+			            <span style="color:#999">${a.date?string(dateFormat)}</span>
+			            <a href="${a.url}"  target="_blank">
+			            [@text_cut s=a.title len=22 /][#if a.new] &nbsp;<img src="${base}/${site.newPic!}"/>[/#if]
+			            </a>
+			          
+					</li>
+					[/#list]
+				</ul>
+				<div style="clear:both;"></div>
+		        <div class="ym">
+		        [@cms_pagination sysPage='1'/]
+		        </div>
+		        [/@cms_content_page]
+			</div>
+		</div>
+       
+        
+            
+            
+        
+    </div>
+    <!-- 左栏_end -->
+    [#include "../include/friend_link.html"/]
+    [#include "../include/footer.html"/]
+</div>
+</body>
+</html>

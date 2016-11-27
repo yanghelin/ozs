@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jeecms.cms.entity.meeting">
+	<class name="InMeetingRoom" table="ozs_in_meeting_room" dynamic-update="true">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+    	<id name="id" type="java.lang.Integer" column="id"><generator class="identity"/></id>
+	    <!-- <property column="meeting_id" name="meetingId" type="java.lang.Integer" /> -->
+	    <property column="attendee_num" name="attendeeNum" type="java.lang.Integer" />
+	    <property column="guest_num" name="guestNum" type="java.lang.Integer" />
+	    <property column="meeting_room" name="meetingRoom" type="java.lang.Byte" />
+	    <property column="organizing_dept" name="organizingDept" type="string" />
+	    <property column="hoster" name="hoster" type="string" />
+	    <property column="item_hoster" name="itemHoster" type="string" />
+	    <property column="phone" name="phone" type="string" />
+	    <property column="position" name="position" type="string" />
+	    <property column="remark" name="remark" type="string" />
+	    <property column="create_time" name="createTime" type="timestamp" />
+	    <!-- <property column="create_by" name="createBy" type="java.lang.Integer" /> -->
+	    <property column="update_time" name="updateTime" type="timestamp" />
+	    <!-- <property column="update_by" name="updateBy" type="java.lang.Integer" /> -->
+	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
+	    <many-to-one name="meetingId" column="meeting_id" class="com.jeecms.cms.entity.meeting.InMeeting" not-null="false"></many-to-one>
+	    <many-to-one name="createBy" column="create_by" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+	    <many-to-one name="updateBy" column="update_by" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+</class>
+</hibernate-mapping>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jeecms.cms.entity.meeting">
+	<class name="OutMeetingEroll" table="ozs_out_meeting_eroll" dynamic-update="true">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+    	<id name="id" type="java.lang.Integer" column="id"><generator class="identity"/></id>
+	    <!-- <property column="out_meeting_id" name="outMeetingId" type="Integer" />
+	    <property column="login_id" name="loginId" type="Integer" /> -->
+	    <property column="login_name" name="loginName" type="string" />
+	    <property column="user_type" name="userType" type="java.lang.Byte" />
+	    <property column="cn_name" name="cnName" type="string" />
+	    <property column="sex" name="sex" type="java.lang.Byte" />
+	    <property column="national" name="national" type="string" />
+	    <property column="en_name" name="enName" type="string" />
+	    <property column="position" name="position" type="string" />
+	    <property column="phone" name="phone" type="string" />
+	    <property column="unit" name="unit" type="string" />
+	    <property column="email" name="email" type="string" />
+	    <property column="out_name" name="outName" type="string" />
+	    <property column="out_birthday" name="outBirthday" type="timestamp" />
+	    <property column="out_sex" name="outSex" type="java.lang.Byte" />
+	    <property column="out_national" name="outNational" type="string" />
+	    <property column="passport" name="passport" type="string" />
+	    <property column="out_from" name="outFrom" type="string" />
+	    <property column="out_arrive" name="outArrive" type="string" />
+	    <property column="out_go_time" name="outGoTime" type="timestamp" />
+	    <property column="out_back_time" name="outBackTime" type="timestamp" />
+	    <property column="out_go_flight" name="outGoFlight" type="string" />
+	    <property column="out_back_flight" name="outBackFlight" type="string" />
+	    <property column="in_name" name="inName" type="string" />
+	    <property column="in_birthday" name="inBirthday" type="timestamp" />
+	    <property column="in_sex" name="inSex" type="java.lang.Byte" />
+	    <property column="in_national" name="inNational" type="string" />
+	    <property column="card" name="card" type="string" />
+	    <property column="in_from" name="inFrom" type="string" />
+	    <property column="in_arrive" name="inArrive" type="string" />
+	    <property column="in_go_time" name="inGoTime" type="timestamp" />
+	    <property column="in_back_time" name="inBackTime" type="timestamp" />
+	    <property column="in_go_flight" name="inGoFlight" type="string" />
+	    <property column="in_back_flight" name="inBackFlight" type="string" />
+	    <property column="is_breakfast" name="isBreakfast" type="java.lang.Byte" />
+	    <property column="is_lunch" name="isLunch" type="java.lang.Byte" />
+	    <property column="is_dinner" name="isDinner" type="java.lang.Byte" />
+	    <property column="car_no" name="carNo" type="string" />
+	    <property column="bank_no" name="bankNo" type="string" />
+	    <property column="bank_address" name="bankAddress" type="string" />
+	    <property column="bank_name" name="bankName" type="string" />
+	    <property column="bank_card" name="bankCard" type="string" />
+	    <!-- <property column="other" name="other" type="java.lang.Integer" />
+	    <property column="create_time" name="createTime" type="timestamp" /> -->
+	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
+	    <many-to-one name="loginId" column="login_id" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+	    <many-to-one name="outMeetingId" column="out_meeting_id" class="com.jeecms.cms.entity.meeting.OutMeeting" not-null="false"></many-to-one>
+	    <many-to-one name="other" column="other" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
+	    <many-to-one name="createTime" column="create_time" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+  </class>
+</hibernate-mapping>
