@@ -96,5 +96,12 @@
 
 
 	<bean id="inMeetingAct" class="com.jeecms.cms.action.meeting.InMeetingAct"/>
+	<bean id="outMeetingAct" class="com.jeecms.cms.action.meeting.OutMeetingAct"/>
+	<bean id="inMeetingBriefingAct" class="com.jeecms.cms.action.meeting.InMeetingBriefingAct"/>
+	<bean id="inMeetingItemsAct" class="com.jeecms.cms.action.meeting.InMeetingItemsAct"/>
+	<bean id="inMeetingMaterialsAct" class="com.jeecms.cms.action.meeting.InMeetingMaterialsAct"/>
+	<bean id="inMeetingRoomAct" class="com.jeecms.cms.action.meeting.InMeetingRoomAct"/>
+	<bean id="ozsMessageAct" class="com.jeecms.cms.action.meeting.OzsMessageAct"/>
+	<bean id="workMealAct" class="com.jeecms.cms.action.meeting.WorkMealAct"/>
 	
 </beans>

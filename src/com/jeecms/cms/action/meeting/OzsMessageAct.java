@@ -31,8 +31,8 @@ import com.jeecms.core.web.util.CmsUtils;
 public class OzsMessageAct {
 	private static final Logger log = LoggerFactory.getLogger(OzsMessageAct.class);
 
-	@RequiresPermissions("in_meeting:list")
-	@RequestMapping("/in_meeting/list.do")
+	@RequiresPermissions("ozs_message:list")
+	@RequestMapping("/ozs_message/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
@@ -42,8 +42,8 @@ public class OzsMessageAct {
 		return "meeting/in/list";
 	}
 	
-	@RequiresPermissions("in_meeting:to_add")
-	@RequestMapping("/in_meeting/to_add.do")
+	@RequiresPermissions("ozs_message:to_add")
+	@RequestMapping("/ozs_message/to_add.do")
 	public String add(HttpServletRequest request, ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
@@ -56,8 +56,8 @@ public class OzsMessageAct {
 		return "meeting/in/add";
 	}
 	
-	@RequiresPermissions("in_meeting:save")
-	@RequestMapping("/in_meeting/save.do")
+	@RequiresPermissions("ozs_message:save")
+	@RequestMapping("/ozs_message/save.do")
 	public String save(InMeeting bean,HttpServletRequest request,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		/*WebErrors errors = validateSave(bean, request);
@@ -75,8 +75,8 @@ public class OzsMessageAct {
 		return "redirect:list.do";
 	}
 	
-	@RequiresPermissions("in_meeting:delete")
-	@RequestMapping("/in_meeting/delete.do")
+	@RequiresPermissions("ozs_message:delete")
+	@RequestMapping("/ozs_message/delete.do")
 	public String delete(InMeeting bean,HttpServletRequest request,ModelMap model) {
 		bean.setIsDelete((byte)1);
 		inMeetingMng.updateInMeeting(bean);

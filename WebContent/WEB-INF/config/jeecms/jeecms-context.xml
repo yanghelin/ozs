@@ -166,6 +166,13 @@
 	
 	<!-- 新增会议管理部分 -->
 	<bean id="inMeetingMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingMngImpl"/>
+	<bean id="outMeetingMng" class="com.jeecms.cms.manager.meeting.impl.OutMeetingMngImpl"/>
+	<bean id="inMeetingBriefingMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingBriefingMngImpl"/>
+	<bean id="inMeetingItemsMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingItemsMngImpl"/>
+	<bean id="inMeetingMaterialsMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingMaterialsMngImpl"/>
+	<bean id="inMeetingRoomMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingRoomMngImpl"/>
+	<bean id="ozsMessageMng" class="com.jeecms.cms.manager.meeting.impl.OzsMessageMngImpl"/>
+	<bean id="workMealMng" class="com.jeecms.cms.manager.meeting.impl.WorkMealMngImpl"/>
 	
 	<!--DAO-->
 	<bean id="channelDao" class="com.jeecms.cms.dao.main.impl.ChannelDaoImpl"/>
@@ -255,6 +262,13 @@
 	
 	<!-- 新增会议管理部分 -->
 	<bean id="inMeetingDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingDaoImpl"/>
+	<bean id="outMeetingDao" class="com.jeecms.cms.dao.meeting.impl.OutMeetingDaoImpl"/>
+	<bean id="inMeetingBriefingDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingBriefingDaoImpl"/>
+	<bean id="inMeetingItemsDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingItemsDaoImpl"/>
+	<bean id="inMeetingMaterialsDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingMaterialsDaoImpl"/>
+	<bean id="inMeetingRoomDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingRoomDaoImpl"/>
+	<bean id="ozsMessageDao" class="com.jeecms.cms.dao.meeting.impl.OzsMessageDaoImpl"/>
+	<bean id="workMealDao" class="com.jeecms.cms.dao.meeting.impl.WorkMealDaoImpl"/>
 	
 	
 	<bean id="openOfficeConverter" class="com.jeecms.common.office.OpenOfficeConverter" init-method="init" destroy-method="destroy"/>

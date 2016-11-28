@@ -31,8 +31,8 @@ import com.jeecms.core.web.util.CmsUtils;
 public class WorkMealAct {
 	private static final Logger log = LoggerFactory.getLogger(WorkMealAct.class);
 
-	@RequiresPermissions("in_meeting:list")
-	@RequestMapping("/in_meeting/list.do")
+	@RequiresPermissions("work_meal:list")
+	@RequestMapping("/work_meal/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
@@ -42,8 +42,8 @@ public class WorkMealAct {
 		return "meeting/in/list";
 	}
 	
-	@RequiresPermissions("in_meeting:to_add")
-	@RequestMapping("/in_meeting/to_add.do")
+	@RequiresPermissions("work_meal:to_add")
+	@RequestMapping("/work_meal/to_add.do")
 	public String add(HttpServletRequest request, ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
@@ -56,8 +56,8 @@ public class WorkMealAct {
 		return "meeting/in/add";
 	}
 	
-	@RequiresPermissions("in_meeting:save")
-	@RequestMapping("/in_meeting/save.do")
+	@RequiresPermissions("work_meal:save")
+	@RequestMapping("/work_meal/save.do")
 	public String save(InMeeting bean,HttpServletRequest request,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		/*WebErrors errors = validateSave(bean, request);
@@ -75,8 +75,8 @@ public class WorkMealAct {
 		return "redirect:list.do";
 	}
 	
-	@RequiresPermissions("in_meeting:delete")
-	@RequestMapping("/in_meeting/delete.do")
+	@RequiresPermissions("work_meal:delete")
+	@RequestMapping("/work_meal/delete.do")
 	public String delete(InMeeting bean,HttpServletRequest request,ModelMap model) {
 		bean.setIsDelete((byte)1);
 		inMeetingMng.updateInMeeting(bean);

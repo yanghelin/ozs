@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title> <#include "/jeecms_sys/head.html"/>
+<script type="text/javascript">
+	$(function() {
+		$("#jvForm").validate();
+		//部门对话框
+		$("#departDialog").dialog({
+			autoOpen : false,
+			modal : true,
+			width : 280,
+			height : 420,
+			position : [ "center", 20 ],
+			buttons : {
+				"OK" : function() {
+					$("#departId").val($("input[name='departId']:checked").val());
+					$("#departName").val($("input[name='departId']:checked+span").html());
+					$(this).dialog("close");
+				}
+			}
+		});
+		var parent_opened = false;
+		$('#depart').click(function() {
+			//第一次打开，需要获取数据。
+			if (!parent_opened) {
+				$("#departTree").treeview({
+					url : "v_depart_add.do"
+				});
+				parent_opened = true;
+				$("#departDialog").show();
+			}
+			$('#departDialog').dialog('open');
+			return false;
+		});
+	});
+	function allChannelSelect() {
+		$("#allChannelHide").val($("#allChannel").prop("checked"));
+	}
+	function allControlChannelSelect() {
+		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
+	}
+</script>
+</head>
+<body>
+	<div class="box-positon">
+		<div class="rpos"><@s.m "global.position"/>: <@s.m "out.meeting.manager"/> - <@s.m "global.add"/></div>
+		<form class="ropt">
+			<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
+		</form>
+		<div class="clear"></div>
+	</div>
+	<div class="body-box">
+		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
+		<@p.form id="jvForm" action="save.do" labelWidth="12">
+		<@p.text width="500" colspan="2" label="meeting.name" name="name" required="true" maxlength="300"/><@p.tr/>
+		<@p.text width="50" colspan="1" label="meeting.hostUnits" name="hostUnits" required="true" maxlength="100"/>
+		<@p.text width="50" colspan="1" label="meeting.sponsoringUnits" name="sponsoringUnits" required="true" maxlength="100"/><@p.tr/>
+		<@p.text width="50" colspan="1" label="meeting.overseasPartners" name="overseasPartners" required="true" maxlength="100"/>
+		<@p.text width="50" colspan="1" label="meeting.address" name="address" required="true" maxlength="100"/><@p.tr/>
+		<@p.text width="50" colspan="1" label="meeting.meetingSize" name="meetingSize" required="true" maxlength="100"/>
+		<@p.text width="50" colspan="1" label="meeting.presenter" name="presenter" required="true" maxlength="100"/><@p.tr/>
+		<@p.text width="50" colspan="1" label="meeting.workLanguage" name="workLanguage" required="true" maxlength="100"/>
+		<@p.text width="50" colspan="1" label="meeting.contacts" name="contacts" required="true" maxlength="100"/><@p.tr/>
+		<@p.td colspan="2" width="50" label="meeting.time">
+			<input name="startTime" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+			~
+			<input name="endTime" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+		</@p.td>
+		<@p.tr/>
+		<@p.text width="50" colspan="1" label="meeting.contactPhone" name="contactPhone" required="true" maxlength="100"/>
+		<@p.text width="50" colspan="1" label="meeting.contactEmail" name="contactEmail" required="true" maxlength="100"/><@p.tr/>
+		<@p.textarea colspan="2" label="meeting.content" name="content" cols="70" rows="5"/><@p.tr/>
+		<@p.textarea colspan="2" label="meeting.agenda" name="agenda" cols="70" rows="5"/><@p.tr/>
+		
+		<@p.text width="50" colspan="2" label="meeting.invitation" name="invitation" required="true" maxlength="100"/><@p.tr/>
+		<@p.text width="50" colspan="2" label="meeting.relatedData" name="relatedData" required="true" maxlength="100"/><@p.tr/>
+		
+		<@p.text width="50" colspan="1" label="meeting.hoster" name="hoster" required="true" maxlength="100"/>
+		<@p.text width="50" colspan="1" label="meeting.phone" name="phone" required="true" maxlength="100"/><@p.tr/>
+		<@p.text width="50" colspan="2" label="meeting.position" name="position" required="true" maxlength="100"/><@p.tr/>
+		
+		<label><input type="checkbox" onclick="$('#linkDiv').toggle(this.checked);if(!this.checked){$('#link').val('');}"/><@s.m "content.link"/></label>
+		<div id="linkDiv" style="display:none">url: <input type="text" id="link" name="link"  title="<@s.m 'contentLink.tip.title'/>" size="35" maxlength="255"/></div>
+		
+		<@p.tr/>
+		
+		<@p.td colspan="2"><@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
+		<@p.td colspan="2"></@p.td>
+		</@p.form>
+	</div>
+</body>
+</html>

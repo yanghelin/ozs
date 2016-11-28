@@ -31,8 +31,8 @@ import com.jeecms.core.web.util.CmsUtils;
 public class InMeetingBriefingAct {
 	private static final Logger log = LoggerFactory.getLogger(InMeetingBriefingAct.class);
 
-	@RequiresPermissions("in_meeting:list")
-	@RequestMapping("/in_meeting/list.do")
+	@RequiresPermissions("in_meeting_briefing:list")
+	@RequestMapping("/in_meeting_briefing/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
@@ -42,8 +42,8 @@ public class InMeetingBriefingAct {
 		return "meeting/in/list";
 	}
 	
-	@RequiresPermissions("in_meeting:to_add")
-	@RequestMapping("/in_meeting/to_add.do")
+	@RequiresPermissions("in_meeting_briefing:to_add")
+	@RequestMapping("/in_meeting_briefing/to_add.do")
 	public String add(HttpServletRequest request, ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
@@ -56,8 +56,8 @@ public class InMeetingBriefingAct {
 		return "meeting/in/add";
 	}
 	
-	@RequiresPermissions("in_meeting:save")
-	@RequestMapping("/in_meeting/save.do")
+	@RequiresPermissions("in_meeting_briefing:save")
+	@RequestMapping("/in_meeting_briefing/save.do")
 	public String save(InMeeting bean,HttpServletRequest request,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		/*WebErrors errors = validateSave(bean, request);
@@ -75,8 +75,8 @@ public class InMeetingBriefingAct {
 		return "redirect:list.do";
 	}
 	
-	@RequiresPermissions("in_meeting:delete")
-	@RequestMapping("/in_meeting/delete.do")
+	@RequiresPermissions("in_meeting_briefing:delete")
+	@RequestMapping("/in_meeting_briefing/delete.do")
 	public String delete(InMeeting bean,HttpServletRequest request,ModelMap model) {
 		bean.setIsDelete((byte)1);
 		inMeetingMng.updateInMeeting(bean);

@@ -14,14 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jeecms.cms.entity.meeting.InMeeting;
-import com.jeecms.cms.manager.meeting.InMeetingMng;
+import com.jeecms.cms.entity.meeting.OutMeeting;
+import com.jeecms.cms.manager.meeting.OutMeetingMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.manager.CmsUserExtMng;
-import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.web.util.CmsUtils;
 
 /**
@@ -31,19 +29,17 @@ import com.jeecms.core.web.util.CmsUtils;
 public class OutMeetingAct {
 	private static final Logger log = LoggerFactory.getLogger(OutMeetingAct.class);
 
-	@RequiresPermissions("in_meeting:list")
-	@RequestMapping("/in_meeting/list.do")
+	@RequiresPermissions("out_meeting:list")
+	@RequestMapping("/out_meeting/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		CmsUser currUser = CmsUtils.getUser(request);
-		Pagination pagination = inMeetingMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
+		Pagination pagination = outMeetingMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
-		return "meeting/in/list";
+		return "meeting/out/list";
 	}
 	
-	@RequiresPermissions("in_meeting:to_add")
-	@RequestMapping("/in_meeting/to_add.do")
+	@RequiresPermissions("out_meeting:to_add")
+	@RequestMapping("/out_meeting/to_add.do")
 	public String add(HttpServletRequest request, ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
@@ -53,12 +49,12 @@ public class OutMeetingAct {
 		model.addAttribute("groupList", groupList);
 		model.addAttribute("roleList", roleList);
 		model.addAttribute("currRank", currUser.getRank());*/
-		return "meeting/in/add";
+		return "meeting/out/add";
 	}
 	
-	@RequiresPermissions("in_meeting:save")
-	@RequestMapping("/in_meeting/save.do")
-	public String save(InMeeting bean,HttpServletRequest request,ModelMap model) {
+	@RequiresPermissions("out_meeting:save")
+	@RequestMapping("/out_meeting/save.do")
+	public String save(OutMeeting bean,HttpServletRequest request,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		/*WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
@@ -68,21 +64,21 @@ public class OutMeetingAct {
 		bean.setPublisher(currUser);
 		bean.setPublishTime(new Date());
 		bean.setIsDelete((byte)0);
-		bean.setType((byte)1);
-		inMeetingMng.saveInMeeting(bean);
-		log.info("save InMeeting id={}", bean.getId());
+		bean.setType(1);
+		outMeetingMng.saveOutMeeting(bean);
+		log.info("save OutMeeting id={}", bean.getId());
 		//cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId() + ";username=" + bean.getUsername());
 		return "redirect:list.do";
 	}
 	
-	@RequiresPermissions("in_meeting:delete")
-	@RequestMapping("/in_meeting/delete.do")
-	public String delete(InMeeting bean,HttpServletRequest request,ModelMap model) {
+	@RequiresPermissions("out_meeting:delete")
+	@RequestMapping("/out_meeting/delete.do")
+	public String delete(OutMeeting bean,HttpServletRequest request,ModelMap model) {
 		bean.setIsDelete((byte)1);
-		inMeetingMng.updateInMeeting(bean);
+		outMeetingMng.updateOutMeeting(bean);
 		return "redirect:list.do";
 	}
 
 	@Autowired
-	private InMeetingMng inMeetingMng;
+	private OutMeetingMng outMeetingMng;
 }
