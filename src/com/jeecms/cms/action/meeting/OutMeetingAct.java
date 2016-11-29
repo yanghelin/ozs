@@ -2,10 +2,13 @@ package com.jeecms.cms.action.meeting;
 
 import static com.jeecms.common.page.SimplePage.cpn;
 
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jeecms.cms.entity.meeting.OutMeeting;
 import com.jeecms.cms.manager.meeting.OutMeetingMng;
@@ -78,7 +83,49 @@ public class OutMeetingAct {
 		outMeetingMng.updateOutMeeting(bean);
 		return "redirect:list.do";
 	}
+	
+	@RequiresPermissions("out_meeting:upload")
+	@RequestMapping("/out_meeting/upload.do")
+	public void upload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile cvsfile) throws Exception {
+		log.debug("进入upload方法：上传文件完成，开始执行文件保存。");
+		PrintWriter writer = response.getWriter();
+		response.setContentType("text/html;chartset=UTF-8");
+		String content = null;
+		try {
+			if(cvsfile.isEmpty()){  
+				log.error("上传文件为空，请重新上传。");
+            }else if(cvsfile.getSize()>FILE_MAX_SIZE){
+            	log.error("文件超过100M大小，请重新上传。");
+            }else {
+            	/*
+        		 * 根据来源类型判断是否包含内容数据。
+        		 * 根据发送渠道来判断渠道信息：主要是判断“用户ID”或“用户ID+内容”导入时短信和邮件的区分。
+        		 * 根据导入类型判断导入文件是否与之对应：需要根据导入类型来判断导入的头文件是否符合选择的类型
+        		 */
+        		String itype = request.getParameter("importType");
+        		Integer importType = 0;
+        		if(StringUtils.isNotBlank(itype)) {
+        			importType = Integer.valueOf(itype);
+        		}
+        		
+        		log.debug("文件分析完成！");
+            }
+		}catch (Exception e) {
+			log.error("文件上传失败！", e);
+		}finally{
+			
+			writer.write("{code:200}");
+			if(StringUtils.isNotBlank(content)) {
+				writer.write("#-CRM-#"+content);
+			}
+			writer.flush();
+			writer.close();
+		}
+		log.debug("文件上传成功，返回前台页面！");
+	}
 
 	@Autowired
 	private OutMeetingMng outMeetingMng;
+	
+	private final Integer FILE_MAX_SIZE = 104857600;//100M大小
 }
