@@ -62,7 +62,10 @@
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.text width="200" colspan="2" label="meeting.name" name="name" required="true" maxlength="300"/><@p.tr/>
+		<@p.td colspan="2" label="meeting.name" required="true">
+			<@p.text style="width:500px;" name="name" required="true" maxlength="200"/>
+		</@p.td>
+		<@p.tr/>
 		<@p.text width="50" colspan="1" label="meeting.hostUnits" name="hostUnits" required="true" maxlength="100"/>
 		<@p.text width="50" colspan="1" label="meeting.sponsoringUnits" name="sponsoringUnits" required="true" maxlength="100"/><@p.tr/>
 		<@p.text width="50" colspan="1" label="meeting.overseasPartners" name="overseasPartners" required="true" maxlength="100"/>
@@ -81,26 +84,35 @@
 		<@p.text width="50" colspan="1" label="meeting.contactEmail" name="contactEmail" required="true" maxlength="100"/><@p.tr/>
 		<@p.td colspan="2" label="meeting.content">
 			<textarea name="content" cols="70" rows="5"></textarea>
-			<input type="file" id="cvsfile" name="cvsfile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('cvsfile')"/>
+			<input type="hidden" name="contentAttachment" id="contentAttachment" />
+			<input type="file" id="contentFile" name="contentFile" value="浏览" style="width:200px;"/>
+			<input type="button" value="上传" onclick="myFileUpload('contentFile','contentAttachment',1)"/>
+			<span id="contentAttachmentSpan"></span>
 		</@p.td>
 		<!-- <@p.textarea colspan="2" label="meeting.content" name="content" cols="70" rows="5"/> -->
 		<@p.tr/>
 		<@p.td colspan="2" label="meeting.agenda">
 			<textarea name="agenda" cols="70" rows="5"></textarea>
+			<input type="hidden" name="agendaAttachment" id="agendaAttachment" />
 			<input type="file" id="agendaFile" name="agendaFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('agendaFile')"/>
+			<input type="button" value="上传" onclick="myFileUpload('agendaFile','agendaAttachment',2)"/>
+			<span id="agendaAttachmentSpan"></span>
 		</@p.td>
 		<!-- <@p.textarea colspan="2" label="meeting.agenda" name="agenda" cols="70" rows="5"/> -->
 		<@p.tr/>
 		
 		<@p.td width="100" colspan="2" label="meeting.invitation">
 			<input type="file" id="invitationFile" name="invitationFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('invitationFile')"/>
+			<input type="hidden" name="invitation" id="invitation" />
+			<input type="button" value="上传" onclick="myFileUpload('invitationFile','invitation',3)"/>
+			<span id="invitationSpan"></span>
 		</@p.td>
+		<@p.tr/>
 		<@p.td width="100" colspan="2" label="meeting.relatedData">
 			<input type="file" id="relatedDataFile" name="relatedDataFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('relatedDataFile')"/>
+			<input type="hidden" name="relatedData" id="relatedData" />
+			<input type="button" value="上传" onclick="myFileUpload('relatedDataFile','relatedData',4)"/>
+			<span id="relatedDataSpan"></span>
 		</@p.td>
 		<@p.tr/>
 		
@@ -114,23 +126,24 @@
 		</@p.td>
 		<@p.tr/>
 		
-		<@p.td colspan="2"><@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
-		<@p.td colspan="2"></@p.td>
+		<@p.td colspan="2"><@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td><@p.tr/>
 		</@p.form>
+		<div style="margin-top:30px;">
+		
+		</div>
 	</div>
 	<script type="text/javascript">
 		var uploadCount=0;
 		//打开的csv窗口，点击其中的上传方法调用此方法
-	 	function myFileUpload(busId) {
+	 	function myFileUpload(fileId, busId,type) {
 	 		uploadCount++;
-	 		var flag = true;
-	 		var mycvsfile = $("#"+busId).val();
+	 		var myfile = $("#"+fileId).val();
 	 		
-	 		if(isEmpty(mycvsfile)) {
+	 		if(isEmpty(myfile)) {
 	 			alert("请选择文件");
 	 			return false;
 	 		}else {
-	 			/* var myfiles = mycvsfile.substring(mycvsfile.lastIndexOf(".")+1,mycvsfile.length);
+	 			/* var myfiles = myfile.substring(myfile.lastIndexOf(".")+1,myfile.length);
 	 			if(isEmpty(myfiles) || myfiles != "doc" || myfiles != "docx" || myfiles != "xls" || myfiles != "xlsx" || myfiles != "pdf") {
 	 				alert("导入文件类型不正确，请重新选择文件");
 	 				return false;
@@ -144,26 +157,39 @@
 	 			//}
 	 			
 	 		}
-	 		var mycsvfile_start_pos = mycvsfile.lastIndexOf("/");
-	 		if(mycsvfile_start_pos<0) {
-	 			mycsvfile_start_pos = mycvsfile.lastIndexOf("\\");
+	 		var myfile_start_pos = myfile.lastIndexOf("/");
+	 		if(myfile_start_pos<0) {
+	 			myfile_start_pos = myfile.lastIndexOf("\\");
 	 		}
 	 		//回显上传文件名称
-	 		var csv_file_name = mycvsfile.substring(mycsvfile_start_pos+1, mycvsfile.length);
-	 		
+	 		var file_name = myfile.substring(myfile_start_pos+1, myfile.length);
+	 		var url = "content_upload.do";
+	 		if(type) {
+	 			if(type == 1) {
+	 				url = "content_upload.do";
+	 			}else if(type == 2){
+	 				url = "agenda_upload.do";
+	 			}else if(type == 3) {
+	 				url = "invitation_upload.do";
+	 			}else {
+	 				url = "related_data_upload.do";
+	 			}
+	 		}
 			jQuery.ajaxFileUpload({
 				id:uploadCount,
 		        //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)  
-		        url:'upload.do',  
+		        url:url,  
 		        secureuri:false,                           //是否启用安全提交,默认为false   
-		        fileElementId:busId,               //文件选择框的id属性  
+		        fileElementId:fileId,               //文件选择框的id属性  
 		        dataType:'json',                       //服务器返回的格式,可以是json或xml等  
 		        data:{},
 		       	success: function(data, status) {
 	 	          	if(data.code == 200) {
- 	          			alert(data.message);
+ 	          			$("#"+busId).val(data.busId);
+ 	          			$("#"+busId+"Span").text(decodeURI(data.fileName));
+	 	          	}else {
+		 	          	alert(data.message);
 	 	          	}
-	 	          	alert(data.message);
 	 	        },error: function (data, status, e) {
 	 	        	alert("导入失败");
 	 	        }

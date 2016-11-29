@@ -173,6 +173,7 @@
 	<bean id="inMeetingRoomMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingRoomMngImpl"/>
 	<bean id="ozsMessageMng" class="com.jeecms.cms.manager.meeting.impl.OzsMessageMngImpl"/>
 	<bean id="workMealMng" class="com.jeecms.cms.manager.meeting.impl.WorkMealMngImpl"/>
+	<bean id="meetingAttachmentMng" class="com.jeecms.cms.manager.meeting.impl.MeetingAttachmentMngImpl"/>
 	
 	<!--DAO-->
 	<bean id="channelDao" class="com.jeecms.cms.dao.main.impl.ChannelDaoImpl"/>
@@ -269,6 +270,7 @@
 	<bean id="inMeetingRoomDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingRoomDaoImpl"/>
 	<bean id="ozsMessageDao" class="com.jeecms.cms.dao.meeting.impl.OzsMessageDaoImpl"/>
 	<bean id="workMealDao" class="com.jeecms.cms.dao.meeting.impl.WorkMealDaoImpl"/>
+	<bean id="meetingAttachmentDao" class="com.jeecms.cms.dao.meeting.impl.MeetingAttachmentDaoImpl"/>
 	
 	
 	<bean id="openOfficeConverter" class="com.jeecms.common.office.OpenOfficeConverter" init-method="init" destroy-method="destroy"/>

@@ -4,12 +4,15 @@ import static com.jeecms.common.page.SimplePage.cpn;
 
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jeecms.cms.entity.meeting.MeetingAttachment;
 import com.jeecms.cms.entity.meeting.OutMeeting;
+import com.jeecms.cms.manager.meeting.MeetingAttachmentMng;
 import com.jeecms.cms.manager.meeting.OutMeetingMng;
 import com.jeecms.common.page.Pagination;
+import com.jeecms.common.upload.FileRepository;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
@@ -84,48 +90,190 @@ public class OutMeetingAct {
 		return "redirect:list.do";
 	}
 	
-	@RequiresPermissions("out_meeting:upload")
-	@RequestMapping("/out_meeting/upload.do")
-	public void upload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile cvsfile) throws Exception {
+	@RequiresPermissions("out_meeting:content_upload")
+	@RequestMapping("/out_meeting/content_upload.do")
+	public void contentUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile contentFile) throws Exception {
 		log.debug("进入upload方法：上传文件完成，开始执行文件保存。");
 		PrintWriter writer = response.getWriter();
 		response.setContentType("text/html;chartset=UTF-8");
-		String content = null;
+		CmsSite site = CmsUtils.getSite(request);
+		String ctx = request.getContextPath();
+		JSONObject json = new JSONObject();
 		try {
-			if(cvsfile.isEmpty()){  
+			if(contentFile.isEmpty()){  
 				log.error("上传文件为空，请重新上传。");
-            }else if(cvsfile.getSize()>FILE_MAX_SIZE){
+            }else if(contentFile.getSize()>FILE_MAX_SIZE){
             	log.error("文件超过100M大小，请重新上传。");
             }else {
-            	/*
-        		 * 根据来源类型判断是否包含内容数据。
-        		 * 根据发送渠道来判断渠道信息：主要是判断“用户ID”或“用户ID+内容”导入时短信和邮件的区分。
-        		 * 根据导入类型判断导入文件是否与之对应：需要根据导入类型来判断导入的头文件是否符合选择的类型
-        		 */
-        		String itype = request.getParameter("importType");
-        		Integer importType = 0;
-        		if(StringUtils.isNotBlank(itype)) {
-        			importType = Integer.valueOf(itype);
-        		}
+        		String origName = contentFile.getOriginalFilename();
+    			String ext = FilenameUtils.getExtension(origName).toLowerCase(
+    					Locale.ENGLISH);
+    			String fileUrl = fileRepository.storeByExt(site.getUploadPath(), ext, contentFile);
+				// 加上部署路径
+				fileUrl = ctx + fileUrl;
+				MeetingAttachment attach = new MeetingAttachment();
+				attach.setFilename(origName);
+				attach.setIsDelete((byte)0);
+				attach.setType(1);//'附件类型：1、国际会议-会议内容；2、国际会议-会议日程；3、国际会议-会议邀请函；4、国际会议-会议相关资料；5、速记/媒体报名-其他资料；6、所内会议-会议资料；
+				attach.setPath(fileUrl);
+				attach.setCreateTime(new Date());
+				MeetingAttachment bean = meetingAttachmentMng.saveMeetingAttachment(attach);
         		
-        		log.debug("文件分析完成！");
+				json.put("code", 200);
+				json.put("busId", bean.getId());
+				json.put("fileName", java.net.URLEncoder.encode(origName,"UTF-8"));
+				writer.write(json.toString());
+        		log.debug("文件保存完成！");
             }
 		}catch (Exception e) {
 			log.error("文件上传失败！", e);
 		}finally{
-			
-			writer.write("{code:200}");
-			if(StringUtils.isNotBlank(content)) {
-				writer.write("#-CRM-#"+content);
-			}
 			writer.flush();
 			writer.close();
 		}
 		log.debug("文件上传成功，返回前台页面！");
 	}
 
+	@RequiresPermissions("out_meeting:agenda_upload")
+	@RequestMapping("/out_meeting/agenda_upload.do")
+	public void agendaUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile agendaFile) throws Exception {
+		log.debug("进入upload方法：上传文件完成，开始执行文件保存。");
+		PrintWriter writer = response.getWriter();
+		response.setContentType("text/html;chartset=UTF-8");
+		CmsSite site = CmsUtils.getSite(request);
+		String ctx = request.getContextPath();
+		JSONObject json = new JSONObject();
+		try {
+			if(agendaFile.isEmpty()){  
+				log.error("上传文件为空，请重新上传。");
+            }else if(agendaFile.getSize()>FILE_MAX_SIZE){
+            	log.error("文件超过100M大小，请重新上传。");
+            }else {
+        		String origName = agendaFile.getOriginalFilename();
+    			String ext = FilenameUtils.getExtension(origName).toLowerCase(
+    					Locale.ENGLISH);
+    			String fileUrl = fileRepository.storeByExt(site.getUploadPath(), ext, agendaFile);
+				// 加上部署路径
+				fileUrl = ctx + fileUrl;
+				MeetingAttachment attach = new MeetingAttachment();
+				attach.setFilename(origName);
+				attach.setIsDelete((byte)0);
+				attach.setType(2);//'附件类型：1、国际会议-会议内容；2、国际会议-会议日程；3、国际会议-会议邀请函；4、国际会议-会议相关资料；5、速记/媒体报名-其他资料；6、所内会议-会议资料；
+				attach.setPath(fileUrl);
+				attach.setCreateTime(new Date());
+				MeetingAttachment bean = meetingAttachmentMng.saveMeetingAttachment(attach);
+        		
+				json.put("code", 200);
+				json.put("busId", bean.getId());
+				json.put("fileName", java.net.URLEncoder.encode(origName,"UTF-8"));
+				writer.write(json.toString());
+        		log.debug("文件保存完成！");
+            }
+		}catch (Exception e) {
+			log.error("文件上传失败！", e);
+		}finally{
+			writer.flush();
+			writer.close();
+		}
+		log.debug("文件上传成功，返回前台页面！");
+	}
+	
+	@RequiresPermissions("out_meeting:invitation_upload")
+	@RequestMapping("/out_meeting/invitation_upload.do")
+	public void invitationUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile invitationFile) throws Exception {
+		log.debug("进入upload方法：上传文件完成，开始执行文件保存。");
+		PrintWriter writer = response.getWriter();
+		response.setContentType("text/html;chartset=UTF-8");
+		CmsSite site = CmsUtils.getSite(request);
+		String ctx = request.getContextPath();
+		JSONObject json = new JSONObject();
+		try {
+			if(invitationFile.isEmpty()){  
+				log.error("上传文件为空，请重新上传。");
+            }else if(invitationFile.getSize()>FILE_MAX_SIZE){
+            	log.error("文件超过100M大小，请重新上传。");
+            }else {
+        		String origName = invitationFile.getOriginalFilename();
+    			String ext = FilenameUtils.getExtension(origName).toLowerCase(
+    					Locale.ENGLISH);
+    			String fileUrl = fileRepository.storeByExt(site.getUploadPath(), ext, invitationFile);
+				// 加上部署路径
+				fileUrl = ctx + fileUrl;
+				MeetingAttachment attach = new MeetingAttachment();
+				attach.setFilename(origName);
+				attach.setIsDelete((byte)0);
+				attach.setType(3);//'附件类型：1、国际会议-会议内容；2、国际会议-会议日程；3、国际会议-会议邀请函；4、国际会议-会议相关资料；5、速记/媒体报名-其他资料；6、所内会议-会议资料；
+				attach.setPath(fileUrl);
+				attach.setCreateTime(new Date());
+				MeetingAttachment bean = meetingAttachmentMng.saveMeetingAttachment(attach);
+        		
+				json.put("code", 200);
+				json.put("busId", bean.getId());
+				json.put("fileName", java.net.URLEncoder.encode(origName,"UTF-8"));
+				writer.write(json.toString());
+        		log.debug("文件保存完成！");
+            }
+		}catch (Exception e) {
+			log.error("文件上传失败！", e);
+		}finally{
+			writer.flush();
+			writer.close();
+		}
+		log.debug("文件上传成功，返回前台页面！");
+	}
+	
+	@RequiresPermissions("out_meeting:related_data_upload")
+	@RequestMapping("/out_meeting/related_data_upload.do")
+	public void relatedDataUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile relatedDataFile) throws Exception {
+		log.debug("进入upload方法：上传文件完成，开始执行文件保存。");
+		PrintWriter writer = response.getWriter();
+		response.setContentType("text/html;chartset=UTF-8");
+		CmsSite site = CmsUtils.getSite(request);
+		String ctx = request.getContextPath();
+		JSONObject json = new JSONObject();
+		try {
+			if(relatedDataFile.isEmpty()){  
+				log.error("上传文件为空，请重新上传。");
+            }else if(relatedDataFile.getSize()>FILE_MAX_SIZE){
+            	log.error("文件超过100M大小，请重新上传。");
+            }else {
+        		String origName = relatedDataFile.getOriginalFilename();
+    			String ext = FilenameUtils.getExtension(origName).toLowerCase(
+    					Locale.ENGLISH);
+    			String fileUrl = fileRepository.storeByExt(site.getUploadPath(), ext, relatedDataFile);
+				// 加上部署路径
+				fileUrl = ctx + fileUrl;
+				MeetingAttachment attach = new MeetingAttachment();
+				attach.setFilename(origName);
+				attach.setIsDelete((byte)0);
+				attach.setType(4);//'附件类型：1、国际会议-会议内容；2、国际会议-会议日程；3、国际会议-会议邀请函；4、国际会议-会议相关资料；5、速记/媒体报名-其他资料；6、所内会议-会议资料；
+				attach.setPath(fileUrl);
+				attach.setCreateTime(new Date());
+				MeetingAttachment bean = meetingAttachmentMng.saveMeetingAttachment(attach);
+        		
+				json.put("code", 200);
+				json.put("busId", bean.getId());
+				json.put("fileName", java.net.URLEncoder.encode(origName,"UTF-8"));
+				writer.write(json.toString());
+        		log.debug("文件保存完成！");
+            }
+		}catch (Exception e) {
+			log.error("文件上传失败！", e);
+		}finally{
+			writer.flush();
+			writer.close();
+		}
+		log.debug("文件上传成功，返回前台页面！");
+	}
+	
 	@Autowired
 	private OutMeetingMng outMeetingMng;
+	
+	@Autowired
+	private MeetingAttachmentMng meetingAttachmentMng;
+	
+	@Autowired
+	protected FileRepository fileRepository;
 	
 	private final Integer FILE_MAX_SIZE = 104857600;//100M大小
 }

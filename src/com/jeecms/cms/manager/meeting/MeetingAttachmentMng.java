@@ -12,7 +12,7 @@ public interface MeetingAttachmentMng {
 
 	public MeetingAttachment findById(Integer id);
 
-	public MeetingAttachment saveMeetingAttachment(MeetingAttachment MeetingAttachment);
+	public MeetingAttachment saveMeetingAttachment(MeetingAttachment bean);
 
 	public void updateMeetingAttachment(MeetingAttachment bean);
 
