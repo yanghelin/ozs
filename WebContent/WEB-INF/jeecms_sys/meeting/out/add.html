@@ -48,7 +48,26 @@
 		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
 	}
 	
-	
+	function changeCheckbox(obj,objId) {
+		if($('#'+obj.name+'Div')) {
+			$('#'+obj.name+'Div').toggle(obj.checked);
+		}
+		if(!obj.checked){
+			if(obj.name == 'food') {
+				$('#breakfastStart').val('');
+				$('#breakfastEnd').val('');
+				$('#lunchStart').val('');
+				$('#lunchEnd').val('');
+				$('#dinnerStart').val('');
+				$('#dinnerEnd').val('');
+			}else {
+				$('#'+obj.name+'Start').val('');
+				$('#'+obj.name+'End').val('');
+			}
+		}else {
+			$("#"+objId).val(1);
+		}
+	}
 </script>
 </head>
 <body>
@@ -84,35 +103,35 @@
 		<@p.text width="50" colspan="1" label="meeting.contactEmail" name="contactEmail" required="true" maxlength="100"/><@p.tr/>
 		<@p.td colspan="2" label="meeting.content">
 			<textarea name="content" cols="70" rows="5"></textarea>
-			<input type="hidden" name="contentAttachment" id="contentAttachment" />
+			<input type="hidden" name="contentAttachmentId" id="contentAttachmentId" />
 			<input type="file" id="contentFile" name="contentFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('contentFile','contentAttachment',1)"/>
-			<span id="contentAttachmentSpan"></span>
+			<input type="button" value="上传" onclick="myFileUpload('contentFile','contentAttachmentId',1)"/>
+			<span id="contentAttachmentIdSpan"></span>
 		</@p.td>
 		<!-- <@p.textarea colspan="2" label="meeting.content" name="content" cols="70" rows="5"/> -->
 		<@p.tr/>
 		<@p.td colspan="2" label="meeting.agenda">
 			<textarea name="agenda" cols="70" rows="5"></textarea>
-			<input type="hidden" name="agendaAttachment" id="agendaAttachment" />
+			<input type="hidden" name="agendaAttachmentId" id="agendaAttachmentId" />
 			<input type="file" id="agendaFile" name="agendaFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('agendaFile','agendaAttachment',2)"/>
-			<span id="agendaAttachmentSpan"></span>
+			<input type="button" value="上传" onclick="myFileUpload('agendaFile','agendaAttachmentId',2)"/>
+			<span id="agendaAttachmentIdSpan"></span>
 		</@p.td>
 		<!-- <@p.textarea colspan="2" label="meeting.agenda" name="agenda" cols="70" rows="5"/> -->
 		<@p.tr/>
 		
 		<@p.td width="100" colspan="2" label="meeting.invitation">
 			<input type="file" id="invitationFile" name="invitationFile" value="浏览" style="width:200px;"/>
-			<input type="hidden" name="invitation" id="invitation" />
-			<input type="button" value="上传" onclick="myFileUpload('invitationFile','invitation',3)"/>
-			<span id="invitationSpan"></span>
+			<input type="hidden" name="invitationId" id="invitationId" />
+			<input type="button" value="上传" onclick="myFileUpload('invitationFile','invitationId',3)"/>
+			<span id="invitationIdSpan"></span>
 		</@p.td>
 		<@p.tr/>
 		<@p.td width="100" colspan="2" label="meeting.relatedData">
 			<input type="file" id="relatedDataFile" name="relatedDataFile" value="浏览" style="width:200px;"/>
-			<input type="hidden" name="relatedData" id="relatedData" />
-			<input type="button" value="上传" onclick="myFileUpload('relatedDataFile','relatedData',4)"/>
-			<span id="relatedDataSpan"></span>
+			<input type="hidden" name="relatedDataId" id="relatedDataId" />
+			<input type="button" value="上传" onclick="myFileUpload('relatedDataFile','relatedDataId',4)"/>
+			<span id="relatedDataIdSpan"></span>
 		</@p.td>
 		<@p.tr/>
 		
@@ -120,9 +139,52 @@
 		<@p.text width="50" colspan="1" label="meeting.phone" name="phone" required="true" maxlength="100"/><@p.tr/>
 		<@p.text width="50" colspan="2" label="meeting.position" name="position" required="true" maxlength="100"/><@p.tr/>
 		
-		<@p.td colspan="2" width="50">
-			<label><input type="checkbox" onclick="$('#linkDiv').toggle(this.checked);if(!this.checked){$('#link').val('');}"/><@s.m "content.link"/></label>
-			<div id="linkDiv" style="display:none">url: <input type="text" id="link" name="link"  title="<@s.m 'contentLink.tip.title'/>" size="35" maxlength="255"/></div>
+		<@p.td colspan="2" label="out.other" width="50">
+			<div style="text-align:left;">
+			<input type="hidden" name="isStay" id="isStay" value=""/>
+			<input type="hidden" name="isForeignTicket" id="isForeignTicket" value=""/>
+			<input type="hidden" name="isDomesticTicket" id="isDomesticTicket" value=""/>
+			<input type="hidden" name="isFood" id="isFood" value=""/>
+			<input type="hidden" name="isDrive" id="isDrive" value=""/>
+			<label><input type="checkbox" name="stay" onclick="changeCheckbox(this,'isStay')" /><@s.m "meeting.isStay"/></label>
+			<label><input type="checkbox" name="foreign" onclick="changeCheckbox(this,'isForeignTicket')" /><@s.m "meeting.isForeignTicket"/></label>
+			<label><input type="checkbox" name="domestic" onclick="changeCheckbox(this,'isDomesticTicket')" /><@s.m "meeting.isDomesticTicket"/></label>
+			<label><input type="checkbox" name="food" onclick="changeCheckbox(this,'isFood')" /><@s.m "meeting.isFood"/></label>
+			<label><input type="checkbox" name="drive" onclick="changeCheckbox(this,'isDrive')" /><@s.m "meeting.isDrive"/></label>
+			</div>
+			<div id="stayDiv" style="margin:5px auto; display:none">
+				<span style="width:120px;text-align:right;"><@s.m 'meeting.stayTime'/>: </span>
+				<input type="text" id="stayStart" name="stayStart"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+				~&nbsp;<input type="text" id="stayEnd" name="stayEnd"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+				<span style="width:120px;text-align:right;"><@s.m 'meeting.stayHotel'/>: </span><input type="text" id="stayHotel" name="stayHotel" />
+			</div>
+			<div id="foreignDiv" style="margin:5px auto; display:none">
+				<span style="width:120px;text-align:right;"><@s.m 'meeting.foreignTicketTime'/>: </span>
+				<input type="text" id="foreignStart" name="foreignStart"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+				~&nbsp;<input type="text" id="foreignEnd" name="foreignEnd"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+			</div>
+			<div id="domesticDiv" style="margin:5px auto; display:none">
+				<span style="width:120px;text-align:right;"><@s.m 'meeting.domesticTicketTime'/>: </span>
+				<input type="text" id="domesticStart" name="domesticStart"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+				~&nbsp;<input type="text" id="domesticEnd" name="domesticEnd"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+			</div>
+			<div id="foodDiv" style="margin:5px auto; display:none">
+				<div>
+					<span style="width:120px;text-align:right;"><@s.m 'meeting.break'/>: </span>
+					<input type="text" id="breakfastStart" name="breakfastStart"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+					~&nbsp;<input type="text" id="breakfaseEnd" name="breakfaseEnd"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+				</div>
+				<div style="margin:5px auto;">
+					<span style="width:120px;text-align:right;"><@s.m 'meeting.lunch'/>: </span>
+					<input type="text" id="lunchStart" name="lunchStart"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+					~&nbsp;<input type="text" id="lunchEnd" name="lunchEnd"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/><br />
+				</div>
+				<div style="margin:5px auto;">
+					<span style="width:120px;text-align:right;"><@s.m 'meeting.dinner'/>: </span>
+					<input type="text" id="dinnerStart" name="dinnerStart"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+					~&nbsp;<input type="text" id="dinnerEnd" name="dinnerEnd"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+				</div>
+			</div>
 		</@p.td>
 		<@p.tr/>
 		

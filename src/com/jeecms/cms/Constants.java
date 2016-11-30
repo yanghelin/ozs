@@ -76,7 +76,12 @@ public class Constants {
 	 * 列表样式模板
 	 */
 	public static final String TPLDIR_STYLE_PAGE = "style_page";
-
+	
+	/**
+	 * 会议模板
+	 */
+	public static final String TPLDIR_MEETING = "meeting";
+	
 	/**
 	 * 模板后缀
 	 */

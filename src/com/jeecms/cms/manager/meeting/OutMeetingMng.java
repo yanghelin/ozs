@@ -19,5 +19,11 @@ public interface OutMeetingMng {
 	public OutMeeting deleteById(Integer id);
 
 	public OutMeeting[] deleteByIds(Integer[] ids);
+	
+	/**
+	 * 获取当前国际会议的最大ID的会议实体
+	 * @return
+	 */
+	public OutMeeting getMaxMeetingId();
 
 }

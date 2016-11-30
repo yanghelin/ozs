@@ -41,6 +41,17 @@ public class OutMeetingDaoImpl extends HibernateBaseDao<OutMeeting, Integer>
 		OutMeeting entity = get(id);
 		return entity;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public OutMeeting getMaxMeetingId() {
+		Finder f = Finder.create("select o from OutMeeting o where o.id = (select max(bean.id) from OutMeeting bean where 1=1 and bean.isDelete = 0)");
+		List<OutMeeting> meetingList = find(f);
+		OutMeeting meeting = null;
+		if(meetingList != null && meetingList.size()>0) {
+			meeting = meetingList.get(0);
+		}
+		return meeting;
+	}
 
 	public OutMeeting save(OutMeeting bean) {
 		getSession().save(bean);

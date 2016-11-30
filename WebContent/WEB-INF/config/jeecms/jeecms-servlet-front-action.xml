@@ -45,5 +45,7 @@
 	<bean id="thirdLoginAct" class="com.jeecms.cms.action.front.ThirdLoginAct"/>
 	<bean id="staticPageCheckPermAct" class="com.jeecms.cms.action.front.StaticPageCheckPermAct"/>
 	<bean id="channelCountAct" class="com.jeecms.cms.action.front.ChannelCountAct"/>
-	
+
+	<!-- 国际会议前台展示 -->	
+	<bean id="outMeetingAct" class="com.jeecms.cms.action.front.MeetingAct"/>
 </beans>

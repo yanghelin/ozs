@@ -65,17 +65,37 @@ public class OutMeetingAct {
 	
 	@RequiresPermissions("out_meeting:save")
 	@RequestMapping("/out_meeting/save.do")
-	public String save(OutMeeting bean,HttpServletRequest request,ModelMap model) {
+	public String save(OutMeeting bean,Integer contentAttachmentId, Integer agendaAttachmentId, Integer invitationId, Integer relatedDataId, HttpServletRequest request,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		/*WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
+		if(contentAttachmentId != null) {
+			MeetingAttachment contentAttach = new MeetingAttachment();
+			contentAttach.setId(contentAttachmentId);
+			bean.setContentAttachment(contentAttach);
+		}
+		if(agendaAttachmentId != null) {
+			MeetingAttachment agendaAttach = new MeetingAttachment();
+			agendaAttach.setId(agendaAttachmentId);
+			bean.setAgendaAttachment(agendaAttach);
+		}
+		if(invitationId != null) {
+			MeetingAttachment invitationAttach = new MeetingAttachment();
+			invitationAttach.setId(invitationId);
+			bean.setInvitation(invitationAttach);
+		}
+		if(relatedDataId != null) {
+			MeetingAttachment relatedDataAttach = new MeetingAttachment();
+			relatedDataAttach.setId(relatedDataId);
+			bean.setRelatedData(relatedDataAttach);
+		}
 		CmsUser currUser = CmsUtils.getUser(request);
 		bean.setPublisher(currUser);
 		bean.setPublishTime(new Date());
 		bean.setIsDelete((byte)0);
-		bean.setType(1);
+		bean.setType(0);
 		outMeetingMng.saveOutMeeting(bean);
 		log.info("save OutMeeting id={}", bean.getId());
 		//cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId() + ";username=" + bean.getUsername());
@@ -85,11 +105,16 @@ public class OutMeetingAct {
 	@RequiresPermissions("out_meeting:delete")
 	@RequestMapping("/out_meeting/delete.do")
 	public String delete(OutMeeting bean,HttpServletRequest request,ModelMap model) {
+		CmsUser currUser = CmsUtils.getUser(request);
+		bean.setUpdateBy(currUser);
+		bean.setUpdateTime(new Date());
 		bean.setIsDelete((byte)1);
 		outMeetingMng.updateOutMeeting(bean);
 		return "redirect:list.do";
 	}
+
 	
+	//上传附件
 	@RequiresPermissions("out_meeting:content_upload")
 	@RequestMapping("/out_meeting/content_upload.do")
 	public void contentUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile contentFile) throws Exception {

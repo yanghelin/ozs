@@ -32,13 +32,13 @@
 	    <property column="stay_hotel" name="stayHotel" type="string" />
 	    <property column="is_foreign_ticket" name="isForeignTicket" type="java.lang.Byte" />
 	    <property column="foreign_start" name="foreignStart" type="timestamp" />
-	    <property column="foreigh_end" name="foreighEnd" type="timestamp" />
+	    <property column="foreign_end" name="foreignEnd" type="timestamp" />
 	    <property column="is_domestic_ticket" name="isDomesticTicket" type="java.lang.Byte" />
 	    <property column="domestic_start" name="domesticStart" type="timestamp" />
 	    <property column="domestic_end" name="domesticEnd" type="timestamp" />
 	    <property column="is_food" name="isFood" type="java.lang.Byte" />
 	    <property column="breakfast_start" name="breakfastStart" type="timestamp" />
-	    <property column="breakfase_end" name="breakfaseEnd" type="timestamp" />
+	    <property column="breakfast_end" name="breakfastEnd" type="timestamp" />
 	    <property column="lunch_start" name="lunchStart" type="timestamp" />
 	    <property column="lunch_end" name="lunchEnd" type="timestamp" />
 	    <property column="dinner_start" name="dinnerStart" type="timestamp" />

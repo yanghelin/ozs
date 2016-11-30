@@ -83,6 +83,9 @@ public class InMeetingAct {
 	@RequiresPermissions("in_meeting:delete")
 	@RequestMapping("/in_meeting/delete.do")
 	public String delete(InMeeting bean,HttpServletRequest request,ModelMap model) {
+		CmsUser currUser = CmsUtils.getUser(request);
+		bean.setUpdateBy(currUser);
+		bean.setUpdateTime(new Date());
 		bean.setIsDelete((byte)1);
 		inMeetingMng.updateInMeeting(bean);
 		return "redirect:list.do";

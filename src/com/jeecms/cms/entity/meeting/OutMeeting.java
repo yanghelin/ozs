@@ -66,7 +66,7 @@ public class OutMeeting implements Serializable {
 
     private Date foreignStart;
 
-    private Date foreighEnd;
+    private Date foreignEnd;
 
     private Byte isDomesticTicket;
 
@@ -78,7 +78,7 @@ public class OutMeeting implements Serializable {
 
     private Date breakfastStart;
 
-    private Date breakfaseEnd;
+    private Date breakfastEnd;
 
     private Date lunchStart;
 
@@ -346,12 +346,12 @@ public class OutMeeting implements Serializable {
 		this.foreignStart = foreignStart;
 	}
 
-	public Date getForeighEnd() {
-		return foreighEnd;
+	public Date getForeignEnd() {
+		return foreignEnd;
 	}
 
-	public void setForeighEnd(Date foreighEnd) {
-		this.foreighEnd = foreighEnd;
+	public void setForeignEnd(Date foreignEnd) {
+		this.foreignEnd = foreignEnd;
 	}
 
 	public Byte getIsDomesticTicket() {
@@ -394,12 +394,12 @@ public class OutMeeting implements Serializable {
 		this.breakfastStart = breakfastStart;
 	}
 
-	public Date getBreakfaseEnd() {
-		return breakfaseEnd;
+	public Date getBreakfastEnd() {
+		return breakfastEnd;
 	}
 
-	public void setBreakfaseEnd(Date breakfaseEnd) {
-		this.breakfaseEnd = breakfaseEnd;
+	public void setBreakfastEnd(Date breakfastEnd) {
+		this.breakfastEnd = breakfastEnd;
 	}
 
 	public Date getLunchStart() {

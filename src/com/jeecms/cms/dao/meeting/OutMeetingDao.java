@@ -21,4 +21,6 @@ public interface OutMeetingDao{
 	public OutMeeting updateByUpdater(Updater<OutMeeting> updater);
 
 	public OutMeeting deleteById(Integer id);
+	
+	public OutMeeting getMaxMeetingId();
 }

@@ -59,6 +59,11 @@ public class OutMeetingMngImpl implements OutMeetingMng {
 		return beans;
 	}
 
+	@Override
+	public OutMeeting getMaxMeetingId() {
+		return outMeetingDao.getMaxMeetingId();
+	}
+	
 	@Autowired
 	private OutMeetingDao outMeetingDao;
 
