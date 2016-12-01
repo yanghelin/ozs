@@ -62,13 +62,19 @@
 提交和重置功能
 =============================================================
 
-========================action、service、dao、xml添加到执行列表中===========================
+========================后台action、service、dao、xml添加到执行列表中===========================
 
 action的添加位置在：\WebContent\WEB-INF\config\jeecms\jeecms-servlet-admin-action.xml
 service和dao的添加位置在：\WebContent\WEB-INF\config\jeecms\jeecms-context.xml
 xml的添加位置在：\WebContent\WEB-INF\config\jdbc.properties
 
-================================================================================
+=================================前端Action存放位置和拦截器================================
+
+前台的访问的action存放在：src\com\jeecms\cms\action\front
+前台的拦截器有两个为：
+	FrontContextInterceptor.java
+	FrontLocaleInterceptor.java
+	都继承自HandlerInterceptorAdapter（org.springframework.web.servlet.handler.HandlerInterceptorAdapter，这是抽象类）
 
 =================================日志的打印修改======================================
 
