@@ -24,7 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jeecms.cms.entity.meeting.MeetingAttachment;
 import com.jeecms.cms.entity.meeting.OutMeeting;
+import com.jeecms.cms.entity.meeting.OutMeetingEroll;
 import com.jeecms.cms.manager.meeting.MeetingAttachmentMng;
+import com.jeecms.cms.manager.meeting.OutMeetingErollMng;
 import com.jeecms.cms.manager.meeting.OutMeetingMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.upload.FileRepository;
@@ -291,8 +293,133 @@ public class OutMeetingAct {
 		log.debug("文件上传成功，返回前台页面！");
 	}
 	
+	
+	
+	
+	//===================================其他模块的功能===============================================
+	@RequiresPermissions("out_meeting:enroll_list")
+	@RequestMapping("/out_meeting/enroll_list.do")
+	public String enrollList(String meetingName,String userType,Integer pageNo, HttpServletRequest request,ModelMap model) {
+		
+		Pagination pagination = enrollMng.getPage(meetingName, userType, cpn(pageNo), CookieUtils.getPageSize(request));
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("meetingName", meetingName);
+		model.addAttribute("userType", userType);
+		return "meeting/out/enrollList";
+	}
+	
+	@RequiresPermissions("out_meeting:enroll_delete")
+	@RequestMapping("/out_meeting/enroll_delete.do")
+	public String enrollDelete(OutMeetingEroll bean,HttpServletRequest request,ModelMap model) {
+		bean.setIsDelete((byte)1);
+		enrollMng.updateOutMeetingEroll(bean);
+		return "redirect:list.do";
+	}
+	
+	@RequiresPermissions("out_meeting:to_mediaAdd")
+	@RequestMapping("/out_meeting/to_mediaAdd.do")
+	public String mediaAdd(HttpServletRequest request, ModelMap model) {
+		return "meeting/out/mediaAdd";
+	}
+	
+	@RequiresPermissions("out_meeting:mediaSave")
+	@RequestMapping("/out_meeting/mediaSave.do")
+	public String mediaSave(OutMeetingEroll bean,Integer otherId, HttpServletRequest request,ModelMap model) {
+		if(otherId != null) {
+			MeetingAttachment other = new MeetingAttachment();
+			other.setId(otherId);
+			bean.setOther(other);
+		}
+		//CmsUser currUser = CmsUtils.getUser(request);
+		//bean.setLoginId(currUser);
+		//bean.setLoginName(currUser.getUsername());
+		bean.setCreateTime(new Date());
+		bean.setIsDelete((byte)0);
+		//bean.setUserType(changeUserAttr(currUser.getAttr().get("muser_type")));
+		enrollMng.saveOutMeetingEroll(bean);
+		log.info("save OutMeetingEroll id={}", bean.getId());
+		return "redirect:eroll_list.do";
+	}
+	
+	//转换用户类型属性
+	public Byte changeUserAttr(String attrValue) {
+		Byte value = 0;
+		if(StringUtils.isNotEmpty(attrValue)) {
+			if(attrValue.equals("参会人员")) {
+				value = 1;
+			}else if(attrValue.equals("速记")) {
+				value = 2;
+			}else if(attrValue.equals("媒体")) {
+				value = 3;
+			}else{
+				value = 0;
+			}
+		}
+		return value;
+	}
+	
+	@RequiresPermissions("out_meeting:other_upload")
+	@RequestMapping("/out_meeting/other_upload.do")
+	public void otherUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile otherFile) throws Exception {
+		log.debug("进入upload方法：上传文件完成，开始执行文件保存。");
+		PrintWriter writer = response.getWriter();
+		response.setContentType("text/html;chartset=UTF-8");
+		CmsSite site = CmsUtils.getSite(request);
+		String ctx = request.getContextPath();
+		JSONObject json = new JSONObject();
+		try {
+			if(otherFile.isEmpty()){  
+				log.error("上传文件为空，请重新上传。");
+            }else if(otherFile.getSize()>FILE_MAX_SIZE){
+            	log.error("文件超过100M大小，请重新上传。");
+            }else {
+        		String origName = otherFile.getOriginalFilename();
+    			String ext = FilenameUtils.getExtension(origName).toLowerCase(
+    					Locale.ENGLISH);
+    			String fileUrl = fileRepository.storeByExt(site.getUploadPath(), ext, otherFile);
+				// 加上部署路径
+				fileUrl = ctx + fileUrl;
+				MeetingAttachment attach = new MeetingAttachment();
+				attach.setFilename(origName);
+				attach.setIsDelete((byte)0);
+				attach.setType(5);//'附件类型：1、国际会议-会议内容；2、国际会议-会议日程；3、国际会议-会议邀请函；4、国际会议-会议相关资料；5、速记/媒体报名-其他资料；6、所内会议-会议资料；
+				attach.setPath(fileUrl);
+				attach.setCreateTime(new Date());
+				MeetingAttachment bean = meetingAttachmentMng.saveMeetingAttachment(attach);
+        		
+				json.put("code", 200);
+				json.put("busId", bean.getId());
+				json.put("fileName", java.net.URLEncoder.encode(origName,"UTF-8"));
+				writer.write(json.toString());
+        		log.debug("文件保存完成！");
+            }
+		}catch (Exception e) {
+			log.error("文件上传失败！", e);
+		}finally{
+			writer.flush();
+			writer.close();
+		}
+		log.debug("文件上传成功，返回前台页面！");
+	}
+	
+	
+	//=======================住宿、机票、车辆管理================================
+	@RequiresPermissions("out_meeting:stc_list")
+	@RequestMapping("/out_meeting/stc_list.do")
+	public String stcList(String meetingName, Integer type, Integer pageNo, HttpServletRequest request,ModelMap model) {
+		
+		Pagination pagination = enrollMng.getPage(meetingName, type, cpn(pageNo), CookieUtils.getPageSize(request));
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("meetingName", meetingName);
+		model.addAttribute("type", type);
+		return "meeting/out/enrollList";
+	}
+	
 	@Autowired
 	private OutMeetingMng outMeetingMng;
+	
+	@Autowired
+	private OutMeetingErollMng enrollMng;
 	
 	@Autowired
 	private MeetingAttachmentMng meetingAttachmentMng;

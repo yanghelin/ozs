@@ -167,6 +167,7 @@
 	<!-- 新增会议管理部分 -->
 	<bean id="inMeetingMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingMngImpl"/>
 	<bean id="outMeetingMng" class="com.jeecms.cms.manager.meeting.impl.OutMeetingMngImpl"/>
+	<bean id="outMeetingErollMng" class="com.jeecms.cms.manager.meeting.impl.OutMeetingErollMngImpl"/>
 	<bean id="inMeetingBriefingMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingBriefingMngImpl"/>
 	<bean id="inMeetingItemsMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingItemsMngImpl"/>
 	<bean id="inMeetingMaterialsMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingMaterialsMngImpl"/>
@@ -264,6 +265,7 @@
 	<!-- 新增会议管理部分 -->
 	<bean id="inMeetingDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingDaoImpl"/>
 	<bean id="outMeetingDao" class="com.jeecms.cms.dao.meeting.impl.OutMeetingDaoImpl"/>
+	<bean id="outMeetingErollDao" class="com.jeecms.cms.dao.meeting.impl.OutMeetingErollDaoImpl"/>
 	<bean id="inMeetingBriefingDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingBriefingDaoImpl"/>
 	<bean id="inMeetingItemsDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingItemsDaoImpl"/>
 	<bean id="inMeetingMaterialsDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingMaterialsDaoImpl"/>

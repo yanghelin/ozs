@@ -6,7 +6,9 @@ import com.jeecms.cms.entity.meeting.OutMeetingEroll;
 import com.jeecms.common.page.Pagination;
 
 public interface OutMeetingErollMng {
-	public Pagination getPage(String meetingName, int pageNo, int pageSize);
+	public Pagination getPage(String meetingName,String userType, int pageNo, int pageSize);
+	
+	public Pagination getPage(String meetingName,Integer userType, int pageNo, int pageSize);
 	
 	public List<OutMeetingEroll> getList(String name);
 

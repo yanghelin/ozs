@@ -45,6 +45,14 @@ $(function(){
 			<li><a href="../in_meeting/list.do" target="rightFrame">所内会议</a>
 			</li>
 		</@cms_perm>
+		<@cms_perm url="/out_meeting/enroll_list.do?type=0">
+			<li><a href="../out_meeting/enroll_list.do?type=0" target="rightFrame">会议报名</a>
+			</li>
+		</@cms_perm>
+		<@cms_perm url="/out_meeting/enroll_list.do">
+			<li><a href="../out_meeting/enroll_list.do" target="rightFrame">同传速记和媒体信息管理</a>
+			</li>
+		</@cms_perm>
 		<!-- <@cms_perm url="/role/v_list.do">
 		<li><a href="../role/v_list.do" target="rightFrame"><@s.m "cmsRole.function"/></a></li>
 		</@cms_perm> -->

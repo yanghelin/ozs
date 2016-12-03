@@ -16,8 +16,14 @@ import com.jeecms.common.page.Pagination;
 @Transactional
 public class OutMeetingErollMngImpl implements OutMeetingErollMng {
 	@Transactional(readOnly = true)
-	public Pagination getPage(String name, int pageNo, int pageSize) {
-		Pagination page = outMeetingErollDao.getPage(name, pageNo, pageSize);
+	public Pagination getPage(String name, String userType, int pageNo, int pageSize) {
+		Pagination page = outMeetingErollDao.getPage(name, userType, pageNo, pageSize);
+		return page;
+	}
+	
+	@Transactional(readOnly = true)
+	public Pagination getPage(String name, Integer type, int pageNo, int pageSize) {
+		Pagination page = outMeetingErollDao.getPage(name, type, pageNo, pageSize);
 		return page;
 	}
 	

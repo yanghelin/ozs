@@ -10,7 +10,9 @@ import com.jeecms.common.page.Pagination;
  * 国际会议报名DAO接口
  */
 public interface OutMeetingErollDao{
-	public Pagination getPage(String name, int pageNo, int pageSize);
+	public Pagination getPage(String name, String userType, int pageNo, int pageSize);
+	
+	public Pagination getPage(String name, Integer type, int pageNo, int pageSize);
 	
 	public List<OutMeetingEroll> getList(String name);
 

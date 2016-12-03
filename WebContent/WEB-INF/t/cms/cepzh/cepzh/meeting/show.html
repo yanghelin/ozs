@@ -74,8 +74,8 @@
 	<div class="w670 mt10">
         <div class="text">
 			<div class="p_title">
-				<h3>${meeting.name}</h3>
-				<div class="msgbar">发布时间：${meeting.publishTime} &nbsp; 发布人：${meeting.publisher.username} &nbsp; 来源：本站原创
+				<h3>${meeting.name!}</h3>
+				<div class="msgbar">发布时间：${meeting.publishTime!} &nbsp; 发布人：${meeting.publisher.username!} &nbsp; 来源：本站原创
 					<span id="views"></span>
 		            <span id="cancelSpan" style="display:none; cursor: pointer;">Unfavorite</span>
 		            <span id="comfirmSpan" style="display:none;cursor: pointer;">Favorite</span>
@@ -87,7 +87,7 @@
             	<tr>
             		<td colspan="2">
             			<font style="font-weight:700;font-size:15px;">会议内容</font><br />
-						<div style="line-height:30px;"><span style="margin-left:30px;"></span>${meeting.content}提供住宿/外方机票/中方机票/餐饮/自驾车辆，这几个选项是否需要在会议管理中提供对应选中后的数据录入提供住宿/外方机票/中方机票/餐饮/自驾车辆，这几个选项是否需要在会议管理中提供对应选中后的数据录入提供住宿/外方机票/中方机票/餐饮/自驾车辆，这几个选项是否需要在会议管理中提供对应选中后的数据录入提供住宿/外方机票/中方机票/餐饮/自驾车辆，这几个选项是否需要在会议管理中提供对应选中后的数据录入提供住宿/外方机票/中方机票/餐饮/自驾车辆，这几个选项是否需要在会议管理中提供对应选中后的数据录入提供住宿/外方机票/中方机票/餐饮/自驾车辆，这几个选项是否需要在会议管理中提供对应选中后的数据录入</div>
+						<div style="line-height:30px;"><span style="margin-left:30px;"></span>${meeting.content}</div>
             		</td>
             	</tr>
             	<tr>

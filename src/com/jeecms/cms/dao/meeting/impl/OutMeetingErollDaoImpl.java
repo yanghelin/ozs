@@ -14,11 +14,34 @@ import com.jeecms.common.page.Pagination;
 @Repository
 public class OutMeetingErollDaoImpl extends HibernateBaseDao<OutMeetingEroll, Integer>
 		implements OutMeetingErollDao {
-	public Pagination getPage(String name, int pageNo, int pageSize) {
+	public Pagination getPage(String name, String userType, int pageNo, int pageSize) {
 		Finder f = Finder.create("select bean from OutMeetingEroll bean");
 		f.append(" where 1=1 and bean.isDelete = 0 ");
+		if(StringUtils.isNotEmpty(userType)) {
+			f.append(" and bean.userType in(0,1) ");
+		}else {
+			f.append(" and bean.userType not in(0,1) ");
+		}
 		if (!StringUtils.isBlank(name)) {
-			f.append(" and bean.name like :name");
+			f.append(" and bean.outMeetingId.name like :name");
+			f.setParam("name", "%" + name + "%");
+		}
+		f.append(" order by bean.id desc");
+		return find(f, pageNo, pageSize);
+	}
+	
+	public Pagination getPage(String name, Integer type, int pageNo, int pageSize) {
+		Finder f = Finder.create("select bean from OutMeetingEroll bean");
+		f.append(" where 1=1 and bean.isDelete = 0 and bean.userType in(0,1) ");
+		if(type==1) {//住宿管理
+			f.append("  ");
+		}else if(type==2){//机票管理
+			f.append(" ");
+		}else {//车辆管理
+			f.append(" and bean.carNo is not null and bean.carNo !='' ");
+		}
+		if (!StringUtils.isBlank(name)) {
+			f.append(" and bean.outMeetingId.name like :name");
 			f.setParam("name", "%" + name + "%");
 		}
 		f.append(" order by bean.id desc");

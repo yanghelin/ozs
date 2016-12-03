@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.jeecms.cms.entity.meeting">
-	<class name="OutMeetingEroll" table="ozs_out_meeting_eroll" dynamic-update="true">
+	<class name="OutMeetingEroll" table="ozs_out_meeting_enroll" dynamic-update="true">
 		<meta attribute="sync-DAO">false</meta>
 		<cache usage="read-write"/>
     	<id name="id" type="java.lang.Integer" column="id"><generator class="identity"/></id>
@@ -47,12 +47,11 @@
 	    <property column="bank_address" name="bankAddress" type="string" />
 	    <property column="bank_name" name="bankName" type="string" />
 	    <property column="bank_card" name="bankCard" type="string" />
-	    <!-- <property column="other" name="other" type="java.lang.Integer" />
-	    <property column="create_time" name="createTime" type="timestamp" /> -->
+	    <!-- <property column="other" name="other" type="java.lang.Integer" /> -->
+	    <property column="create_time" name="createTime" type="timestamp" />
 	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
 	    <many-to-one name="loginId" column="login_id" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
 	    <many-to-one name="outMeetingId" column="out_meeting_id" class="com.jeecms.cms.entity.meeting.OutMeeting" not-null="false"></many-to-one>
 	    <many-to-one name="other" column="other" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
-	    <many-to-one name="createTime" column="create_time" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
   </class>
 </hibernate-mapping>
