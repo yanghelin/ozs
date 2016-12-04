@@ -12,6 +12,7 @@
 	    <property column="end_time" name="endTime" type="timestamp" />
 	    <property column="room_name" name="roomName" type="string" />
 	    <property column="participants" name="participants" type="string" />
+	    <property column="depart_name" name="departName" type="string" />
 	    <!-- <property column="publisher" name="publisher" type="java.lang.Integer" /> -->
 	    <property column="publish_time" name="publishTime" type="timestamp" />
 	    <property column="update_time" name="updateTime" type="timestamp" />

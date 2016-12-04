@@ -6,7 +6,7 @@ import com.jeecms.cms.entity.meeting.InMeetingDetail;
 import com.jeecms.common.page.Pagination;
 
 public interface InMeetingDetailMng {
-	public Pagination getPage(String meetingName, int pageNo, int pageSize);
+	public Pagination getPage(String meetingName, Integer userId, int pageNo, int pageSize);
 	
 	public List<InMeetingDetail> getList(String name);
 

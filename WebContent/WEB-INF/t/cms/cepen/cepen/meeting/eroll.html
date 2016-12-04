@@ -1,84 +1,548 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户绑定</title>
-<script src="${resSys}/jquery.js" type="text/javascript"></script>
-<script src="${resSys}/front.js" type="text/javascript"></script>
+<title>中国中东欧国家智库交流与合作网络</title>
+
+
+<!--[if lt IE 9]>
+<script src="${resSys}/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link href="/${res}/css/html5.css" rel="stylesheet" type="text/css"/>
+
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
 <link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" type="text/css" href="/${res}/css/regist.css" />
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
 <script type="text/javascript">
-$(function() {
-	$("#bindForm").validate();
-	$("#bindNewForm").validate();
-	//正确绑定用户返回
-	[#if success??&& success]
-	  [#if source??]
-		[#if source="QQ"]
-			//qq授权窗口需要手动关闭，父窗口重新加载
-	  		opener.location.reload();
-            window.close();	
-		[#elseif source="SINA"]
-			//新浪授权窗口会自动关闭
-		    location="${base}/";
-		[#elseif source="QQWEBO"]
-		  		opener.location.reload();
-	            window.close();	
-		  [/#if]
-		[/#if]
-    [/#if]
-});
+
+	function formSubmit() {
+		var cnName = $("#cnName").val();
+		var national = $("#national").val();
+		var enName = $("#enName").val();
+		var position = $("#position").val();
+		var phone = $("#phone").val();
+		var unit = $("#unit").val();
+		var email = $("#email").val();
+		if(!isEmpty(cnName)) {
+			if(cnName.length>10) {
+				alert("中文名称超出最大字符数");
+				return false;
+			}
+		}else {
+			alert("中文名称为必填项，请输入");
+			return false;
+		}
+		if(!isEmpty(national)) {
+			if(national.length>10) {
+				alert("国籍超出最大字符数");
+				return false;
+			}
+		}else {
+			alert("国籍为必填项，请输入");
+			return false;
+		}
+		if(!isEmpty(enName)) {
+			if(enName.length>25) {
+				alert("英文名称超出最大字符数");
+				return false;
+			}
+		}else {
+			alert("英文名称为必填项，请输入");
+			return false;
+		}
+		if(!isEmpty(position)) {
+			if(position.length>10) {
+				alert("职位超出最大字符数");
+				return false;
+			}
+		}else {
+			alert("职位为必填项，请输入");
+			return false;
+		}
+		if(!isEmpty(phone)) {
+			if(!checkPhone(phone)) {
+				alert("联系电话输入有误，请重新输入");
+				return false;
+			}
+		}else {
+			alert("联系电话为必填项，请输入");
+			return false;
+		}
+		if(!isEmpty(unit)) {
+			if(unit.length>50) {
+				alert("工作单位超出最大字符数");
+				return false;
+			}
+		}else {
+			alert("工作单位为必填项，请输入");
+			return false;
+		}
+		if(!isEmpty(email)) {
+			if(email.length>50) {
+				alert("邮箱超出最大字符数");
+				return false;
+			}else{
+				if(!isEmail(email)) {
+					alert("邮箱格式错误，请重试");
+					return false;
+				}
+			}
+		}else {
+			alert("邮箱为必填项，请输入");
+			return false;
+		}
+		
+		var isForeign = $("#isForeign").val();
+		var isDomestic = $("#isDomestic").val();
+		var isFood = $("#isFood").val();
+		var isDrive = $("#isDrive").val();
+		if(isForeign && isForeign == 1) {
+			var outBirthday = $("#outBirthday").val();
+			var passport = $("#passport").val();
+			if(isEmpty(outBirthday)) {
+				alert("提供外方机票中的出生日期为必填项");
+				return false;
+			}
+			if(isEmpty(passport)) {
+				alert("提供外方机票中的护照号码为必填项");
+				return false;
+			}else{
+				if(passport.length>10) {
+					alert("提供外方机票中的护照号码超长，请重新输入");
+					return false;
+				}
+			}
+		}
+		if(isDomestic && isDomestic == 1) {
+			var inBirthday = $("#inBirthday").val();
+			var card=$("#card").val();
+			if(isEmpty(inBirthday)) {
+				alert("提供中方机票中的出生日期为必填项");
+				return false;
+			}
+			if(!isEmpty(card)) {
+				if(!identityCodeValid(card)) {
+					alert("提供中方机票中的身份证号输入有误,请重试");
+					return false;
+				}
+			}else {
+				alert("提供中方机票中的身份证号为必填项");
+			}
+		}
+		if(isFood && isFood == 1) {
+			var i=0;
+			$('input[name="foodBox"]:checked').each(function(){
+            	i++
+            });
+			if(i<1) {
+				alert("至少选择其中一项");
+				return false;
+			}
+		}
+		if(isDrive && isDrive == 1) {
+			var carNo = $("#carNo").val();
+			if(isEmpty(carNo)) {
+				alert("车牌号为必填项");
+				return false;
+			}
+		}
+		
+		
+		
+		//只有是非参会人员才可显示这几项
+		if($("#utype") && isEmpty($("#utype")) && $("#utype").val()!="参会人员") {
+			var bankNo = $("#bankNo").val();
+			var bankAddress = $("#bankAddress").val();
+			var bankName = $("#bankName").val();
+			var bankCard = $("#bankCard").val();
+			if(!isEmpty(bankNo)) {
+				if(bankNo.length>25) {
+					alert("银行卡号超出最大字符数");
+					return false;
+				}
+			}else {
+				alert("银行卡号为必填项，请输入");
+				return false;
+			}
+			if(!isEmpty(bankAddress)) {
+				if(bankAddress.length>50) {
+					alert("开户行超出最大字符数");
+					return false;
+				}
+			}else {
+				alert("开户行为必填项，请输入");
+				return false;
+			}
+			if(!isEmpty(bankName)) {
+				if(bankName.length>50) {
+					alert("账号名称超出最大字符数");
+					return false;
+				}
+			}else {
+				alert("账号名称为必填项，请输入");
+				return false;
+			}
+			if(!isEmpty(bankCard)) {
+				if(bankCard.length>20) {
+					alert("身份证号超出最大字符数");
+					return false;
+				}else {
+					if(!identityCodeValid(bankCard)) {
+						alert("身份信息一栏中的身份证号输入有误,请重试.");
+						return false;
+					}
+				}
+			}else {
+				alert("身份信息一栏中的身份证号为必填项，请输入");
+				return false;
+			}
+		}
+		erollForm.submit();
+	}
+	function changeStatus(obj,objId) {
+		if(obj.checked) {
+			$("#"+objId).val(1);
+		}else {
+			$("#"+objId).val(0);
+		}
+	}
+	//邮箱验证
+	function isEmail(str){ 
+		var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/; 
+		return reg.test(str); 
+		} 
+	//手机号验证
+	function checkPhone(num){ 
+	    if(!(/^1(3|4|5|7|8)\d{9}$/.test(num))){ 
+	        //alert("手机号码有误，请重填");  
+	        return false; 
+	    }
+	    return true;
+	}
+	//身份证号合法性验证 
+	//支持15位和18位身份证号
+	//支持地址编码、出生日期、校验位验证
+	function identityCodeValid(code) { 
+        var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
+        var tip = "";
+        var pass= true;
+        if(!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)){
+            //tip = "身份证号格式错误";
+            pass = false;
+        }else if(!city[code.substr(0,2)]){
+            //tip = "地址编码错误";
+            pass = false;
+        }else{
+            //18位身份证需要验证最后一位校验位
+            if(code.length == 18){
+                code = code.split('');
+                //∑(ai×Wi)(mod 11)
+                //加权因子
+                var factor = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 ];
+                //校验位
+                var parity = [ 1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2 ];
+                var sum = 0;
+                var ai = 0;
+                var wi = 0;
+                for (var i = 0; i < 17; i++) {
+                    ai = code[i];
+                    wi = factor[i];
+                    sum += ai * wi;
+                }
+                var last = parity[sum % 11];
+                if(parity[sum % 11] != code[17]){
+                    //tip = "校验位错误";
+                    pass =false;
+                }
+            }
+        }
+        //if(!pass) alert(tip);
+        return pass;
+    }
+	function isEmpty(obj) {
+		if(obj == null || obj == undefined || obj == '' || obj.toString().trim() == '') {
+			return true;
+		}
+		return false;
+	}
+	
+	function isCheck(obj) {
+		if(obj.checked) {
+			$("#is"+obj.id).val(1);
+			if($("#"+obj.id+"Div")) {
+				$("#"+obj.id+"Div").css("display","block");
+			}
+		}else {
+			$("#is"+obj.id).val(0);
+			if($("#"+obj.id+"Div")) {
+				$("#"+obj.id+"Div").css("display","none");
+			}
+		}
+	}
 </script>
+
+<style type="text/css">
+	#erollTable tr td{
+		line-height:50px;
+		height:50px;
+		padding:8px 3px;
+		color:#000;
+	}
+	#otherTable tr td{
+		line-height:50px;
+		height:50px;
+		padding:8px 1px;
+		color:#000;
+	}
+	#erollTable tr td input[type=text]{
+		width:200px;
+		height:24px;
+		line-height:24px;
+		margin:3px 8px 3px 0px;
+	}
+	.td_right{
+		text-align:right;
+	}
+	input#button1 {
+		/* General Propertoes */
+		height:35px;
+		width:140px;
+		border:1px solid #164d92;
+		background:blue;
+		/* CSS3 Styling */
+		background:-moz-linear-gradient(top, #178aec, #164d92);
+		background:-webkit-gradient(linear, left top, left bottom, from(#178aec), to(#164d92));
+		-moz-border-radius:5px;
+		-webkit-border-radius:5px;
+		border-radius:5px;
+		-moz-box-shadow:0px 0px 5px #000;
+		-webkit-box-shadow:0px 0px 5px #000;
+		box-shadow:0px 0px 5px #000;
+		/* Text Styling */
+		font-family:'AirstreamRegular', Georgia, 'Times New Roman', serif;
+		color:#e5edff;
+		text-shadow:0px 0px 5px rgba(0, 0, 0, 0.75);
+		font-size:16px;
+	}
+	input#button1:hover, input#button1:focus {
+		border-color:#164d92;
+		cursor: pointer;
+	}
+	input#button1:active {
+		background:-moz-linear-gradient(bottom, #606c88, #3f4c6b);
+		background:-webkit-gradient(linear, left bottom, left top, from(#606c88), to(#3f4c6b));
+		text-shadow:0px 0px 2px #000;
+	}
+	
+	.div_left {
+		margin-left:30px;
+	}
+	.span_left {
+		text-align:right;
+		width:100px;
+		display:inline-block;
+	}
+	.span_right {
+		text-align:left;
+	}
+	.span_right input[type=text] {
+		width:180px;
+		height:24px;
+		line-height:24px;
+		margin:3px 5px 3px 0px;
+	}
+</style>
 </head>
 <body>
-<table width="500" border="0" align="center" cellpadding="0" cellspacing="5" >		  
-	<tr>
-		<td height="30" align="center">				
-		[#if errors??]
-			<ul>
-			  [#list errors as error]<li style="color: red;font-size: 20px;">${error}</li>[/#list]
-			</ul>
-		[/#if]
-		</td>
-	</tr>
-</table>
-<table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr>
-          <td>
-            <table width="50%" border="0" align="center" cellpadding="0" cellspacing="5">
-            	<form id="bindForm" action="${base}/public_bind.jspx" method="post">	
-                 <tr>
-                   <td height="40" colspan="3"><strong style="font-size:14px;">绑定现有账户</strong></td>
-                 </tr>	  
-                 <tr>
-	                 <td width="67" height="30" align="right">用户名：</td>
-	                 <td colspan="2"><input type="text" id="username" name="username" class="required"/></td>
-                  </tr>
-                 <tr>
-                   <td height="30" align="right">密　码：</td>
-                   <td colspan="2"><input type="password" id="password" name="password" class="required"/></td>
-                 </tr>
-                  <tr>
-                     <td height="40" colspan="3"><input type="submit" id="submit" value="绑定 " class="login-button"/>&nbsp;&nbsp;&nbsp;</td>
-                  </tr>
- 				</form>
-            </table>
-            <table width="50%" border="0" align="center" cellpadding="0" cellspacing="5">	
- 			 <form id="bindNewForm" action="${base}/public_bind_username.jspx" method="post">
-                 <tr>
-                   <td height="40" colspan="3"><strong style="font-size:14px;">指定新用户名</strong></td>
-                 </tr>	  
-                 <tr>
-	                 <td width="67" height="30" align="right">用户名：</td>
-	                 <td colspan="2"><input type="text" name="username" class="required"/></td>
-                  </tr>
-                  <tr>
-                     <td height="40" colspan="3" ><input type="submit" id="newuser" value="登录 " class="login-button"/>&nbsp;&nbsp;&nbsp;</td>
-                  </tr>
-              </form>
-              </table>
-			</td>
-          </tr>
-    </table>
+<div class="container">
+	[#include "../include/search_csi.html"/]
+    [#include "../include/navi.html"/]
+	<!-- 左栏_begin -->
+	<div class="w670 mt10" style="width:1000px;">
+        <div class="text" style="width:900px;">
+			<div class="p_title">
+				<h3>报名信息</h3>
+			</div>
+            <form id="erollForm" name="erollForm" action="/meeting/erollSave.jspx" method="post">
+            	<input type="hidden" name="meetingId" value="${meeting.id}">
+	            <table id="erollTable" style="border-collapse: collapse;border-bottom:1px solid grey;width:100%;">
+	            	<tr>
+	            		<td class="td_right">中文名称：</td><td><input type="text" class="required" name="cnName" id="cnName" value="" /></td>
+	            		<td class="td_right">性别：</td><td><input type="radio" name="outSex" id="outSex0" value="0" checked/>男&nbsp;&nbsp;<input type="radio" name="outSex" id="outSex1" value="1"/>女&nbsp;&nbsp;</td>
+	            		<td class="td_right">国籍：</td><td><input type="text" class="required" name="national" id="national" value="" /></td>
+	            	</tr>
+	            	<tr>
+	            		<td class="td_right">英文名称：</td><td><input type="text" class="required" name="enName" id="enName" value="" /></td>
+	            		<td class="td_right">职位：</td><td><input type="text" class="required" name="position" id="position" value="" /></td>
+	            		<td class="td_right">联系电话：</td><td><input type="text" class="required" name="phone" id="phone" value="" /></td>
+	            	</tr>
+	            	<tr>
+	            		<td class="td_right">工作单位：</td><td colspan="3"><input type="text" name="unit" id="unit" value="" style="width:380px;" /></td>
+	            		<td class="td_right">联系邮箱：</td><td><input type="text" class="required email" name="email" id="email" value="" /></td>
+	            	</tr>
+            	</table>
+            	<table id="otherTable" style="border-collapse: collapse;width:100%; ">
+	            	[#if meeting.isStay??]
+	            		[#if meeting.isStay==1]
+			            	<tr>
+			            		<td style="width:100%;border-bottom:1px solid grey;">
+			            			<div>
+			            				<span><input type="checkbox" name="Stay" id="Stay" onclick="isCheck(this)" />提供住宿</span>
+			            				<input type="hidden" name="isStay" id="isStay" />
+			            			</div>
+			            			<div class="div_left">
+			            				住宿时间：${meeting.stayStart}&nbsp;至&nbsp;${meeting.stayEnd}
+		            				</div>
+		            				<div class="div_left">
+			            				住宿酒店：${meeting.stayHotel}
+			            			</div>
+			            		</td>
+			           		</tr>
+		           		[/#if]
+	           		[/#if]
+	           		[#if meeting.isForeignTicket??]
+	            		[#if meeting.isForeignTicket==1]
+			            	<tr style="border:1px">
+			            		<td style="border:1px; border-bottom:1px solid grey;">
+			            			<div>
+			            				<span><input type="checkbox" name="Foreign" id="Foreign" onclick="isCheck(this)" />提供外方机票</span>
+			            				<input type="hidden" name="isForeign" id="isForeign" />
+			            			</div>
+			            			<div class="div_left">
+			            				建议时间：${meeting.foreignStart}&nbsp;至&nbsp;${meeting.foreignEnd}
+		            				</div>
+		            				<div id="ForeignDiv" style="display:none;">
+			            				<span class="span_left">英文名称：</span><span class="span_right"><input type="text" name="outName" id="outName" /></span>
+			            				<span class="span_left">出生日期：</span><span class="span_right"><input type="text" name="outBirthday" id="outBirthday" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/></span>
+			            				<span class="span_left">性别：</span><span class="span_right"><input type="radio" name="outSex" id="outSex0" value="0"/>男&nbsp;&nbsp;<input type="radio" name="outSex" id="outSex1" value="1"/>女&nbsp;&nbsp;</span>
+			            				<br />
+			            				<span class="span_left">国籍：</span><span class="span_right"><input type="text" name="outNational" id="outNational" /></span>
+			            				<span class="span_left">护照号：</span><span class="span_right"><input type="text" name="passport" id="passport" /></span>
+			            				<span class="span_left">出发地：</span><span class="span_right"><input type="text" name="outFrom" id="outFrom" /></span>
+			            				<br />
+			            				<span class="span_left">目的地：</span><span class="span_right"><input type="text" name="outArrive" id="outArrive" /></span>
+			            				<span class="span_left">意向出发时间：</span><span class="span_right"><input type="text" name="outGoTimePage" id="outGoTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/></span>
+			            				<span class="span_left">意向返程时间：</span><span class="span_right"><input type="text" name="outBackTimePage" id="outBackTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
+			            				<br />
+			            				<span class="span_left">来程意向航班：</span><span class="span_right"><input type="text" name="outGoFlight" id="outGoFlight" /></span>
+			            				<span class="span_left">返程意向航班：</span><span class="span_right"><input type="text" name="outBackFlight" id="outBackFlight" /></span>
+			            			</div>
+			            		</td>
+			           		</tr>
+		           		[/#if]
+	           		[/#if]
+	           		[#if meeting.isDomesticTicket??]
+	            		[#if meeting.isDomesticTicket==1]
+			            	<tr style="border:1px">
+			            		<td style="border:1px; border-bottom:1px solid grey;">
+			            			<div>
+			            				<span><input type="checkbox" name="Domestic" id="Domestic" onclick="isCheck(this)" />提供中方机票</span>
+			            				<input type="hidden" name="isDomestic" id="isDomestic" />
+			            			</div>
+			            			<div class="div_left">
+			            				建议时间：${meeting.foreignStart}&nbsp;至&nbsp;${meeting.foreignEnd}
+		            				</div>
+		            				<div id="DomesticDiv" style="display:none;">
+			            				<span class="span_left">中文名称：</span><span class="span_right"><input type="text" name="inName" id="inName" /></span>
+			            				<span class="span_left">出生日期：</span><span class="span_right"><input type="text" name="inBirthday" id="inBirthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" /></span>
+			            				<span class="span_left">性别：</span><span class="span_right"><input type="radio" name="inSex" id="inSex0" value="0"/>男&nbsp;&nbsp;<input type="radio" name="inSex" id="inSex1" value="0"/>女&nbsp;&nbsp;</span>
+			            				<br />
+			            				<span class="span_left">国籍：</span><span class="span_right"><input type="text" name="inNational" id="inNational" /></span>
+			            				<span class="span_left">身份证号：</span><span class="span_right"><input type="text" name="card" id="card" /></span>
+			            				<span class="span_left">出发地：</span><span class="span_right"><input type="text" name="inFrom" id="inFrom" /></span>
+			            				<br />
+			            				<span class="span_left">目的地：</span><span class="span_right"><input type="text" name="inArrive" id="inArrive" /></span>
+			            				<span class="span_left">意向出发时间：</span><span class="span_right"><input type="text" name="inGoTimePage" id="inGoTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
+			            				<span class="span_left">意向返程时间：</span><span class="span_right"><input type="text" name="inBackTimePage" id="inBackTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
+			            				<br />
+			            				<span class="span_left">来程意向航班：</span><span class="span_right"><input type="text" name="inGoFlight" id="inGoFlight" /></span>
+			            				<span class="span_left">返程意向航班：</span><span class="span_right"><input type="text" name="inBackFlight" id="inBackFlight" /></span>
+			            			</div>
+			            		</td>
+			           		</tr>
+		           		[/#if]
+	           		[/#if]
+	           		[#if meeting.isFood??]
+	            		[#if meeting.isFood==1]
+			            	<tr style="border:1px">
+			            		<td style="border:1px; border-bottom:1px solid grey;">
+			            			<div>
+			            				<span><input type="checkbox" name="Food" id="Food" onclick="isCheck(this)" />提供餐饮</span>
+			            				<input type="hidden" name="isFood" id="isFood" />
+			            				<input type="hidden" name="isBreakfast" id="isBreakfast" value=""/>
+			            				<input type="hidden" name="isLunch" id="isLunch" value=""/>
+			            				<input type="hidden" name="isDinner" id="isDinner" value=""/>
+			            			</div>
+		            				<div id="FoodDiv" style="display:none;">
+			            				<div>
+			            					<span class="span_left">早餐：</span>${meeting.breakfastStart}&nbsp;至&nbsp;${meeting.breakfastEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;是否用餐</span>
+			            				</div>
+			            				<div>
+			            					<span class="span_left">午餐：</span>${meeting.lunchStart}&nbsp;至&nbsp;${meeting.lunchEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;是否用餐</span>
+			            				</div>
+			            				<div>
+			            					<span class="span_left">晚餐：</span>${meeting.dinnerStart}&nbsp;至&nbsp;${meeting.dinnerEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;是否用餐</span>
+			            				</div>
+			            			</div>
+			            		</td>
+			           		</tr>
+		           		[/#if]
+	           		[/#if]
+	            	[#if meeting.isDrive??]
+	            		[#if meeting.isDrive==1]
+			            	<tr style="border:1px">
+			            		<td style="border:1px; border-bottom:1px solid grey;">
+			            			<div>
+			            				<span><input type="checkbox" name="Drive" id="Drive" onclick="isCheck(this)" />自驾车辆</span>
+			            				<input type="hidden" name="isDrive" id="isDrive" />
+			            			</div>
+		            				<div id="DriveDiv" style="display:none;">
+			            				<span class="span_left">车牌号：</span><span class="span_right"><input type="text" name="carNo" id="carNo" /></span>
+			            			</div>
+			            		</td>
+			           		</tr>
+		           		[/#if]
+	           		[/#if]
+	            	
+	           		<tr style="border:1px">
+	            		<td style="border:1px; border-bottom:1px solid grey;">
+	            			<div>
+	            				<span>身份信息</span>
+	            			</div>
+	            			<div class="div_left">
+	            				会员类型：[#if muserType??]${muserType}[#else]未知[/#if]
+            				</div>
+            				[#if muserType??][#if muserType!="参会人员"]
+            				<input type="hidden" name="utype" id="utype" value="${muserType}">
+            				<div>
+            					<span class="span_left">银行卡号：</span><span class="span_right"><input type="text" name="bankNo" id="bankNo" style="width:300px;" /></span>
+	            				<span class="span_left">开户行：</span><span class="span_right"><input type="text" name="bankAddress" id="bankAddress" style="width:300px;" /></span>
+	            				<br />
+	            				<span class="span_left">账号名称：</span><span class="span_right"><input type="text" name=bankName id="bankName" style="width:300px;" /></span>
+            					<span class="span_left">身份证号：</span><span class="span_right"><input type="text" name="bankCard" id="bankCard" style="width:300px;" /></span>
+	            			</div>
+	            			[/#if][/#if]
+	            		</td>
+	           		</tr>
+	           		<tr>
+	            		<td>
+	            			<div style="text-align:center;">
+	            				<input type="button" id="button1" value="确认提交" onclick="formSubmit()"/>
+	            			</div>
+	            		</td>
+	           		</tr>
+	            </table>
+            </form>
+            <div class="pagebar"></div>
+        </div>
+    </div>
+    <!-- 左栏_end -->
+    [#include "../include/friend_link.html"/]
+    [#include "../include/footer.html"/]
+</div>  
 </body>
 </html>

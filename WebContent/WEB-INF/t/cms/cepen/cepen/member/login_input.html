@@ -1,213 +1,162 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录 - ${site.name} - 中国中东欧国家智库交流与合作网络</title>
-<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
-<script src="${resSys}/jquery.js" type="text/javascript"></script>
-<script src="${resSys}/front.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="/${res}/css/regist.css" />
-<script type="text/javascript">
-$(function() {
-	$("#jvForm").validate();
-});
-</script>
-</head>
+<head>
+<title>中国中东欧国家智库交流与合作网络</title>
 
+
+<!--[if lt IE 9]>
+<script src="${resSys}/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link href="/${res}/css/html5.css" rel="stylesheet" type="text/css"/>
+
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<style type="text/css">
+	
+	.register-box {
+	    width: 560px;
+	    height: 300px;
+	    padding: 30px 50px 56px 50px;
+	    background-color: #fff;
+	    margin: 70px auto;
+	    border-radius: 12px;
+	    -moz-border-radius: 12px;
+	    -o-border-radius: 12px;
+	    -webkit-border-radius: 12px;
+	    box-shadow: 0px 0px 9px #ddd;
+	    -webkit-box-shadow: 0px 0px 9px #ddd;
+	    -moz-box-shadow: 0px 0px 9px #ddd;
+	}
+	.login-box {width: 350px; height: auto; min-height: 300px; position: relative;}
+	.register-nav {position: relative; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+	.register-nav span {color: #333; font-size: 20px; position: relative; display: inline-block; padding: 0 5px;}
+	.register-login {position: absolute; right: 0; bottom: 10px; font-size: 14px; color: #333;}
+	.inf-message {position: absolute; top: 80px; font-size: 12px; color: #F00;}
+	.username-con, .password-con, .captcha-con {position: relative;}
+	.username-con {margin-top: 40px;}
+	.username-con i, .password-con i {width: 16px; height: 19px; display: block; position: absolute; left: 11px;background: url(${base}/r/cms/login-icon.png) no-repeat;}
+	.username-con i {top: 12px; background-position: -5px -7px;}
+	.password-con i {top: 11px; background-position: -5px -84px;}
+	.captcha-con i {width: 16px; height: 19px; display: block; position: absolute;
+    left: 11px; top: 10px; background: url(${base}/r/cms/captcha.png) no-repeat;}
+	.login-box .login-input, .login-box .password-input, .login-box .captcha-input {
+	    width: 100%;
+	    border: 1px solid #b5b5b5;
+	    box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    -o-box-sizing: border-box;
+	    line-height: 40px;
+	    height: 40px;
+	    border-radius: 5px;
+	    -moz-border-radius: 5px;
+	    -o-border-radius: 5px;
+	    -webkit-border-radius: 5px;
+	    color: #777;
+	    font-size: 14px;
+	    margin-bottom: 26px;
+	    text-indent: 40px;
+	    box-shadow: inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8);
+	    -moz-box-shadow: inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8);
+	    -webkit-box-shadow: inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8);
+	}
+	.login-box .login-btn {
+	    width: 100%;
+	    background-color: #ef3838;
+	    font-size: 14px;
+	    color: #fff;
+	    line-height: 40px;
+	    border-radius: 5px;
+	    -moz-border-radius: 5px;
+	    -o-border-radius: 5px;
+	    -webkit-border-radius: 5px;
+	    margin-top: 20px;
+	    cursor: pointer;
+	}
+	
+	.login-box .login-input:focus{border:1px solid #7dabdf;}
+	.login-box .password-input:focus{border:1px solid #7dabdf;}
+	.login-box .captcha-input{width:60%; float:left;}
+	.login-box .captcha-input:focus{border:1px solid #7dabdf;}
+	.login-box .captcha-con img{height:42px; margin-left:20px;}
+	body, button, input, select, textarea {
+	    font-family: 'Microsoft Yahei',"Lucida Grande", "Tahoma","Arial", "Helvetica", "sans-serif";
+	    font-size: 14px;
+	    color: #333;
+	}
+	button, input, select, textarea {outline: none;}
+	button{padding:0px;margin:0px;border:0px;outline:none;}
+	.login-btn{border:1px solid #fff;}
+	.login-btn:hover{background-color:#fe3838}
+</style>
+</head>
 <body>
 <div class="container">
-<div class="toolbar box">
-   <div class="toolbar-inner">
-    <div class="fl " id="logincontent">
-	[#if user??]欢迎您: ${user.username} &nbsp; ${user.group.name} &nbsp; <a href="logout.jspx?returnUrl=/">退出登录</a>[#else]
-	游客您好，您还没有登录哦！ <a href="${base}/register.jspx">免费注册</a>|<a href="${base}/login.jspx?returnUrl=${base}/">登录</a>[/#if]
-	</div>
-    <div class="fr">
-	<a href="${base}/tag.jspx" target="_blank">Tags</a>|<a href="${base}/search.jspx" target="_blank">高级搜索</a>|<a href="${base}/rss.jspx" target="_blank">RSS订阅</a>|<a href="#" onClick="this.style.behavior='url(#default#homexxxxge('http://www.jeecms.com');">设为主页</a>|
-	<a onclick="javascript:window.external.AddFavorite('index.html', '${site.name}');" href="javascript:void(0)" class="login_user">加入收藏</a>
-	</div>
-  </div>
-</div>
-<div class="main">  
-	<div class="header box">
-        <div class="brand">
-            <h1><a href="${base}/"> ${site.name}</a></h1>
-        </div>
-    </div>
-<form id="jvForm" action="${base}/login.jspx" method="post">
-      <table width="800" border="0" align="center" cellpadding="0" cellspacing="5">		  
-			<tr>
-				<td height="30" align="left">				
-				[#if message??]
-				<div style="color:red">
+	[#include "../include/search_csi.html"/]
+    [#include "../include/navi.html"/]
+	<!-- 左栏_begin -->
+	<div class="w670 mt10">
+        <div class="text">
+
+
+
+<div class="register-box login-box">   
+	<div class="register-nav"><span>会员登录</span><div class="register-login">没有账号，<a class="tc" href="${base}/register.jspx">立即注册 ></a></div></div> 
+	<form id="jvForm" action="${base}/login.jspx" method="post">
+		<div class="inf-message">
+			[#if message??]
 				[#if message=="true"]
 				您必须登录后才能继续刚才的操作
 				[#else]
 				${message}
 				[/#if]
-				</div>
 				<input type="hidden" name="message" value="${message}"/>
-				[/#if]				
+				[/#if]	
 				[#if processUrl??]<input type="hidden" name="processUrl" value="${processUrl}"/>[/#if]
-				[#if returnUrl??]<input type="hidden" name="returnUrl" value="${returnUrl}"/>[#else]<input type="hidden" name="returnUrl" value="/"/>[/#if]
+				[#if returnUrl??]<input type="hidden" name="returnUrl" value="${returnUrl}"/>[#else]<input type="hidden" name="returnUrl" value="${base}/"/>[/#if]
 				[#if error??]
-					<ul>
+				<div class="error-message">
 						[#if error=="org.apache.shiro.authc.IncorrectCredentialsException"]
-						<li>[@s.m "error.invalidPassword"/]</li>
+						[@s.m "error.invalidPassword"/]
 						[#elseif error=="org.apache.shiro.authc.UnknownAccountException"]
-						<li>[@s.m "error.usernameNotExist"/]</li>
+						[@s.m "error.usernameNotExist"/]
 						[#elseif error=="com.jeecms.common.security.CaptchaErrorException"]
-						<li>[@s.m "error.invalidCaptcha"/]</li>
+						[@s.m "error.invalidCaptcha"/]
 						[#elseif error=="com.jeecms.common.security.DisabledException"]
-						<li>[@s.m "error.userDisabled"/]</li>
+						[@s.m "error.userDisabled"/]
+						[#elseif error=="com.jeecms.common.security.InactiveException"]
+						[@s.m "error.userInActive"/]
  						[/#if]
-					</ul>
+				</div>	
 				[/#if]
 				[#if success??]
 				[#if success]
 					注册成功！
 				[/#if]
-				[/#if]
-				</td>
-			</tr>
-		</table>
-		<table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr>
-            <td width="300" height="300" align="left"><img src="/${res}/img/member/llogo.gif" /></td>
-            <td>
-            <div class="login-bg">
-            <table width="50%" border="0" align="left" cellpadding="0" cellspacing="5">	
-                 <tr>
-                   <td height="40" colspan="3" align="center"><strong style="font-size:14px;">会员登录</strong></td>
-                 </tr>	  
-                 <tr>
-	                 <td width="67" height="30" align="right">用户名：</td>
-	                 <td colspan="2"><input type="text" id="username" name="username" class="input required"/></td>
-                  </tr>
-                 <tr>
-                   <td height="30" align="right">密　码：</td>
-                   <td colspan="2"><input type="password" id="password" name="password" class="input required"/></td>
-                 </tr>
-                 <tr>
-                   <td height="30" align="right">验证码：</td>
-                   <td ><input type="text" id="captcha" name="captcha" class="input required"/></td>
-                 </tr>	
-                  <tr>
-                     <td height="30" align="right">&nbsp;</td>
-                     <td colspan="2"><img src="${base}/captcha.svl" onclick="this.src='${base}/captcha.svl?d='+new Date()*1" width="100" height="35"/></td>
-                 </tr>	
-                  <tr>
-                     <td height="40" colspan="3" align="center"><input type="submit" value=" 登 录 " class="login-button"/>&nbsp;&nbsp;&nbsp;<a href="${base}/member/forgot_password.jspx" target="_blank" class="forgot-password">忘记密码？</a></td>
-                  </tr>
-                  <tr>
-                     <td height="50" colspan="3" align="center" style="font-size:12px; color:#404040;">我还没有JEECMS帐号？<a href="${base}/register.jspx" target="_blank" style="color:#1647a6;">马上注册</a></td>
-                  </tr>
-              </table>
-              
-			<table width="30%" border="0" align="left" cellpadding="0" cellspacing="5">	
-				<tr>
-					<td></td>
-                    <td height="40" align="center"><strong style="font-size:14px;">一键登录</strong></td>
-                  </tr>	
-                  [#if site.config.qqEnable]
-                  <tr>
-                    <td height="30" align="right"></td>
-                    <td >
-                    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${site.config.qqID!}" data-redirecturi="http://${site.domain}/public_auth.jspx" charset="utf-8"></script>
-					<span id="qqLoginBtn"></span>
-					<script type="text/javascript">
-						//插入按钮的节点qqLoginBtn id
-					    QC.Login({btnId:"qqLoginBtn",size: "A_M"}, function(reqData, opts){//登录成功
-					       //根据返回数据，更换按钮显示状态方法
-					       var dom = document.getElementById(opts['btnId']),
-					       _logoutTemplate=[
-					            //头像
-					         //   '<span><img src="{figureurl}" class="{size_key}"/></span>',
-					            //昵称
-					            '<span>{nickname}</span>',
-					            //退出
-					            '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'    
-					       ].join("");
-					       dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
-					           nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
-					           figureurl : reqData.figureurl
-					       }));
-					   });
-					 </script>
-                    </td>
-                  </tr>	
-				[/#if]
-				[#if site.config.sinaEnable]
-                  <tr>
-                    <td height="30" align="right"></td>
-                    <td >
-                    	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=${site.config.sinaID!}" type="text/javascript" charset="utf-8"></script>
-                    	<!--start sina账号登录平台--> 
-						<img src="${resSys}/sinalogin.gif" alt="新浪微博登陆" id="wb_connect_btn" style="cursor: pointer;"/> 
-						<script type="text/javascript">
-						 WB2.anyWhere(function(W){
-						 W.widget.connectButton({
-						  id: "wb_connect_btn",
-						  type: '3,2',
-						  callback : {
-						   login:function(o){
-						    //登录成功之后执行
-						    location="${base}/public_auth.jspx";
-						   },
-						   logout:function(){
-						    //退出之后执行退出本地用户
-      						location="${base}/logout.jspx?returnUrl=/";
-						   }
-						  }
-						 });
-						});
-						</script>
-						<!-- end sina账号登陆平台 -->
-                    </td>
-                  </tr>	
-				[/#if]
-				[#if site.config.qqWeboEnable]
-                  <tr>
-                    <td height="30" align="right"></td>
-                    <td >
-                    	<script type="text/javascript" src="http://mat1.gtimg.com/app/openjs/openjs.js"></script>
-                    	<!--start 腾讯微博账号登录平台--> 
-                    	<img src="${resSys}/qqwebo.gif" alt="腾讯微博登陆" id="qqwebo_login_btn" style="cursor: pointer;"/>
-                    	<script type="text/javascript">
-                    		T.init({
-                    		    appkey: ${site.config.qqWeboID!}, 
-                    		    autoclose:false,
-                    		    callbackurl:"http://${site.domain}/public_auth.jspx"
-                    		});
-                    		 function logout(){
-                                 T.logout(function (loginStatus) { // 登出用户
-			    					// 登录成功
-								});
-                			}
-                    		$(function() {
-                        		$("#qqwebo_login_btn").click(function(){
-                        			T.login(function (loginStatus) { // 弹出登录窗口
-       							     // 本次登录成功
-       							       $.cookie("qqWeboId",loginStatus.openid);
-       							 	},function (error) {
-       							 	});
-                            	});
-                    		});
-						</script>
-						<!-- end 腾讯微博登陆平台 -->
-                    </td>
-                  </tr>	
-				[/#if]
-              </table>
-			 </div>
-			</td>
-          </tr>
-    </table>
-	
-</form>	
+	    
+			[/#if]
+		</div>
+		<div class="username-con"><i></i><input id="username" name="username" class="required  login-input" type="text" placeholder="用户名"></div>
+		<div class="password-con"><i></i><input id="password" name="password" class="required  password-input" type="password" placeholder="密码"></div>
+		<div class="captcha-con clearfix"><i></i><input type="text" id="captcha" name="captcha" class="required captcha-input" placeholder="验证码"><img src="${base}/captcha.svl" onclick="this.src='${base}/captcha.svl?d='+new Date()*1"></div>
+		<div class="login-rem clearfix">
+			<div class="next-day"><input type="checkbox" class="login-checkbox"  value="true" name="rememberMe">下次自动登录</div>
+			<!-- <a href="/member/forgot_password.jspx">忘记密码</a> -->
+		</div>
+		<input type="submit" class="login-btn" value="登 录">
+	</form>
 </div>
 
-[#include "member_footer.html"/]
-</div>
+        </div>
+    </div>
+    <!-- 左栏_end -->
+    [#include "../include/friend_link.html"/]
+    [#include "../include/footer.html"/]
+</div>  
 </body>
 </html>

@@ -34,11 +34,11 @@ public class OutMeetingErollDaoImpl extends HibernateBaseDao<OutMeetingEroll, In
 		Finder f = Finder.create("select bean from OutMeetingEroll bean");
 		f.append(" where 1=1 and bean.isDelete = 0 and bean.userType in(0,1) ");
 		if(type==1) {//住宿管理
-			f.append("  ");
+			f.append(" and bean.isStay=1 ");
 		}else if(type==2){//机票管理
-			f.append(" ");
+			f.append(" and (bean.isForeign=1 or bean.isDomestic=1)");
 		}else {//车辆管理
-			f.append(" and bean.carNo is not null and bean.carNo !='' ");
+			f.append(" and bean.isDrive=1");
 		}
 		if (!StringUtils.isBlank(name)) {
 			f.append(" and bean.outMeetingId.name like :name");

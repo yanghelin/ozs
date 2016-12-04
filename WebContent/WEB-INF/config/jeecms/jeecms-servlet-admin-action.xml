@@ -103,5 +103,6 @@
 	<bean id="inMeetingRoomAct" class="com.jeecms.cms.action.meeting.InMeetingRoomAct"/>
 	<bean id="ozsMessageAct" class="com.jeecms.cms.action.meeting.OzsMessageAct"/>
 	<bean id="workMealAct" class="com.jeecms.cms.action.meeting.WorkMealAct"/>
+	<bean id="inMeetingDetailAct" class="com.jeecms.cms.action.meeting.InMeetingDetailAct"/>
 	
 </beans>

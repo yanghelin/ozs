@@ -1,4 +1,4 @@
-﻿<script>
+<script>
 //delay延迟时间（毫秒）
 $(function() {
 	$("input[name=q]").autocomplete({
@@ -56,5 +56,8 @@ function qkeypress(){
          </form>
      </div>
     <!-- 搜索_end -->
+    [#if user??]<div class="login-user" ><a style="float:left;">[#if user.userImg??]<img src="${user.userImg}">[#else]<img src="/r/cms/userImg.png">[/#if]&nbsp;<font style="vertical-align:top;marging:2px auto;line-height:26px;height:26px;">${user.username}</font></a><div class="user-child" style="float:left;padding-left:20px;vertical-align:middle;height:26px;line-height:26px; "><!-- <a href="${base}/member/index.jspx">会员中心</a> --><a href="${base}/logout.jspx">退出账号</a> <a href="${base}/meeting/show.jspx">&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;国际会议</a></div></div>[#else]
+      <div class="login"><a class="tc" href="${base}/login.jspx">&nbsp;&nbsp;登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="${base}/register.jspx">注册</a></div>
+      [/#if]
 </div>
 <div class="clear"></div>

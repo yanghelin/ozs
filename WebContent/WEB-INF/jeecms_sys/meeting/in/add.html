@@ -41,6 +41,30 @@
 	function allControlChannelSelect() {
 		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
 	}
+	function formSubmit() {
+		var name = $("#name").val();
+		var startTime = $("#startTime").val();
+		if(name == null || name == '') {
+			alert("会议名称为必填项");
+			return false;
+		}
+		if(startTime == null || startTime == '') {
+			alert("会议时间为必填项");
+			return false;
+		}
+		var users = "";
+		$('input[name="userBox"]:checked').each(function(){
+        	users = users + this.value+",";
+        });
+		if(users != null && users.length>0) {
+			users = users.substring(0,users.length-1);
+		}else {
+			alert("请选择参会人员");
+			return false;
+		}
+		$("#participants").val(users);
+		$("#jvForm").submit();
+	}
 </script>
 </head>
 <body>
@@ -54,19 +78,25 @@
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.text width="50" colspan="1" label="meeting.name" name="name" required="true" maxlength="100"/>
-		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/><@p.tr/>
+		<@p.text width="50" colspan="1" label="meeting.name" name="name" id="name" required="true" maxlength="100"/>
+		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/><@p.tr/>
 		<@p.text width="50" colspan="1" label="meeting.room" id="room" name="room" maxlength="100" required="true"/>
-		<@p.text width="50" colspan="1" label="meeting.participants" name="participants" maxlength="2000" required="true"/><@p.tr/>
-		<@p.textarea colspan="2" label="meeting.content" name="content" cols="70" rows="5"/><@p.tr/>
-		
-		<@p.td colspan="2" width="50" label="cms.department">
-		<@p.text  id="departName" name="departName" readonly="true" maxlength="25"/><input class="depart" type="button" id="depart" value="<@s.m "cms.department"/>"/>
-			<input type="hidden" name="departmentId" id="departId" />
+		<@p.td width="50" colspan="1" label="meeting.participants">
+			<input type="hidden" name="participants" id="participants" value="" />
+			<#if userList?size gt 0>
+				<#list userList as user>
+					<div style="width:90px;float:left;"><input type="checkbox" name="userBox" id="${user.id}" value="${user.id}" />&nbsp;${user.realname}</div>
+				</#list>
+			</#if>
 		</@p.td>
 		<@p.tr/>
-		
-		<@p.td colspan="2"><@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
+		<@p.td colspan="2" width="50" label="cms.department">
+			<@p.text id="departName" name="departName" maxlength="25"/>
+		</@p.td>
+		<@p.tr/>
+		<@p.textarea colspan="2" label="meeting.content" name="content" cols="70" rows="5"/>
+		<@p.tr/>
+		<@p.td colspan="2"><input type="button" name="btn" onclick="formSubmit()" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
 		</@p.form>
 	</div>
 	<div id="departDialog" title="<@s.m "cms.department"/>" style="display:none;">

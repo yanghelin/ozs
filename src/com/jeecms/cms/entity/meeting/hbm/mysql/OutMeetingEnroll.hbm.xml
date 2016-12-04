@@ -49,6 +49,11 @@
 	    <property column="bank_card" name="bankCard" type="string" />
 	    <!-- <property column="other" name="other" type="java.lang.Integer" /> -->
 	    <property column="create_time" name="createTime" type="timestamp" />
+	    <property column="is_stay" name="isStay" type="java.lang.Byte" />
+	    <property column="is_foreign" name="isForeign" type="java.lang.Byte" />
+	    <property column="is_domestic" name="isDomestic" type="java.lang.Byte" />
+	    <property column="is_food" name="isFood" type="java.lang.Byte" />
+	    <property column="is_drive" name="isDrive" type="java.lang.Byte" />
 	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
 	    <many-to-one name="loginId" column="login_id" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
 	    <many-to-one name="outMeetingId" column="out_meeting_id" class="com.jeecms.cms.entity.meeting.OutMeeting" not-null="false"></many-to-one>

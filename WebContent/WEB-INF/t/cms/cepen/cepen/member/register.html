@@ -1,93 +1,97 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-<title>注册新帐号 - ${site.name}中国中东欧国家智库交流与合作网络CMS</title>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<link href="${resSys}/front.css" type="text/css" rel="stylesheet" />
+<title>中国中东欧国家智库交流与合作网络</title>
+
+
+<!--[if lt IE 9]>
+<script src="${resSys}/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link href="/${res}/css/html5.css" rel="stylesheet" type="text/css"/>
+
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
 <script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
-<link href="/${res}/css/regist.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+	/*注册*/
+.register-box{width:560px; padding:30px 50px 56px 50px; background-color:#fff; margin:70px auto; border-radius:12px; -moz-border-radius:12px; -o-border-radius:12px; -webkit-border-radius:12px; box-shadow:0px 0px 9px #ddd; -webkit-box-shadow:0px 0px 9px #ddd; -moz-box-shadow:0px 0px 9px #ddd;}
+.register-nav{position:relative; border-bottom:1px solid #f0f0f0; padding-bottom:10px;}
+.register-nav span{color:#333; font-size:20px; position:relative; display:inline-block; padding:0 5px;}
+.register-nav span:before{position:absolute; content:""; left:0; bottom:-11px; width:100%; height:2px; background-color:#ef3838; }
+.register-login{position:absolute; right:0; bottom:10px; font-size:14px; color:#333;}
+.register-login a{color:#368cf6;}
+.register-list{padding-left:81px; padding-top:10px;}
+.register-list li{margin-top:28px; line-height:36px; color:#333; font-size:16px;}
+.register-list li span{width:90px; line-height:36px; display:inline-block;}
+.register-list .register-input{line-height:36px; height:36px; width:306px; box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; -webkit-box-sizing:border-box; border:1px solid #b5b5b5; border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; -webkit-border-radius:5px; box-shadow:inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8); -moz-box-shadow:inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8); -webkit-box-shadow:inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8); text-indent:10px; font-size:13px;}
+.register-list .register-input:focus{border:1px solid #7dabdf;}
+.register-list .register-code{width:160px;}
+.code-img{width:108px; height:36px; margin-left:20px; display:inline-block;}
+.code-img img{height:100%; width:100%;}
+.register-list .register-checkbox{width:12px; height:12px; vertical-align:middle; margin-right:10px; margin-left:90px;}
+.register-list .register-txt{color:#444; font-size:14px; margin-top:10px;}
+.register-list .register-txt a{color:#368cf6;}
+.register-list .register-btn input{color:#fff; font-size:16px; line-height:36px; height:36px; width:306px; border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; -webkit-border-radius:5px; background-color:#ef3838; margin-left:90px; cursor:pointer;}
+.register-list .register-btn input:hover{background-color:#f94d4d;}
+.register-list li label{font-size:14px; width:100%;}
+	button{padding:0px;margin:0px;border:0px;outline:none;}
+	.register-btn{border:1px solid #fff;}
+	.login-btn:hover{background-color:#fe3838}
+</style>
 <script type="text/javascript">
     $(function() {
         $("#jvForm").validate();
     });
+    function formSubmit() {
+    	var i=0
+    	$('input[name="attr_muser_type"]:checked').each(function(){
+        	i++
+        });
+		if(i<1) {
+			alert("用户类型为必填项");
+			return false;
+		}
+		$("#jvForm").submit();
+    }
 </script>
 </head>
 <body>
 <div class="container">
-    <div class="toolbar box" style="margin-bottom: 0px">
-        <div class="toolbar-inner">
-        	<div class="fl " id="logincontent">[#if user??]欢迎您: ${user.username} &nbsp; ${user.group.name} &nbsp; <a href="logout.jspx?returnUrl=/">退出登录</a>[#else] 游客您好，您还没有登录哦！ <a href="${base}/register.jspx">免费注册</a>|<a href="${base}/login.jspx?returnUrl=${location}">登录</a>|<a href="#">找回密码</a>[/#if]</div>
-        	<div class="fr"><a target="_blank" href="${base}/tag.jspx">Tags</a>|<a target="_blank" href="${base}/search.jspx">高级搜索</a>|<a target="_blank" href="${base}/rss.jspx">RSS订阅</a>|<a onclick="SetHome(window.location)"href="javascript:void(0)">设为首页</a>| <a onclick="AddFavorite(window.location,document.title)"href="javascript:void(0)">加入收藏</a></div>
+	[#include "../include/search_csi.html"/]
+    [#include "../include/navi.html"/]
+	<!-- 左栏_begin -->
+	<div class="w670 mt10">
+        <div class="text">
+
+
+<div class="register-box"> 
+  <div class="register-nav"><span>注册</span><div class="register-login">已有账号，<a class="tc" href="${base}/login.jspx">马上登录 ></a></div></div> 
+  <form id="jvForm" action="${base}/register.jspx" method="post">
+  <div class="register-list">
+    <ul>
+		<li><span>&nbsp;&nbsp;&nbsp;用户名:</span><input type="text" id="username"  vld="{required:true,rangelength:[${site.usernameMinLen},20],username:true,remote:'username_unique.jspx',messages:{remote:'用户名已存在'}}" name="username" placeholder="3~14字符，中文字符/英文字母/数字" class="register-input" /></li>
+		<li><span>电子邮箱:</span><input type="text" id="email" maxlength="30" vld="{remote:'email_unique.jspx',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
+		<!-- 自定义注册项  -->
+		[#include "register_items.html"/]
+		<li><span>设置密码:</span><input id="password" type="password" name="password" vld="{required:true,rangelength:[${site.passwordMinLen},20]}" class="register-input" /></li>
+		<li><span>确认密码:</span><input type="password" equalto="#password" vld="{required:true,rangelength:[${site.passwordMinLen},20]}" class="register-input" /></li>
+		<li><span>&nbsp;&nbsp;&nbsp;验证码:</span><input type="text" maxlength="20" name="captcha" class="register-input register-code" /><i class="code-img"><img id="guestbookCaptcha" onclick="this.src='${base}/captcha.svl?d='+new Date()" alt="" src="${base}/captcha.svl"></i></li>
+		<li class="register-txt"><input type="checkbox" class="register-checkbox" />我已阅读并接受<a>《网站注册协议》</a></li>
+		<li class="register-btn"><input type="button" name="register" value="立即注册" onclick="formSubmit()"/></li>
+    </ul>
+  </div>
+  </form>
+</div>
+
         </div>
     </div>
-    <div class="regist-header box">
-    <div class="rgheader box">
-    <div class="brand fl">
-    <h1><a href="${base}/">${site.name}</a></h1>
-    </div>
-    </div>
-    </div>
-    <div class="main">
-    <table class="rg-tbg" cellspacing="0" cellpadding="0" width="971" align="center" border="0">
-        <tbody>
-            <tr>
-                <td width="231" height="66">
-                <h2>注册新会员</h2>
-                </td>
-                <td align="right" width="740" style="font-size: 12px">您的位置：JEECMS官网&nbsp;&gt;&nbsp;<span style="color: #016dd0">注册会员</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                <form id="jvForm" action="${base}/register.jspx" method="post" style="padding-top: 20px">
-                    <table cellspacing="5" cellpadding="0" width="850" align="center" border="0">
-                        <tbody>
-                            <tr>
-                                <td align="right" width="187" height="30">用户名：</td>
-                                <td width="648"><input class="input2" id="username" vld="{required:true,rangelength:[${site.usernameMinLen},20],username:true,remote:'username_unique.jspx',messages:{remote:'用户名已存在！'}}" name="username" type="text" /></td>
-                            </tr>
-                            <tr>
-                                <td align="right" width="187" height="30">&nbsp;</td>
-                                <td width="648">用户名由3到14位的中文字符、英文字母、数字组成。</td>
-                            </tr>
-                            <tr>
-                                <td align="right" width="187" height="30">电子邮箱：</td>
-                                <td><input class="input2 required email" id="email" maxlength="30" vld="{remote:'email_unique.jspx',messages:{remote:'email已经被使用！'}}" name="email" type="text" /></td>
-                            </tr>
-                            <tr>
-                                <td align="right" width="187" height="30">&nbsp;</td>
-                                <td width="648">请准确填入您的邮箱，在忘记密码，或者您使用邮件通知功能时，会发送邮件到该邮箱。</td>
-                            </tr>
-                            <!-- 自定义注册项  -->
-                            [#include "register_items.html"/]
-                            <tr>
-                                <td align="right" width="187" height="30">密 码：</td>
-                                <td><input class="input2 required" id="password" type="password" name="password" /></td>
-                            </tr>
-                            <tr>
-                                <td align="right" width="187" height="30">确认密码：</td>
-                                <td><input class="input2" type="password" equalto="#password" /></td>
-                            </tr>
-                            <tr>
-                                <td align="right" width="187" bgcolor="#ffffff" height="30">验证码：</td>
-                                <td bgcolor="#ffffff" colspan="3"><input class="input required" maxlength="20" name="captcha" type="text" /></td>
-                            </tr>
-                            <tr>
-                                <td align="right" width="187" bgcolor="#ffffff">&nbsp;</td>
-                                <td bgcolor="#ffffff" colspan="3"><img id="guestbookCaptcha" onclick="this.src='${base}/captcha.svl?d='+new Date()" alt="" src="${base}/captcha.svl" /></td>
-                            </tr>
-                            <tr>
-                                <td align="center" colspan="2" height="40"><input class="regist-submit" type="submit" name="register" value=" " /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-</div>
-[#include "member_footer.html"/]
+    <!-- 左栏_end -->
+    [#include "../include/friend_link.html"/]
+    [#include "../include/footer.html"/]
+</div>  
 </body>
 </html>

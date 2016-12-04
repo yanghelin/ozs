@@ -96,12 +96,62 @@
 			return false;
 		}
 		
-		var card=$("#card").val();
-		if(!isEmpty(card)) {
-			if(!identityCodeValid(card)) {
-				alert("提供中方机票中的身份证号输入有误,请重试.");
+		var isForeign = $("#isForeign").val();
+		var isDomestic = $("#isDomestic").val();
+		var isFood = $("#isFood").val();
+		var isDrive = $("#isDrive").val();
+		if(isForeign && isForeign == 1) {
+			var outBirthday = $("#outBirthday").val();
+			var passport = $("#passport").val();
+			if(isEmpty(outBirthday)) {
+				alert("提供外方机票中的出生日期为必填项");
+				return false;
+			}
+			if(isEmpty(passport)) {
+				alert("提供外方机票中的护照号码为必填项");
+				return false;
+			}else{
+				if(passport.length>10) {
+					alert("提供外方机票中的护照号码超长，请重新输入");
+					return false;
+				}
 			}
 		}
+		if(isDomestic && isDomestic == 1) {
+			var inBirthday = $("#inBirthday").val();
+			var card=$("#card").val();
+			if(isEmpty(inBirthday)) {
+				alert("提供中方机票中的出生日期为必填项");
+				return false;
+			}
+			if(!isEmpty(card)) {
+				if(!identityCodeValid(card)) {
+					alert("提供中方机票中的身份证号输入有误,请重试");
+					return false;
+				}
+			}else {
+				alert("提供中方机票中的身份证号为必填项");
+			}
+		}
+		if(isFood && isFood == 1) {
+			var i=0;
+			$('input[name="foodBox"]:checked').each(function(){
+            	i++
+            });
+			if(i<1) {
+				alert("至少选择其中一项");
+				return false;
+			}
+		}
+		if(isDrive && isDrive == 1) {
+			var carNo = $("#carNo").val();
+			if(isEmpty(carNo)) {
+				alert("车牌号为必填项");
+				return false;
+			}
+		}
+		
+		
 		
 		//只有是非参会人员才可显示这几项
 		if($("#utype") && isEmpty($("#utype")) && $("#utype").val()!="参会人员") {
@@ -219,6 +269,20 @@
 		}
 		return false;
 	}
+	
+	function isCheck(obj) {
+		if(obj.checked) {
+			$("#is"+obj.id).val(1);
+			if($("#"+obj.id+"Div")) {
+				$("#"+obj.id+"Div").css("display","block");
+			}
+		}else {
+			$("#is"+obj.id).val(0);
+			if($("#"+obj.id+"Div")) {
+				$("#"+obj.id+"Div").css("display","none");
+			}
+		}
+	}
 </script>
 
 <style type="text/css">
@@ -296,10 +360,6 @@
 <body>
 <div class="container">
 	[#include "../include/search_csi.html"/]
-	<div class="site-nav-sign">
-		<a id="top_regist" >[免费注册]</a>&nbsp;&nbsp;
-		<a id="top_login" >[登录]</a>
-	</div>
     [#include "../include/navi.html"/]
 	<!-- 左栏_begin -->
 	<div class="w670 mt10" style="width:1000px;">
@@ -331,7 +391,8 @@
 			            	<tr>
 			            		<td style="width:100%;border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="radio" name="isStay" value="1" checked />提供住宿</span>
+			            				<span><input type="checkbox" name="Stay" id="Stay" onclick="isCheck(this)" />提供住宿</span>
+			            				<input type="hidden" name="isStay" id="isStay" />
 			            			</div>
 			            			<div class="div_left">
 			            				住宿时间：${meeting.stayStart}&nbsp;至&nbsp;${meeting.stayEnd}
@@ -348,12 +409,13 @@
 			            	<tr style="border:1px">
 			            		<td style="border:1px; border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="radio" name="isForeignTicket" value="1" checked />提供外方机票</span>
+			            				<span><input type="checkbox" name="Foreign" id="Foreign" onclick="isCheck(this)" />提供外方机票</span>
+			            				<input type="hidden" name="isForeign" id="isForeign" />
 			            			</div>
 			            			<div class="div_left">
 			            				建议时间：${meeting.foreignStart}&nbsp;至&nbsp;${meeting.foreignEnd}
 		            				</div>
-		            				<div>
+		            				<div id="ForeignDiv" style="display:none;">
 			            				<span class="span_left">英文名称：</span><span class="span_right"><input type="text" name="outName" id="outName" /></span>
 			            				<span class="span_left">出生日期：</span><span class="span_right"><input type="text" name="outBirthday" id="outBirthday" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/></span>
 			            				<span class="span_left">性别：</span><span class="span_right"><input type="radio" name="outSex" id="outSex0" value="0"/>男&nbsp;&nbsp;<input type="radio" name="outSex" id="outSex1" value="1"/>女&nbsp;&nbsp;</span>
@@ -378,12 +440,13 @@
 			            	<tr style="border:1px">
 			            		<td style="border:1px; border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="radio" name="isDomesticTicket" value="1" checked />提供中方机票</span>
+			            				<span><input type="checkbox" name="Domestic" id="Domestic" onclick="isCheck(this)" />提供中方机票</span>
+			            				<input type="hidden" name="isDomestic" id="isDomestic" />
 			            			</div>
 			            			<div class="div_left">
 			            				建议时间：${meeting.foreignStart}&nbsp;至&nbsp;${meeting.foreignEnd}
 		            				</div>
-		            				<div>
+		            				<div id="DomesticDiv" style="display:none;">
 			            				<span class="span_left">中文名称：</span><span class="span_right"><input type="text" name="inName" id="inName" /></span>
 			            				<span class="span_left">出生日期：</span><span class="span_right"><input type="text" name="inBirthday" id="inBirthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" /></span>
 			            				<span class="span_left">性别：</span><span class="span_right"><input type="radio" name="inSex" id="inSex0" value="0"/>男&nbsp;&nbsp;<input type="radio" name="inSex" id="inSex1" value="0"/>女&nbsp;&nbsp;</span>
@@ -408,20 +471,21 @@
 			            	<tr style="border:1px">
 			            		<td style="border:1px; border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="radio" name="isFood" value="1" checked />提供餐饮</span>
+			            				<span><input type="checkbox" name="Food" id="Food" onclick="isCheck(this)" />提供餐饮</span>
+			            				<input type="hidden" name="isFood" id="isFood" />
 			            				<input type="hidden" name="isBreakfast" id="isBreakfast" value=""/>
 			            				<input type="hidden" name="isLunch" id="isLunch" value=""/>
 			            				<input type="hidden" name="isDinner" id="isDinner" value=""/>
 			            			</div>
-		            				<div>
+		            				<div id="FoodDiv" style="display:none;">
 			            				<div>
-			            					<span class="span_left">早餐：</span>${meeting.breakfastStart}&nbsp;至&nbsp;${meeting.breakfastEnd}<span style="padding-left:100px;"><input type="checkbox" name="breakfastBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">早餐：</span>${meeting.breakfastStart}&nbsp;至&nbsp;${meeting.breakfastEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;是否用餐</span>
 			            				</div>
 			            				<div>
-			            					<span class="span_left">午餐：</span>${meeting.lunchStart}&nbsp;至&nbsp;${meeting.lunchEnd}<span style="padding-left:100px;"><input type="checkbox" name="lunchBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">午餐：</span>${meeting.lunchStart}&nbsp;至&nbsp;${meeting.lunchEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;是否用餐</span>
 			            				</div>
 			            				<div>
-			            					<span class="span_left">晚餐：</span>${meeting.dinnerStart}&nbsp;至&nbsp;${meeting.dinnerEnd}<span style="padding-left:100px;"><input type="checkbox" name="dinnerBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">晚餐：</span>${meeting.dinnerStart}&nbsp;至&nbsp;${meeting.dinnerEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;是否用餐</span>
 			            				</div>
 			            			</div>
 			            		</td>
@@ -433,9 +497,10 @@
 			            	<tr style="border:1px">
 			            		<td style="border:1px; border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="radio" name="isDrive" value="1" checked />自驾车辆</span>
+			            				<span><input type="checkbox" name="Drive" id="Drive" onclick="isCheck(this)" />自驾车辆</span>
+			            				<input type="hidden" name="isDrive" id="isDrive" />
 			            			</div>
-		            				<div>
+		            				<div id="DriveDiv" style="display:none;">
 			            				<span class="span_left">车牌号：</span><span class="span_right"><input type="text" name="carNo" id="carNo" /></span>
 			            			</div>
 			            		</td>

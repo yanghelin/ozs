@@ -16,8 +16,8 @@ import com.jeecms.common.page.Pagination;
 @Transactional
 public class InMeetingDetailMngImpl implements InMeetingDetailMng {
 	@Transactional(readOnly = true)
-	public Pagination getPage(String name, int pageNo, int pageSize) {
-		Pagination page = inMeetingDetailDao.getPage(name, pageNo, pageSize);
+	public Pagination getPage(String name, Integer userId, int pageNo, int pageSize) {
+		Pagination page = inMeetingDetailDao.getPage(name, userId, pageNo, pageSize);
 		return page;
 	}
 	

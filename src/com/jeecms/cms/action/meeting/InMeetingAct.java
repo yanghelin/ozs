@@ -4,6 +4,7 @@ import static com.jeecms.common.page.SimplePage.cpn;
 
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +26,6 @@ import com.jeecms.common.page.Pagination;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.manager.CmsUserExtMng;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.web.util.CmsUtils;
 
@@ -50,14 +50,16 @@ public class InMeetingAct {
 	@RequiresPermissions("in_meeting:to_add")
 	@RequestMapping("/in_meeting/to_add.do")
 	public String add(HttpServletRequest request, ModelMap model) {
-		/*CmsSite site = CmsUtils.getSite(request);
-		CmsUser currUser = CmsUtils.getUser(request);
+		CmsSite site = CmsUtils.getSite(request);
+		/*CmsUser currUser = CmsUtils.getUser(request);
 		List<CmsGroup> groupList = cmsGroupMng.getList();
 		List<CmsRole> roleList = cmsRoleMng.getList();
 		model.addAttribute("site", site);
 		model.addAttribute("groupList", groupList);
 		model.addAttribute("roleList", roleList);
 		model.addAttribute("currRank", currUser.getRank());*/
+		List<CmsUser> userList = userMng.getList("", "", site.getId(), null, false, true, null);
+		model.addAttribute("userList", userList);
 		return "meeting/in/add";
 	}
 	
@@ -133,6 +135,9 @@ public class InMeetingAct {
 
 	@Autowired
 	private InMeetingMng inMeetingMng;
+	
+	@Autowired
+	protected CmsUserMng userMng;
 	
 	private final Integer FILE_MAX_SIZE = 104857600;//100M大小
 }

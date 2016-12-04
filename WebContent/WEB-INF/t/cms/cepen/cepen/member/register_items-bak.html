@@ -8,8 +8,9 @@
 [#assign list=item.optValue!/]
 [#assign value=item.defValue!/]
 [#assign required=item.required!/]
-
-<li style="font-size:16px;color:#000;"><span>${item.label!}：</span>
+ <tr>
+      <td align="right" width="187" height="30">${item.label!}：</td>
+      <td>
       	[#if required]
       		[#assign vld="{required:true}"/]
       	[/#if]
@@ -32,5 +33,6 @@
 		[#else]
 		not support type: "${type}"
 		[/#if]
-      </li>
+      </td>
+ </tr>
 [/#list]

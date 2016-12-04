@@ -49,11 +49,14 @@ meeting.lunch=午餐
 meeting.dinner=晚餐
 meeting.isDrive=自驾车辆
 
+out.meeting.userType=参会身份
 out.userType=用户类型
 out.userType0=发言嘉宾
 out.userType1=参会人员
 out.userType2=速记
 out.userType3=媒体
+out.personNum=参会人数
+out.person=人员姓名
 out.cnName=中文名称
 out.enName=英文名称
 out.sex=性别
@@ -94,7 +97,7 @@ items.name=物品名称
 items.num=物品数量
 items.remark=特殊要求
 
-meeting.room=会议室管理
+meeting.room.manager=会议室管理
 meeting.room.add=会议室申请
 meeting.room.edit=会议室编辑
 room.attendeeNum=参会人数

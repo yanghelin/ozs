@@ -21,6 +21,8 @@ public class InMeeting implements Serializable {
     private String roomName;
 
     private String participants;
+    
+    private String departName;
 
     //private Integer publisher;
 
@@ -102,7 +104,15 @@ public class InMeeting implements Serializable {
         this.participants = participants == null ? null : participants.trim();
     }
 
-    public CmsUser getPublisher() {
+    public String getDepartName() {
+		return departName;
+	}
+
+	public void setDepartName(String departName) {
+		this.departName = departName;
+	}
+
+	public CmsUser getPublisher() {
         return publisher;
     }
 

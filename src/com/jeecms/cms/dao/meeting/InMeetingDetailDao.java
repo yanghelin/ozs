@@ -10,7 +10,7 @@ import com.jeecms.common.page.Pagination;
  * 所内会议详细DAO接口
  */
 public interface InMeetingDetailDao{
-	public Pagination getPage(String name, int pageNo, int pageSize);
+	public Pagination getPage(String name, Integer userId, int pageNo, int pageSize);
 	
 	public List<InMeetingDetail> getList(String name);
 

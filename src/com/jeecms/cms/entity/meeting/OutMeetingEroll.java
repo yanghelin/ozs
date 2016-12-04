@@ -96,6 +96,16 @@ public class OutMeetingEroll implements Serializable {
     
     private Date createTime;
 
+    private Byte isStay;
+    
+    private Byte isForeign;
+    
+    private Byte isDomestic;
+    
+    private Byte isFood;
+    
+    private Byte isDrive;
+    
     private Byte isDelete;
     
     private OutMeeting outMeetingId;
@@ -440,6 +450,46 @@ public class OutMeetingEroll implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Byte getIsStay() {
+		return isStay;
+	}
+
+	public void setIsStay(Byte isStay) {
+		this.isStay = isStay;
+	}
+
+	public Byte getIsForeign() {
+		return isForeign;
+	}
+
+	public void setIsForeign(Byte isForeign) {
+		this.isForeign = isForeign;
+	}
+
+	public Byte getIsDomestic() {
+		return isDomestic;
+	}
+
+	public void setIsDomestic(Byte isDomestic) {
+		this.isDomestic = isDomestic;
+	}
+
+	public Byte getIsFood() {
+		return isFood;
+	}
+
+	public void setIsFood(Byte isFood) {
+		this.isFood = isFood;
+	}
+
+	public Byte getIsDrive() {
+		return isDrive;
+	}
+
+	public void setIsDrive(Byte isDrive) {
+		this.isDrive = isDrive;
 	}
 
 	public Byte getIsDelete() {
