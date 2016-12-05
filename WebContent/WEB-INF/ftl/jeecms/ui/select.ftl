@@ -24,7 +24,7 @@
 	<#if listKey!="" && listValue!="">
 		<#if listDeep!="" && list?size gt 0><#local origDeep=list[0][listDeep]+1/></#if>
 		<#list list as item>
-			<option value="${item[listKey]}" other="${item[other]}" <#if item[listKey]?string==value?string> selected="selected"</#if>><#if listDeep!="" && item[listDeep] gte origDeep><#list origDeep..item[listDeep] as i>&nbsp;&nbsp;</#list>></#if>${item[listValue]!}</option><#t/>
+			<option value="${item[listKey]}" <#if item[listKey]?string==value?string> selected="selected"</#if>><#if listDeep!="" && item[listDeep] gte origDeep><#list origDeep..item[listDeep] as i>&nbsp;&nbsp;</#list>></#if>${item[listValue]!}</option><#t/>
 		</#list>
 	<#else>
 		<#list list as item>

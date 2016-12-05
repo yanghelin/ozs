@@ -53,7 +53,7 @@ public class InMeetingItemsAct {
 	
 	@RequiresPermissions("in_meeting_items:save")
 	@RequestMapping("/in_meeting_items/save.do")
-	public String save(InMeetingItems bean,Integer meetingId, HttpServletRequest request,ModelMap model) {
+	public String save(InMeetingItems bean,Integer meeting_id, HttpServletRequest request,ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
@@ -64,7 +64,7 @@ public class InMeetingItemsAct {
 		bean.setCreateTime(new Date());
 		bean.setIsDelete((byte)0);
 		InMeeting meeting = new InMeeting();
-		meeting.setId(meetingId);
+		meeting.setId(meeting_id);
 		bean.setMeetingId(meeting);
 		manager.saveInMeetingItems(bean);
 		log.info("save InMeetingItems id={}", bean.getId());

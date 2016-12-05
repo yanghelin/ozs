@@ -45,8 +45,16 @@ $(function(){
 			<li><a href="../in_meeting/list.do" target="rightFrame">所内会议</a>
 			</li>
 		</@cms_perm>
+		<@cms_perm url="/in_meeting_items/list.do">
+			<li><a href="../in_meeting_items/list.do" target="rightFrame">会议用品管理</a>
+			</li>
+		</@cms_perm>
 		<@cms_perm url="/out_meeting/enroll_list.do?userType=0">
 			<li><a href="../out_meeting/enroll_list.do?userType=0" target="rightFrame">会议报名</a>
+			</li>
+		</@cms_perm>
+		<@cms_perm url="/in_meeting_detail/list.do?isAll=1">
+			<li><a href="../in_meeting_detail/list.do?isAll=1" target="rightFrame">会议邀请</a>
 			</li>
 		</@cms_perm>
 		<@cms_perm url="/in_meeting_detail/list.do">
@@ -69,6 +77,11 @@ $(function(){
 			<li><a href="../out_meeting/enroll_list.do" target="rightFrame">同传速记和媒体信息管理</a>
 			</li>
 		</@cms_perm>
+		<@cms_perm url="/in_meeting_briefing/list.do">
+			<li><a href="../in_meeting_briefing/list.do" target="rightFrame">工作简报</a>
+			</li>
+		</@cms_perm>
+		
 		<!-- <@cms_perm url="/role/v_list.do">
 		<li><a href="../role/v_list.do" target="rightFrame"><@s.m "cmsRole.function"/></a></li>
 		</@cms_perm> -->

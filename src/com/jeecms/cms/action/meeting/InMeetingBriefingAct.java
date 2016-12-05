@@ -67,7 +67,7 @@ public class InMeetingBriefingAct {
 	
 	@RequiresPermissions("in_meeting_briefing:save")
 	@RequestMapping("/in_meeting_briefing/save.do")
-	public String save(InMeetingBriefing bean, Integer meetingId, Integer attachmentId, HttpServletRequest request,ModelMap model) {
+	public String save(InMeetingBriefing bean, Integer meeting_id, Integer attachmentId, HttpServletRequest request,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		/*WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
@@ -84,7 +84,7 @@ public class InMeetingBriefingAct {
 			bean.setAttachment(matt);
 		}
 		InMeeting meeting = new InMeeting();
-		meeting.setId(meetingId);
+		meeting.setId(meeting_id);
 		bean.setMeetingId(meeting);
 		inMeetingBriefingMng.saveInMeetingBriefing(bean);
 		log.info("save InMeetingBriefing id={}", bean.getId());
@@ -105,7 +105,7 @@ public class InMeetingBriefingAct {
 	//上传附件
 	@RequiresPermissions("in_meeting_briefing:upload")
 	@RequestMapping("/in_meeting_briefing/upload.do")
-	public void contentUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile attchmentFile) throws Exception {
+	public void contentUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile attachmentFile) throws Exception {
 		log.debug("进入upload方法：上传文件完成，开始执行文件保存。");
 		PrintWriter writer = response.getWriter();
 		response.setContentType("text/html;chartset=UTF-8");
@@ -113,15 +113,15 @@ public class InMeetingBriefingAct {
 		String ctx = request.getContextPath();
 		JSONObject json = new JSONObject();
 		try {
-			if(attchmentFile.isEmpty()){  
+			if(attachmentFile.isEmpty()){  
 				log.error("上传文件为空，请重新上传。");
-            }else if(attchmentFile.getSize()>FILE_MAX_SIZE){
+            }else if(attachmentFile.getSize()>FILE_MAX_SIZE){
             	log.error("文件超过100M大小，请重新上传。");
             }else {
-        		String origName = attchmentFile.getOriginalFilename();
+        		String origName = attachmentFile.getOriginalFilename();
     			String ext = FilenameUtils.getExtension(origName).toLowerCase(
     					Locale.ENGLISH);
-    			String fileUrl = fileRepository.storeByExt(site.getUploadPath(), ext, attchmentFile);
+    			String fileUrl = fileRepository.storeByExt(site.getUploadPath(), ext, attachmentFile);
 				// 加上部署路径
 				fileUrl = ctx + fileUrl;
 				MeetingAttachment attach = new MeetingAttachment();

@@ -3,6 +3,7 @@ package com.jeecms.cms.action.meeting;
 import static com.jeecms.common.page.SimplePage.cpn;
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +27,13 @@ import com.jeecms.cms.entity.meeting.InMeeting;
 import com.jeecms.cms.manager.meeting.InMeetingMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.web.CookieUtils;
+import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.web.util.CmsUtils;
+
+import freemarker.template.utility.DateUtil;
 
 /**
  * 所内会议Action
@@ -131,6 +137,19 @@ public class InMeetingAct {
 			writer.close();
 		}
 		log.debug("文件上传成功，返回前台页面！");
+	}
+	
+	@RequiresPermissions("in_meeting:findBy")
+	@RequestMapping("/in_meeting/findBy.do")
+	public void move(Integer meetingId,HttpServletResponse response) throws JSONException {
+		JSONObject json = new JSONObject();
+		InMeeting meeting = null;
+		if(meetingId != null) {
+			meeting = inMeetingMng.findById(meetingId);
+		}
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		json.put("startTime", format.format(meeting.getStartTime()));
+		ResponseUtils.renderJson(response, json.toString());
 	}
 
 	@Autowired

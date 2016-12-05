@@ -38,9 +38,13 @@ public class InMeetingDetailAct {
 
 	@RequiresPermissions("in_meeting_detail:list")
 	@RequestMapping("/in_meeting_detail/list.do")
-	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
+	public String list(String meetingName,Integer isAll, Integer pageNo,HttpServletRequest request, ModelMap model) {
 		CmsUser currUser = CmsUtils.getUser(request);
-		Pagination pagination = inMeetingDetailMng.getPage(meetingName,currUser.getId(), cpn(pageNo), CookieUtils.getPageSize(request));
+		Integer userId = currUser.getId();
+		if(isAll != null && isAll == 1) {
+			userId = null;
+		}
+		Pagination pagination = inMeetingDetailMng.getPage(meetingName,userId, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
 		return "meeting/in/detailList";

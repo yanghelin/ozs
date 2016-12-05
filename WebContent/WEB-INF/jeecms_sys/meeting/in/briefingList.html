@@ -21,7 +21,18 @@ function doDelete(){
 	f.submit();
 }
 function download(path) {
-	$("#downloadFilePath").val(path);
+	var filepath = "";
+	var filename = "";
+	if(path != null && path.length>0) {
+		var end = path.lastIndexOf("/");
+		if(end<0) {
+			end = path.lastIndexOf("\\");
+		}
+		filepath = path.substring(0,end);
+		filename = path.substring(end+1,path.length);
+	}
+	$("#downloadFilePath").val(filepath);
+	$("#downloadFileName").val(filename);
 	$("#downloadForm").submit();
 }
 </script>
@@ -50,10 +61,10 @@ function download(path) {
 	<@p.column title="ID" align="center">${briefing.id}</@p.column><#t/>
 	<@p.column code="briefing.name" align="center">${briefing.name!}</@p.column><#t/>
 	<@p.column code="briefing.name" align="center">${briefing.name!}</@p.column><#t/>
-	<@p.column code="briefing.createTime" align="center">${item.meetingId.createTime!}</@p.column><#t/>
-	<@p.column code="briefing.createBy" align="center">${briefing.createBy!}</@p.column><#t/>
+	<@p.column code="briefing.createBy" align="center">${briefing.createBy.username!}</@p.column><#t/>
+	<@p.column code="briefing.createTime" align="center">${briefing.createTime!}</@p.column><#t/>
 	<@p.column code="global.operate" align="center">
-		<a href="javascript:download('${briefing.attchment.path}');" class="pn-opt"><@s.m "briefing.download"/></a>
+		<a href="javascript:download('${briefing.attachment.path}')" class="pn-opt"><@s.m "briefing.download"/></a>
 		<a href="delete.do?id=${briefing.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a>
 		<#t/>
 	</@p.column><#t/>
@@ -61,7 +72,7 @@ function download(path) {
 <div style="background:url(${base}/res/common/img/theme/boxTitleBG.jpg) repeat-x; height:20px; overflow:hidden;">
 <input class="del-button" type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/ style="float:left; border-right:1px solid #ffffff;"></div>
 </form>
-<form name="downloadForm" id="downloadForm" action="/in_meeting_briefing/download.do" method="post">
+<form name="downloadForm" id="downloadForm" action="download.do" method="post">
 	<input type="hidden" id="downloadFileName" name="downloadFileName" value="">
 	<input type="hidden" id="downloadFilePath" name="downloadFilePath" value="">
 </form>

@@ -18,8 +18,18 @@
 <script src="${resSys}/front.js" type="text/javascript"></script>
 <script type="text/javascript">
 	function downFile(fileName,path) {
-		$("#downloadFileName").val("");
-		$("#downloadFilePath").val(path);
+		var filepath = "";
+		var filename = "";
+		if(path != null && path.length>0) {
+			var end = path.lastIndexOf("/");
+			if(end<0) {
+				end = path.lastIndexOf("\\");
+			}
+			filepath = path.substring(0,end);
+			filename = path.substring(end+1,path.length);
+		}
+		$("#downloadFilePath").val(filepath);
+		$("#downloadFileName").val(filename);
 		$("#downloadForm").submit();
 	}
 </script>
