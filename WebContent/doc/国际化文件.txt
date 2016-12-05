@@ -12,6 +12,7 @@ meeting.startTime=会议时间
 meeting.room=会议室
 meeting.remark=备注
 meeting.participants=参会人员
+meeting.select=请选择
 
 
 meeting.hostUnits=主办单位
@@ -95,6 +96,9 @@ out.other=其他
 meeting.items=会议用品管理
 items.name=物品名称
 items.num=物品数量
+items.liablePeople=负责人
+items.phone=联系电话
+items.position=职位
 items.remark=特殊要求
 
 meeting.room.manager=会议室管理
@@ -106,6 +110,13 @@ room.meetingRoom=会议室
 room.organizingDept=筹办部门
 room.hoster=筹办负责人
 room.itemHoster=物品负责人
+
+briefing.manager=简报管理
+briefing.name=简报名称
+briefing.attachment=简报附件
+briefing.createTime=上传时间
+briefing.createBy=上传人员
+briefing.download=下载
 
 ozs.meesage=站内信管理
 ozs.meesage.name=名称
