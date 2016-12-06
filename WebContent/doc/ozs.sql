@@ -22,6 +22,7 @@ CREATE TABLE `ozs_in_meeting_briefing` (
   `meeting_id` int(11) DEFAULT NULL COMMENT '会议ID',
   `name` varchar(100) DEFAULT NULL COMMENT '简报名称',
   `attachment` int(11) DEFAULT NULL COMMENT '简报附件',
+  `type` varchar(20) DEFAULT NULL COMMENT '文档类型',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) DEFAULT NULL COMMENT '创建人',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
