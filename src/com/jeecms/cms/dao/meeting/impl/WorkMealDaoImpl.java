@@ -18,7 +18,7 @@ public class WorkMealDaoImpl extends HibernateBaseDao<WorkMeal, Integer>
 		Finder f = Finder.create("select bean from WorkMeal bean");
 		f.append(" where 1=1 and bean.isDelete = 0 ");
 		if (!StringUtils.isBlank(name)) {
-			f.append(" and bean.name like :name");
+			f.append(" and bean.deptName like :name");
 			f.setParam("name", "%" + name + "%");
 		}
 		f.append(" order by bean.id desc");

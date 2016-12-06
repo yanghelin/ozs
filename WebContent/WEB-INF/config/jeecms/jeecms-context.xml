@@ -176,6 +176,8 @@
 	<bean id="workMealMng" class="com.jeecms.cms.manager.meeting.impl.WorkMealMngImpl"/>
 	<bean id="meetingAttachmentMng" class="com.jeecms.cms.manager.meeting.impl.MeetingAttachmentMngImpl"/>
 	<bean id="inMeetingDetailMng" class="com.jeecms.cms.manager.meeting.impl.InMeetingDetailMngImpl"/>
+	<bean id="meetingMenuMng" class="com.jeecms.cms.manager.meeting.impl.MeetingMenuMngImpl"/>
+	<bean id="meetingMenuUserMng" class="com.jeecms.cms.manager.meeting.impl.MeetingMenuUserMngImpl"/>
 	
 	<!--DAO-->
 	<bean id="channelDao" class="com.jeecms.cms.dao.main.impl.ChannelDaoImpl"/>
@@ -275,6 +277,8 @@
 	<bean id="workMealDao" class="com.jeecms.cms.dao.meeting.impl.WorkMealDaoImpl"/>
 	<bean id="meetingAttachmentDao" class="com.jeecms.cms.dao.meeting.impl.MeetingAttachmentDaoImpl"/>
 	<bean id="inMeetingDetailDao" class="com.jeecms.cms.dao.meeting.impl.InMeetingDetailDaoImpl"/>
+	<bean id="meetingMenuDao" class="com.jeecms.cms.dao.meeting.impl.MeetingMenuDaoImpl"/>
+	<bean id="meetingMenuUserDao" class="com.jeecms.cms.dao.meeting.impl.MeetingMenuUserDaoImpl"/>
 	
 	
 	<bean id="openOfficeConverter" class="com.jeecms.common.office.OpenOfficeConverter" init-method="init" destroy-method="destroy"/>

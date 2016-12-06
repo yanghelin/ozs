@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title> <#include "/jeecms_sys/head.html"/>
+<script type="text/javascript">
+	$(function() {
+		$("#jvForm").validate();
+	});
+	function allChannelSelect() {
+		$("#allChannelHide").val($("#allChannel").prop("checked"));
+	}
+	function allControlChannelSelect() {
+		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
+	}
+	function formSubmit() {
+		var deptName = $("#deptName").val();
+		var number = $("#number").val();
+		var itemNum = $("#itemNum").val();
+		var liablePeople = $("#liablePeople").val();
+		if(deptName == null || deptName == '') {
+			alert("所在部门为必选项");
+			return false;
+		}
+		if(number == null || number == '') {
+			alert("订餐人数为必填项");
+			return false;
+		}else {
+			if(isNaN(itemNum)){
+				 alert("订餐人数须输入数字");
+				 return false;
+			}
+		}
+		$("#jvForm").submit();
+	}
+</script>
+</head>
+<body>
+	<div class="box-positon">
+		<div class="rpos"><@s.m "global.position"/>: <@s.m "workMeal.manager"/> - <@s.m "global.add"/></div>
+		<form class="ropt">
+			<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
+		</form>
+		<div class="clear"></div>
+	</div>
+	<div class="body-box">
+		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
+		<@p.form id="jvForm" action="save.do" labelWidth="12">
+		<@p.text width="50" colspan="1" label="workMeal.dept" id="deptName" name="deptName" maxlength="100" required="true"/>
+		<@p.text width="50" colspan="1" label="workMeal.number" id="number" name="number" maxlength="10" required="true"/>
+		<@p.tr/>
+		<@p.textarea colspan="2" label="workMeal.remark" name="remark" cols="70" rows="5"/>
+		<@p.tr/>
+		<@p.td colspan="2"><input type="button" name="btn" onclick="formSubmit()" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
+		</@p.form>
+	</div>
+</body>
+</html>

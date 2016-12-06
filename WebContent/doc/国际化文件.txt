@@ -113,15 +113,34 @@ room.itemHoster=物品负责人
 
 briefing.manager=简报管理
 briefing.name=简报名称
+briefing.fileType=简报类型
 briefing.attachment=简报附件
 briefing.createTime=上传时间
 briefing.createBy=上传人员
 briefing.download=下载
 
+materials.manager=材料管理
+materials.name=材料名称
+materials.fileType=材料类型
+materials.attachment=简报附件
+materials.createTime=上传时间
+materials.createBy=上传人员
+materials.download=下载
+
+workMeal.manager=订餐管理
+workMeal.deptName=部门名称
+workMeal.dept=所在部门
+workMeal.createBy=人员姓名
+workMeal.number=订餐人数
+materials.createTime=订餐时间
+workMeal.remark=备注
+
 ozs.meesage=站内信管理
 ozs.meesage.name=名称
 ozs.meesage.content=详细内容
 ozs.meesage.sendUser=发送用户
+
+meeting.auth=权限分配
 
 
 

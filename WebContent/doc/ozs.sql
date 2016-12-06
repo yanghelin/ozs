@@ -263,3 +263,17 @@ CREATE TABLE `ozs_work_meal` (
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订餐管理';
+
+CREATE TABLE `ozs_meeting_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(30) DEFAULT NULL COMMENT '会议菜单名称',
+  `url` varchar(100) DEFAULT NULL COMMENT '会议菜单的url链接',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会议菜单表，主要为用户授权使用';
+
+CREATE TABLE `ozs_meeting_menu_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
+  `menu_id` int(11) DEFAULT NULL COMMENT '会议菜单ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会议菜单和用户关联表';

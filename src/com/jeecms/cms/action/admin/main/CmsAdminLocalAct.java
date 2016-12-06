@@ -5,7 +5,6 @@ import static com.jeecms.common.page.SimplePage.cpn;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeecms.cms.entity.assist.CmsWebservice;
+import com.jeecms.cms.entity.meeting.MeetingMenu;
+import com.jeecms.cms.manager.meeting.MeetingMenuMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.PropertyUtils;
 import com.jeecms.common.web.CookieUtils;
@@ -55,6 +56,8 @@ public class CmsAdminLocalAct extends CmsAdminAbstract {
 	public static String EMAIL_PATH = "/WEB-INF/config/email/email.properties";
 	@Autowired
 	private RealPathResolver realPathResolver;
+	@Autowired
+	private MeetingMenuMng meetingMenuMng;
 	
 	@RequiresPermissions("admin_local:v_list")
 	@RequestMapping("/admin_local/v_list.do")
@@ -196,10 +199,12 @@ public class CmsAdminLocalAct extends CmsAdminAbstract {
 		CmsUser currUser = CmsUtils.getUser(request);
 		List<CmsGroup> groupList = cmsGroupMng.getList();
 		List<CmsRole> roleList = cmsRoleMng.getList();
+		List<MeetingMenu> menuList = meetingMenuMng.getList(null);
 		model.addAttribute("site", site);
 		model.addAttribute("groupList", groupList);
 		model.addAttribute("roleList", roleList);
 		model.addAttribute("currRank", currUser.getRank());
+		model.addAttribute("menuList", menuList);
 		return "admin/local/add";
 	}
 

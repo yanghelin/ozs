@@ -5,20 +5,20 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.cms.dao.meeting.InMeetingItemsDao;
-import com.jeecms.cms.entity.meeting.InMeetingItems;
+import com.jeecms.cms.dao.meeting.MeetingMenuDao;
+import com.jeecms.cms.entity.meeting.MeetingMenu;
 import com.jeecms.common.hibernate3.Finder;
 import com.jeecms.common.hibernate3.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
-public class InMeetingItemsDaoImpl extends HibernateBaseDao<InMeetingItems, Integer>
-		implements InMeetingItemsDao {
+public class MeetingMenuDaoImpl extends HibernateBaseDao<MeetingMenu, Integer>
+		implements MeetingMenuDao {
 	public Pagination getPage(String name, int pageNo, int pageSize) {
-		Finder f = Finder.create("select bean from InMeetingItems bean");
+		Finder f = Finder.create("select bean from MeetingMenu bean");
 		f.append(" where 1=1 and bean.isDelete = 0 ");
 		if (!StringUtils.isBlank(name)) {
-			f.append(" and bean.meetingId.name like :name");
+			f.append(" and bean.name like :name");
 			f.setParam("name", "%" + name + "%");
 		}
 		f.append(" order by bean.id desc");
@@ -26,8 +26,8 @@ public class InMeetingItemsDaoImpl extends HibernateBaseDao<InMeetingItems, Inte
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<InMeetingItems> getList(String name) {
-		Finder f = Finder.create("select bean from InMeetingItems bean");
+	public List<MeetingMenu> getList(String name) {
+		Finder f = Finder.create("select bean from MeetingMenu bean");
 		f.append(" where 1=1 and bean.isDelete = 0 ");
 		if (!StringUtils.isBlank(name)) {
 			f.append(" and bean.name like :name");
@@ -37,18 +37,18 @@ public class InMeetingItemsDaoImpl extends HibernateBaseDao<InMeetingItems, Inte
 		return find(f);
 	}
 
-	public InMeetingItems findById(Integer id) {
-		InMeetingItems entity = get(id);
+	public MeetingMenu findById(Integer id) {
+		MeetingMenu entity = get(id);
 		return entity;
 	}
 
-	public InMeetingItems save(InMeetingItems bean) {
+	public MeetingMenu save(MeetingMenu bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public InMeetingItems deleteById(Integer id) {
-		InMeetingItems entity = super.get(id);
+	public MeetingMenu deleteById(Integer id) {
+		MeetingMenu entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
 		}
@@ -56,7 +56,7 @@ public class InMeetingItemsDaoImpl extends HibernateBaseDao<InMeetingItems, Inte
 	}
 
 	@Override
-	protected Class<InMeetingItems> getEntityClass() {
-		return InMeetingItems.class;
+	protected Class<MeetingMenu> getEntityClass() {
+		return MeetingMenu.class;
 	}
 }
