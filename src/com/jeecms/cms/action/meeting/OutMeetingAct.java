@@ -2,7 +2,9 @@ package com.jeecms.cms.action.meeting;
 
 import static com.jeecms.common.page.SimplePage.cpn;
 
+import java.io.File;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Locale;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.json.JSONObject;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jeecms.cms.entity.meeting.MeetingAttachment;
@@ -113,6 +117,17 @@ public class OutMeetingAct {
 		bean.setIsDelete((byte)1);
 		outMeetingMng.updateOutMeeting(bean);
 		return "redirect:list.do";
+	}
+	
+	@RequiresPermissions("out_meeting:view")
+	@RequestMapping("/out_meeting/view.do")
+	public String view(Integer id,HttpServletRequest request,ModelMap model) {
+		OutMeeting outMeeting = null;
+		if(id != null) {
+			outMeeting = outMeetingMng.findById(id);
+		}
+		model.addAttribute("meeting", outMeeting);
+		return "meeting/out/view";
 	}
 
 	
@@ -400,6 +415,51 @@ public class OutMeetingAct {
 			writer.close();
 		}
 		log.debug("文件上传成功，返回前台页面！");
+	}
+	
+	@RequiresPermissions("out_meeting:download")
+	@RequestMapping("/out_meeting/download.do")
+	@ResponseBody
+	public void downloadFile(HttpServletRequest request, HttpServletResponse response){
+		java.io.FileInputStream fileInputStream = null;
+		javax.servlet.ServletOutputStream out = null;
+		try {
+			response.setContentType("text/html");
+			out = response.getOutputStream();
+			String filepath = new String(request.getParameter("downloadFilePath").getBytes(Charset.forName("ISO-8859-1")), "GB2312").toString();
+			String[] paths = filepath.split("/");
+			StringBuffer newFilePath = new StringBuffer("");
+			if(paths.length >0) {
+				int pathsLength = paths.length;
+				for(int i=0; i<pathsLength; i++) {
+					newFilePath.append(paths[i]+File.separator);
+				}
+			}
+			//组装下载路径
+		    filepath = request.getSession().getServletContext().getRealPath(File.separator)+ newFilePath.toString();
+		    String filename = request.getParameter("downloadFileName");
+			java.io.File file = new java.io.File(filepath + filename);
+			if (!file.exists()) {
+				log.info(file.getAbsolutePath() + " 文件不存在!");
+				return;
+			}
+			// 读取文件流
+			fileInputStream = new java.io.FileInputStream(file);
+			// 下载文件
+			// 设置响应头和下载保存的文件名
+			if (filename != null && filename.length() > 0) {
+				response.setContentType("application/x-msdownload");
+				response.setHeader("Content-Disposition", "attachment; filename=" + new String(filename.getBytes("gb2312"),Charset.forName("ISO-8859-1")) + "");
+				if (fileInputStream != null) {
+					IOUtils.copy(fileInputStream, out);
+				}
+			}
+		} catch (Exception e) {
+			log.error("file download exception" , e);
+		}finally{
+			IOUtils.closeQuietly(fileInputStream);
+			IOUtils.closeQuietly(out);
+		}
 	}
 	
 	

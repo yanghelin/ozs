@@ -141,6 +141,7 @@ ozs.meesage.content=详细内容
 ozs.meesage.sendUser=发送用户
 
 meeting.auth=权限分配
+meeting.view=查看
 
 
 

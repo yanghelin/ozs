@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jeecms_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+});
+function download(path) {
+	var filepath = "";
+	var filename = "";
+	if(path != null && path.length>0) {
+		var end = path.lastIndexOf("/");
+		if(end<0) {
+			end = path.lastIndexOf("\\");
+		}
+		filepath = path.substring(0,end);
+		filename = path.substring(end+1,path.length);
+	}
+	$("#downloadFilePath").val(filepath);
+	$("#downloadFileName").val(filename);
+	$("#downloadForm").submit();
+}
+</script>
+<style type="text/css">
+	#meetingTable{
+		width:100%;
+		margin:0px auto;
+		padding:0px;
+	}
+	#meetingTable tr th{
+		width:10%;
+		text-align:right;
+		/* font-weight: 400; */
+		height:30px;
+		line-height:30px;
+	}
+	
+	.td_left{
+		
+	}
+	.td_right {
+	}
+</style>
+</head>
+<body>
+<div class="box-positon">
+	<div class="rpos"><@s.m "global.position"/>:  <@s.m "out.meeting.manager"/> - <@s.m "meeting.view"/></div>
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
+		<input type="hidden" name="pageNo" value="${pageNo!}"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<form name="downloadForm" id="downloadForm" action="download.do" method="post">
+	<input type="hidden" id="downloadFileName" name="downloadFileName" value="" />
+	<input type="hidden" id="downloadFilePath" name="downloadFilePath" value="" />
+</form>
+<div>
+	<table id="meetingTable" style="border-collapse: collapse;width:100%;">
+		<tr>
+			<td colspan="4" style="text-align:center;"><h1>会议信息查看</h1></td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.name"/>:</th><td colspan="3">${meeting.name}</td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.hostUnits"/>:</th><td>${meeting.hostUnits!}</td>
+			<th><@s.m "meeting.sponsoringUnits"/>:</th><td>${meeting.sponsoringUnits!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.overseasPartners"/>:</th><td>${meeting.overseasPartners!}</td>
+			<th><@s.m "meeting.address"/>:</th><td>${meeting.address!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.meetingSize"/>:</th><td>${meeting.meetingSize!}</td>
+			<th><@s.m "meeting.presenter"/>:</th><td>${meeting.presenter!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.workLanguage"/>:</th><td>${meeting.workLanguage!}</td>
+			<th><@s.m "meeting.contacts"/>:</th><td>${meeting.contacts!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.time"/>:</th><td colspan="3">${meeting.startTime!}&nbps;至&nbsp;${meeting.endTime!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.contactPhone"/>:</th><td>${meeting.contactPhone!}</td>
+			<th><@s.m "meeting.contactEmail"/>:</th><td>${meeting.contactEmail!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.content"/>:</th><td colspan="3"><textarea name="content" cols="70" rows="5" readonly>${meeting.content!}</textarea><#if meeting.contentAttachment??>&nbsp;<a href="javascript:download('${meeting.contentAttachment.path}')">${meeting.contentAttachment.filename!}</a></#if></td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.agenda"/>:</th><td colspan="3"><textarea name="agenda" cols="70" rows="5" readonly>${meeting.agenda!}</textarea><#if meeting.agendaAttachment??>&nbsp;<a href="javascript:download('${meeting.agendaAttachment.path}')">${meeting.agendaAttachment.filename!}</a></#if></td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.invitation"/>:</th><td colspan="3"><#if meeting.invitation??><a href="javascript:download('${meeting.invitation.path}')">${meeting.invitation.filename!}</a></#if></td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.relatedData"/>:</th><td colspan="3"><#if meeting.relatedData??><a href="javascript:download('${meeting.relatedData.path}')">${meeting.relatedData.filename!}</a></#if></td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.agenda"/>:</th><td colspan="3"><textarea name="agenda" cols="70" rows="5" readonly>${meeting.agenda!}</textarea></td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.hoster"/>:</th><td>${meeting.hoster!}</td>
+			<th><@s.m "meeting.phone"/>:</th><td>${meeting.phone!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.position"/>:</th><td colspan="3">${meeting.position!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "out.other"/>:</th>
+			<td colspan="3">
+				<div style="height:30px; line-height:30px;">
+					<div style="text-align:left;">
+						<label><input type="checkbox" name="stay" <#if meeting.isStay??><#if meeting.isStay == 1>checked</#if></#if> onclick="return false;""/><@s.m "meeting.isStay"/></label>
+						<label><input type="checkbox" name="foreign" <#if meeting.isForeignTicket??><#if meeting.isForeignTicket == 1>checked</#if></#if> onclick="return false;""/><@s.m "meeting.isForeignTicket"/></label>
+						<label><input type="checkbox" name="domestic" <#if meeting.isDomesticTicket??><#if meeting.isDomesticTicket == 1>checked</#if></#if> onclick="return false;"" /><@s.m "meeting.isDomesticTicket"/></label>
+						<label><input type="checkbox" name="food" <#if meeting.isFood??><#if meeting.isFood == 1>checked</#if></#if> onclick="return false;"" /><@s.m "meeting.isFood"/></label>
+						<label><input type="checkbox" name="drive" <#if meeting.isDrive??><#if meeting.isDrive == 1>checked</#if></#if> onclick="return false;"" /><@s.m "meeting.isDrive"/></label>
+					</div>
+					<#if meeting.isStay??><#if meeting.isStay == 1>
+					<div style="text-align:left;">
+					<label><input type="checkbox" name="stay" checked onclick="return false;""/><@s.m "meeting.isStay"/></label>
+					</div>
+					<div id="stayDiv" style="margin:5px auto;">
+						<span style="width:120px;text-align:right;"><@s.m 'meeting.stayTime'/>: </span>
+						${meeting.stayStart!}&nbsp;至&nbsp;${meeting.stayEnd!}
+						<span style="width:120px;text-align:right;"><@s.m 'meeting.stayHotel'/>: </span>${meeting.stayHotel!}
+					</div>
+					</#if></#if>
+					<#if meeting.isForeignTicket??><#if meeting.isForeignTicket == 1>
+					<div style="text-align:left;">
+					<label><input type="checkbox" name="stay" checked onclick="return false;""/><@s.m "meeting.isForeignTicket"/></label>
+					</div>
+					<div id="foreignDiv" style="margin:5px auto;">
+						<span style="width:120px;text-align:right;"><@s.m 'meeting.foreignTicketTime'/>: </span>
+						${meeting.foreignStart!}&nbsp;至&nbsp;${meeting.foreignEnd!}
+					</div>
+					</#if></#if>
+					<#if meeting.isDomesticTicket??><#if meeting.isDomesticTicket == 1>
+					<div style="text-align:left;">
+					<label><input type="checkbox" name="domestic" checked onclick="return false;""/><@s.m "meeting.isDomesticTicket"/></label>
+					</div>
+					<div id="domesticDiv" style="margin:5px auto;">
+						<span style="width:120px;text-align:right;"><@s.m 'meeting.domesticTicketTime'/>: </span>
+						${meeting.domesticStart!}&nbsp;至&nbsp;${meeting.domesticEnd!}
+					</div>
+					</#if></#if>
+					<#if meeting.isFood??><#if meeting.isFood == 1>
+					<div style="text-align:left;">
+					<label><input type="checkbox" name="food" checked onclick="return false;""/><@s.m "meeting.isFood"/></label>
+					</div>
+					<div id="foodDiv" style="margin:5px auto;">
+						<div>
+							<span style="width:120px;text-align:right;"><@s.m 'meeting.break'/>: </span>
+							${meeting.breakfastStart!}&nbsp;至&nbsp;${meeting.breakfastEnd!}
+						</div>
+						<div style="margin:5px auto;">
+							<span style="width:120px;text-align:right;"><@s.m 'meeting.lunch'/>: </span>
+							${meeting.lunchStart!}&nbsp;至&nbsp;${meeting.lunchEnd!}
+						</div>
+						<div style="margin:5px auto;">
+							<span style="width:120px;text-align:right;"><@s.m 'meeting.dinner'/>: </span>
+							${meeting.dinnerStart!}&nbsp;至&nbsp;${meeting.dinnerEnd!}
+						</div>
+					</div>
+					</#if></#if>
+					<#if meeting.isFood??><#if meeting.isFood == 1>
+					<div style="text-align:left;">
+					<label><input type="checkbox" name="drive" checked onclick="return false;""/><@s.m "meeting.isDrive"/></label>
+					</div>
+					</#if></#if>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>
