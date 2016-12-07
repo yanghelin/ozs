@@ -1,16 +1,21 @@
 package com.jeecms.cms.manager.meeting.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jeecms.cms.dao.meeting.OzsMessageDao;
+import com.jeecms.cms.dao.meeting.OzsMessageDetailDao;
 import com.jeecms.cms.entity.meeting.OzsMessage;
+import com.jeecms.cms.entity.meeting.OzsMessageDetail;
 import com.jeecms.cms.manager.meeting.OzsMessageMng;
 import com.jeecms.common.hibernate3.Updater;
 import com.jeecms.common.page.Pagination;
+import com.jeecms.core.entity.CmsUser;
 
 @Service
 @Transactional
@@ -44,7 +49,29 @@ public class OzsMessageMngImpl implements OzsMessageMng {
 	}
 
 	public OzsMessage saveOzsMessage(OzsMessage bean) {
-		return ozsMessageDao.save(bean);
+		OzsMessage message = ozsMessageDao.save(bean);
+		
+		if(StringUtils.isNotEmpty(message.getSendUsers())) {
+			String[] userIds = message.getSendUsers().split(",");
+			if(userIds != null && userIds.length>0) {
+				for(String userId:userIds) {
+					OzsMessageDetail detail = new OzsMessageDetail();
+					detail.setCreateTime(new Date());
+					OzsMessage om = new OzsMessage();
+					om.setId(message.getId());
+					detail.setMessageId(om);
+					detail.setIsDelete((byte)0);
+					detail.setSender(message.getSendBy());
+					detail.setIsRead((byte)0);
+					detail.setIsReply((byte)0);
+					CmsUser user = new CmsUser();
+					user.setId(Integer.valueOf(userId));
+					detail.setReceiver(user);
+					ozsMessageDetailDao.save(detail);
+				}
+			}
+		}
+		return message;
 	}
 
 	public OzsMessage deleteById(Integer id) {
@@ -61,5 +88,8 @@ public class OzsMessageMngImpl implements OzsMessageMng {
 
 	@Autowired
 	private OzsMessageDao ozsMessageDao;
+	
+	@Autowired
+	private OzsMessageDetailDao ozsMessageDetailDao;
 
 }

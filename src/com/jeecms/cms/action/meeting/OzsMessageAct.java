@@ -14,14 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jeecms.cms.entity.meeting.InMeeting;
-import com.jeecms.cms.manager.meeting.InMeetingMng;
+import com.jeecms.cms.entity.meeting.OzsMessage;
+import com.jeecms.cms.manager.meeting.OzsMessageMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.manager.CmsUserExtMng;
-import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.web.util.CmsUtils;
 
 /**
@@ -36,10 +34,10 @@ public class OzsMessageAct {
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
-		Pagination pagination = inMeetingMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
+		Pagination pagination = ozsMessageMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
-		return "meeting/in/list";
+		return "meeting/message/list";
 	}
 	
 	@RequiresPermissions("ozs_message:to_add")
@@ -53,36 +51,35 @@ public class OzsMessageAct {
 		model.addAttribute("groupList", groupList);
 		model.addAttribute("roleList", roleList);
 		model.addAttribute("currRank", currUser.getRank());*/
-		return "meeting/in/add";
+		return "meeting/message/add";
 	}
 	
 	@RequiresPermissions("ozs_message:save")
 	@RequestMapping("/ozs_message/save.do")
-	public String save(InMeeting bean,HttpServletRequest request,ModelMap model) {
+	public String save(OzsMessage bean,HttpServletRequest request,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		/*WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
 		CmsUser currUser = CmsUtils.getUser(request);
-		bean.setPublisher(currUser);
-		bean.setPublishTime(new Date());
+		bean.setSendBy(currUser);
+		bean.setSendTime(new Date());
 		bean.setIsDelete((byte)0);
-		bean.setType((byte)1);
-		inMeetingMng.saveInMeeting(bean);
-		log.info("save InMeeting id={}", bean.getId());
+		ozsMessageMng.saveOzsMessage(bean);
+		log.info("save OzsMessage id={}", bean.getId());
 		//cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId() + ";username=" + bean.getUsername());
 		return "redirect:list.do";
 	}
 	
 	@RequiresPermissions("ozs_message:delete")
 	@RequestMapping("/ozs_message/delete.do")
-	public String delete(InMeeting bean,HttpServletRequest request,ModelMap model) {
+	public String delete(OzsMessage bean,HttpServletRequest request,ModelMap model) {
 		bean.setIsDelete((byte)1);
-		inMeetingMng.updateInMeeting(bean);
+		ozsMessageMng.updateOzsMessage(bean);
 		return "redirect:list.do";
 	}
 
 	@Autowired
-	private InMeetingMng inMeetingMng;
+	private OzsMessageMng ozsMessageMng;
 }
