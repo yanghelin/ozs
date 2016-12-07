@@ -132,7 +132,7 @@ workMeal.deptName=部门名称
 workMeal.dept=所在部门
 workMeal.createBy=人员姓名
 workMeal.number=订餐人数
-materials.createTime=订餐时间
+workMeal.createTime=订餐时间
 workMeal.remark=备注
 
 ozs.meesage=站内信管理

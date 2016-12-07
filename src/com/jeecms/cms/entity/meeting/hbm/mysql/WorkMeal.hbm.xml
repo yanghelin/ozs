@@ -8,6 +8,8 @@
 	    <property column="dept_id" name="deptId" type="java.lang.Integer" />
 	    <property column="dept_name" name="deptName" type="string" />
 	    <property column="number" name="number" type="java.lang.Integer" />
+	    <property column="start_time" name="startTime" type="timestamp" />
+	    <property column="end_time" name="endTime" type="timestamp" />
 	    <property column="remark" name="remark" type="string" />
 	    <property column="create_time" name="createTime" type="timestamp" />
 	    <!-- <property column="create_by" name="createBy" type="java.lang.Integer" /> -->

@@ -25,9 +25,9 @@ function doDelete(){
 <body>
 <div class="box-positon">
 	<div class="rpos"><@s.m "global.position"/>: <@s.m "workMeal.manager"/> - <@s.m "global.list"/></div>
-	<!-- <form class="ropt">
+	<form class="ropt">
 		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
-	</form> -->
+	</form>
 	<div class="clear"></div>
 </div>
 <div class="body-box">
@@ -47,10 +47,10 @@ function doDelete(){
 	<@p.column code="workMeal.createBy" align="center"><#if workMeal.createBy??>${workMeal.createBy.username!}</#if></@p.column><#t/>
 	<@p.column code="workMeal.dept" align="center">${workMeal.deptName!}</@p.column><#t/>
 	<@p.column code="workMeal.number" align="center">${workMeal.number!}</@p.column><#t/>
-	<@p.column code="workMeal.createTime" align="center">${workMeal.createTime!}</@p.column><#t/>
+	<@p.column code="workMeal.createTime" align="center">${(workMeal.startTime?string('yyyy-MM-dd'))!} ~ ${(workMeal.endTime?string('yyyy-MM-dd'))!}</@p.column><#t/>
 	<@p.column code="workMeal.remark" align="center"><@text_cut s=workMeal.remark?html len=25 append="..."/></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
-		<a href="delete.do?id=${workMeal.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<a href="to_edit.do?id=${workMeal.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a><#t/>
 	</@p.column><#t/>
 </@p.table>
 <div style="background:url(${base}/res/common/img/theme/boxTitleBG.jpg) repeat-x; height:20px; overflow:hidden;">

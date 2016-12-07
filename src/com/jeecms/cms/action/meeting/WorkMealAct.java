@@ -43,6 +43,14 @@ public class WorkMealAct {
 		return "meeting/in/workMealAdd";
 	}
 	
+	@RequiresPermissions("work_meal:to_edit")
+	@RequestMapping("/work_meal/to_edit.do")
+	public String edit(Integer id, HttpServletRequest request, ModelMap model) {
+		WorkMeal workMeal = workMealMng.findById(id);
+		model.addAttribute("workMeal",workMeal);
+		return "meeting/in/workMealEdit";
+	}
+	
 	@RequiresPermissions("work_meal:save")
 	@RequestMapping("/work_meal/save.do")
 	public String save(WorkMeal bean,HttpServletRequest request,ModelMap model) {
@@ -61,6 +69,22 @@ public class WorkMealAct {
 		return "redirect:list.do";
 	}
 	
+	@RequiresPermissions("work_meal:update")
+	@RequestMapping("/work_meal/update.do")
+	public String update(WorkMeal bean,HttpServletRequest request,ModelMap model) {
+		/*CmsSite site = CmsUtils.getSite(request);
+		WebErrors errors = validateSave(bean, request);
+		if (errors.hasErrors()) {
+			return errors.showErrorPage(model);
+		}*/
+		CmsUser currUser = CmsUtils.getUser(request);
+		bean.setUpdateBy(currUser);
+		bean.setUpdateTime(new Date());
+		workMealMng.updateWorkMeal(bean);
+		log.info("update WorkMeal id={}", bean.getId());
+		//cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId() + ";username=" + bean.getUsername());
+		return "redirect:list.do";
+	}
 	@RequiresPermissions("work_meal:delete")
 	@RequestMapping("/work_meal/delete.do")
 	public String delete(WorkMeal bean,HttpServletRequest request,ModelMap model) {

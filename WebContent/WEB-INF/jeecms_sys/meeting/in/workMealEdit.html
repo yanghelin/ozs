@@ -53,14 +53,15 @@
 	</div>
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
-		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.text width="50" colspan="1" label="workMeal.dept" id="deptName" name="deptName" maxlength="100" required="true"/>
-		<@p.text width="50" colspan="1" label="workMeal.number" id="number" name="number" maxlength="10" required="true"/>
+		<@p.form id="jvForm" action="update.do" labelWidth="12">
+		<@p.hidden name="id" value=workMeal.id/>
+		<@p.text width="50" colspan="1" label="workMeal.dept" value=workMeal.deptName id="deptName" name="deptName" maxlength="100" required="true"/>
+		<@p.text width="50" colspan="1" label="workMeal.number" value=workMeal.number id="number" name="number" maxlength="10" required="true"/>
 		<@p.tr/>
 		<@p.td colspan="2" width="50" label="workMeal.createTime" required="true">
-			<input name="startTime" id="startTime" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+			<input name="startTime" id="startTime" value="${workMeal.startTime!}" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 			~
-			<input name="endTime" id="endTime" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+			<input name="endTime" id="endTime" value="${workMeal.endTime!}" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 		</@p.td>
 		<@p.tr/>
 		<@p.textarea colspan="2" label="workMeal.remark" name="remark" cols="70" rows="5"/>

@@ -58,15 +58,15 @@ public class OutMeetingAct {
 	@RequiresPermissions("out_meeting:to_add")
 	@RequestMapping("/out_meeting/to_add.do")
 	public String add(HttpServletRequest request, ModelMap model) {
-		/*CmsSite site = CmsUtils.getSite(request);
-		CmsUser currUser = CmsUtils.getUser(request);
-		List<CmsGroup> groupList = cmsGroupMng.getList();
-		List<CmsRole> roleList = cmsRoleMng.getList();
-		model.addAttribute("site", site);
-		model.addAttribute("groupList", groupList);
-		model.addAttribute("roleList", roleList);
-		model.addAttribute("currRank", currUser.getRank());*/
 		return "meeting/out/add";
+	}
+	
+	@RequiresPermissions("out_meeting:to_edit")
+	@RequestMapping("/out_meeting/to_edit.do")
+	public String edit(Integer id, HttpServletRequest request, ModelMap model) {
+		OutMeeting meeting = outMeetingMng.findById(id);
+		model.addAttribute("meeting", meeting);
+		return "meeting/out/edit";
 	}
 	
 	@RequiresPermissions("out_meeting:save")
@@ -108,6 +108,42 @@ public class OutMeetingAct {
 		return "redirect:list.do";
 	}
 	
+	@RequiresPermissions("out_meeting:update")
+	@RequestMapping("/out_meeting/update.do")
+	public String update(OutMeeting bean,Integer contentAttachmentId, Integer agendaAttachmentId, Integer invitationId, Integer relatedDataId, HttpServletRequest request,ModelMap model) {
+		CmsSite site = CmsUtils.getSite(request);
+		/*WebErrors errors = validateSave(bean, request);
+		if (errors.hasErrors()) {
+			return errors.showErrorPage(model);
+		}*/
+		if(contentAttachmentId != null) {
+			MeetingAttachment contentAttach = new MeetingAttachment();
+			contentAttach.setId(contentAttachmentId);
+			bean.setContentAttachment(contentAttach);
+		}
+		if(agendaAttachmentId != null) {
+			MeetingAttachment agendaAttach = new MeetingAttachment();
+			agendaAttach.setId(agendaAttachmentId);
+			bean.setAgendaAttachment(agendaAttach);
+		}
+		if(invitationId != null) {
+			MeetingAttachment invitationAttach = new MeetingAttachment();
+			invitationAttach.setId(invitationId);
+			bean.setInvitation(invitationAttach);
+		}
+		if(relatedDataId != null) {
+			MeetingAttachment relatedDataAttach = new MeetingAttachment();
+			relatedDataAttach.setId(relatedDataId);
+			bean.setRelatedData(relatedDataAttach);
+		}
+		CmsUser currUser = CmsUtils.getUser(request);
+		bean.setUpdateBy(currUser);
+		bean.setUpdateTime(new Date());
+		outMeetingMng.updateOutMeeting(bean);
+		log.info("update OutMeeting id={}", bean.getId());
+		//cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId() + ";username=" + bean.getUsername());
+		return "redirect:list.do";
+	}
 	@RequiresPermissions("out_meeting:delete")
 	@RequestMapping("/out_meeting/delete.do")
 	public String delete(OutMeeting bean,HttpServletRequest request,ModelMap model) {

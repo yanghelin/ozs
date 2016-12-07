@@ -13,6 +13,10 @@ public class WorkMeal implements Serializable {
     private String deptName;
 
     private Integer number;
+    
+    private Date startTime;
+    
+    private Date endTime;
 
     private String remark;
 
@@ -62,6 +66,22 @@ public class WorkMeal implements Serializable {
 
 	public void setNumber(Integer number) {
 		this.number = number;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getRemark() {

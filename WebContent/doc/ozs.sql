@@ -151,7 +151,7 @@ CREATE TABLE `ozs_out_meeting` (
   `sponsoring_units` varchar(200) DEFAULT NULL COMMENT '承办单位',
   `overseas_partners` varchar(200) DEFAULT NULL COMMENT '境外合作机构',
   `address` varchar(400) DEFAULT NULL COMMENT '召开地点',
-  `meeting_size` int(11) DEFAULT NULL COMMENT '会议规模',
+  `meeting_size` varchar(50) DEFAULT NULL COMMENT '会议规模',
   `presenter` varchar(50) DEFAULT NULL COMMENT '主持人',
   `work_language` varchar(50) DEFAULT NULL COMMENT '工作语言',
   `contacts` varchar(50) DEFAULT NULL COMMENT '联系人',
@@ -193,7 +193,9 @@ CREATE TABLE `ozs_out_meeting` (
   `update_by` int(11) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='国际会议表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='国际会议表';
+
+
 
 CREATE TABLE `ozs_out_meeting_enroll` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '报名表ID',
@@ -255,6 +257,8 @@ CREATE TABLE `ozs_work_meal` (
   `dept_id` int(11) DEFAULT NULL COMMENT '部门ID',
   `dept_name` varchar(100) DEFAULT NULL COMMENT '部门名称',
   `number` int(11) DEFAULT NULL COMMENT '点餐份数',
+  `start_time` datetime DEFAULT NULL COMMENT '订餐开始时间',
+  `end_time` datetime DEFAULT NULL COMMENT '订餐结束时间',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) DEFAULT NULL COMMENT '创建人',
@@ -262,7 +266,8 @@ CREATE TABLE `ozs_work_meal` (
   `update_by` int(11) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订餐管理';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='订餐管理';
+
 
 CREATE TABLE `ozs_meeting_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',

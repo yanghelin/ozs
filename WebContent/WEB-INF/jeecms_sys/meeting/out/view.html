@@ -82,7 +82,7 @@ function download(path) {
 			<th><@s.m "meeting.contacts"/>:</th><td>${meeting.contacts!}</td>
 		</tr>
 		<tr>
-			<th><@s.m "meeting.time"/>:</th><td colspan="3">${meeting.startTime!}&nbps;至&nbsp;${meeting.endTime!}</td>
+			<th><@s.m "meeting.time"/>:</th><td colspan="3">${meeting.startTime!}&nbsp;至&nbsp;${meeting.endTime!}</td>
 		</tr>
 		<tr>
 			<th><@s.m "meeting.contactPhone"/>:</th><td>${meeting.contactPhone!}</td>
@@ -101,9 +101,6 @@ function download(path) {
 			<th><@s.m "meeting.relatedData"/>:</th><td colspan="3"><#if meeting.relatedData??><a href="javascript:download('${meeting.relatedData.path}')">${meeting.relatedData.filename!}</a></#if></td>
 		</tr>
 		<tr>
-			<th><@s.m "meeting.agenda"/>:</th><td colspan="3"><textarea name="agenda" cols="70" rows="5" readonly>${meeting.agenda!}</textarea></td>
-		</tr>
-		<tr>
 			<th><@s.m "meeting.hoster"/>:</th><td>${meeting.hoster!}</td>
 			<th><@s.m "meeting.phone"/>:</th><td>${meeting.phone!}</td>
 		</tr>
@@ -114,13 +111,13 @@ function download(path) {
 			<th><@s.m "out.other"/>:</th>
 			<td colspan="3">
 				<div style="height:30px; line-height:30px;">
-					<div style="text-align:left;">
+					<!-- <div style="text-align:left;">
 						<label><input type="checkbox" name="stay" <#if meeting.isStay??><#if meeting.isStay == 1>checked</#if></#if> onclick="return false;""/><@s.m "meeting.isStay"/></label>
 						<label><input type="checkbox" name="foreign" <#if meeting.isForeignTicket??><#if meeting.isForeignTicket == 1>checked</#if></#if> onclick="return false;""/><@s.m "meeting.isForeignTicket"/></label>
 						<label><input type="checkbox" name="domestic" <#if meeting.isDomesticTicket??><#if meeting.isDomesticTicket == 1>checked</#if></#if> onclick="return false;"" /><@s.m "meeting.isDomesticTicket"/></label>
 						<label><input type="checkbox" name="food" <#if meeting.isFood??><#if meeting.isFood == 1>checked</#if></#if> onclick="return false;"" /><@s.m "meeting.isFood"/></label>
 						<label><input type="checkbox" name="drive" <#if meeting.isDrive??><#if meeting.isDrive == 1>checked</#if></#if> onclick="return false;"" /><@s.m "meeting.isDrive"/></label>
-					</div>
+					</div> -->
 					<#if meeting.isStay??><#if meeting.isStay == 1>
 					<div style="text-align:left;">
 					<label><input type="checkbox" name="stay" checked onclick="return false;""/><@s.m "meeting.isStay"/></label>
