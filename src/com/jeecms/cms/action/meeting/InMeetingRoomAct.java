@@ -39,7 +39,7 @@ public class InMeetingRoomAct {
 		Pagination pagination = inMeetingRoomMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
-		return "meeting/in/list";
+		return "meeting/in/roomList";
 	}
 	
 	@RequiresPermissions("in_meeting_room:to_add")
@@ -47,7 +47,7 @@ public class InMeetingRoomAct {
 	public String add(HttpServletRequest request, ModelMap model) {
 		List<InMeeting> meetingList = inMeetingMng.getList(null);
 		model.addAttribute("meetingList", meetingList);
-		return "meeting/in/add";
+		return "meeting/in/roomAdd";
 	}
 	
 	@RequiresPermissions("in_meeting_room:save")

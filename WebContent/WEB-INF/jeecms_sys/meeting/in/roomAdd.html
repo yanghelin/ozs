@@ -3,6 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title></title> <#include "/jeecms_sys/head.html"/>
+<style type="text/css">
+	#itemsTable tr td{
+		height:24px;
+		line-height:24px;
+		padding:8px;
+		text-align:center;
+		border-bottom:1px solid #000;
+		border-right:1px solid #000;
+	}
+</style>
 <script type="text/javascript">
 	$(function() {
 		$("#jvForm").validate();
@@ -18,6 +28,7 @@
 		var attendeeNum = $("#attendeeNum").val();
 		var guestNum = $("#guestNum").val();
 		var meetingRoom = $("#meetingRoom").val();
+		var itemHoster = $("#itemHoster").val();
 		if(meeting_id == null || meeting_id == '') {
 			alert("会议名称为必选项");
 			return false;
@@ -48,8 +59,8 @@
 			alert("会议室名称为必选项");
 			return false;
 		}
-		if(liablePeople == null || liablePeople == '') {
-			alert("负责人为必填项");
+		if(itemHoster == null || itemHoster == '') {
+			alert("物品负责人为必填项");
 			return false;
 		}
 		$("#jvForm").submit();
@@ -73,16 +84,20 @@
 					        dataType: "json",
 					        success: function(data){
 					        	if(data){
-					        		var items = data.itemList;
+					        		var items = data;
 					        		$("#itemsTable").empty();
 					        		var table = $("#itemsTable");
 					        		var thHtml = $("<tr></tr>");
 					        		var tdHtml = $("<tr></tr>");
 					        		thHtml.appendTo(table);
 					        		tdHtml.appendTo(table);
-					        		$.each(items, function(){
-					        			 var th=$("<th>"+items[i].itemName+"</th>");
-					        			 var td=$("<td>"+items[i].itemNum+"</td>");
+					        		var td1=$("<td>名称</td>");
+									var td2=$("<td>数量</td>");
+									td1.appendTo(thHtml);
+									td2.appendTo(tdHtml);
+					        		$.each(data, function(index,item){
+					        			 var th=$("<td>"+item.name+"</td>");
+					        			 var td=$("<td>"+item.value+"</td>");
 					        			 th.appendTo(thHtml);
 					        			 td.appendTo(tdHtml);
 					        		})
@@ -113,13 +128,13 @@
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
+		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" id="meeting_id" name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
 		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" value="" readonly="readonly" />
 		<@p.tr/>
 		<@p.text width="50" colspan="1" label="room.attendeeNum" id="attendeeNum" name="attendeeNum" maxlength="10" required="true"/>
 		<@p.text width="50" colspan="1" label="room.guestNum" id="guestNum" name="guestNum" maxlength="10" required="true"/>
 		<@p.tr/>
-		<@p.td width="50" colspan="2" label="room.items">
+		<@p.td width="50" colspan="2" label="room.meetingRoom">
 			<table id="itemsTable" style="border-collapse: collapse;border:1px solid #000;">
 			</table>
 		</@p.td>

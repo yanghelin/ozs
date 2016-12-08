@@ -2,9 +2,11 @@ package com.jeecms.cms.action.meeting;
 
 import static com.jeecms.common.page.SimplePage.cpn;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -117,16 +119,25 @@ public class InMeetingItemsAct {
 	}
 	
 
-	@RequiresPermissions("in_meeting_room:findByMeetingId")
-	@RequestMapping("/in_meeting_room/findByMeetingId.do")
+	@RequiresPermissions("in_meeting_items:findByMeetingId")
+	@RequestMapping("/in_meeting_items/findByMeetingId.do")
 	public void findByMeetingId(Integer meetingId,HttpServletResponse response) throws JSONException {
 		JSONObject json = new JSONObject();
 		List<InMeetingItems> itemList = null;
 		if(meetingId != null) {
 			itemList = manager.findByMeetingId(meetingId);
 		}
-		json.put("itemList", itemList);
-		ResponseUtils.renderJson(response, json.toString());
+		List<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
+		if(itemList != null && itemList.size()>0) {
+			for(InMeetingItems item:itemList) {
+				Map<String,String> itemMap = new HashMap<String, String>();
+				itemMap.put("name", item.getItemName());
+				itemMap.put("value", item.getItemNum().toString());
+				mapList.add(itemMap);
+			}
+		}
+		json.put("mapList", mapList);
+		ResponseUtils.renderJson(response, json.getString("mapList").toString());
 	}
 
 	

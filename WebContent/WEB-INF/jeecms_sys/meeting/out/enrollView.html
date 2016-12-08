@@ -5,8 +5,6 @@
 <title></title>
 <#include "/jeecms_sys/head.html"/>
 <script type="text/javascript">
-$(function() {
-});
 function download(path) {
 	var filepath = "";
 	var filename = "";
@@ -46,7 +44,7 @@ function download(path) {
 </head>
 <body>
 <div class="box-positon">
-	<div class="rpos"><@s.m "global.position"/>:  <@s.m "out.out.manager"/> - <@s.m "out.view"/></div>
+	<div class="rpos"><@s.m "global.position"/>:  <@s.m "out.meeting.manager"/> - <@s.m "meeting.view"/></div>
 	<form class="ropt">
 		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
 		<input type="hidden" name="pageNo" value="${pageNo!}"/>
@@ -71,21 +69,21 @@ function download(path) {
 			</td>
 		</tr>
 		<tr>
-			<th><@s.m "out.cnName"/>:</th><td>${out.cnName}</td>
-			<th><@s.m "out.sex"/>:</th><td><@s.m "out.sex"+"${out.sex}" /></td>
-			<th><@s.m "out.national"/>:</th><td>${out.national}</td>
+			<th><@s.m "out.cnName"/>:</th><td>${out.cnName!}</td>
+			<th><@s.m "out.sex"/>:</th><td><@s.m "out.sex"+"${out.sex!}" /></td>
+			<th><@s.m "out.national"/>:</th><td>${out.national!}</td>
 		</tr>
 		<tr>
 			<th><@s.m "out.enName"/>:</th><td>${out.enName!}</td>
-			<th><@s.m "out.position"/>:</th><td>${out.position!}</td>
-			<th><@s.m "out.phone"/>:</th><td>${out.phone!}</td>
+			<th><@s.m "meeting.position"/>:</th><td>${out.position!}</td>
+			<th><@s.m "meeting.phone"/>:</th><td>${out.phone!}</td>
 		</tr>
 		<tr>
 			<th><@s.m "out.unit"/>:</th><td colspan="3">${out.unit!}</td>
 			<th><@s.m "out.email"/>:</th><td>${out.email!}</td>
 		</tr>
 		<!-- 外方机票部分开始 -->
-		<#if meeting.isForeignTicket??><#if meeting.isForeignTicket == 1>
+		<#if out.isForeign??><#if out.isForeign == 1>
 		<tr>
 			<th><@s.m "out.outName"/>:</th><td>${out.outName!}</td>
 			<th><@s.m "out.outBirthday"/>:</th><td>${out.outBirthdayStr!}</td>
@@ -112,7 +110,7 @@ function download(path) {
 		</tr>
 		<!-- 中方机票部分开始 -->
 		
-		<#if meeting.isDomesticTicket??><#if meeting.isDomesticTicket == 1>
+		<#if out.isDomestic??><#if out.isDomestic == 1>
 		<tr>
 			<th><@s.m "out.inName"/>:</th><td>${out.inName!}</td>
 			<th><@s.m "out.inBirthday"/>:</th><td>${out.inBirthdayStr!}</td>
@@ -137,34 +135,40 @@ function download(path) {
 		<#if showType??>
 		<#else>
 			<!-- 餐饮部分开始 -->
-			<#if meeting.isFood??><#if meeting.isFood == 1>
-			<tr>
-				<th><@s.m "out.breakfast"/>:</th><td colspan="5">${out.breakfastStart}&nbsp;至&nbsp;${out.breakfastEnd}</td>
-			</tr>
-			<tr>
-				<th><@s.m "out.lunch"/>:</th><td colspan="5">${out.lunchStart}&nbsp;至&nbsp;${out.lunchEnd}</td>
-			</tr>
-			<tr>
-				<th><@s.m "out.dinner"/>:</th><td colspan="5">${out.dinnerStart}&nbsp;至&nbsp;${out.dinnerEnd}</td>
-			</tr>
+			<#if out.isFood??><#if out.isFood == 1>
+				<#if out.isBreakfast??><#if out.isBreakfast == 1>
+				<tr>
+					<th><@s.m "out.breakfast"/>:</th><td colspan="5">${out.outMeetingId.breakfastStart}&nbsp;至&nbsp;${out.outMeetingId.breakfastEnd}</td>
+				</tr>
+				</#if></#if>
+				<#if out.isLunch??><#if out.isLunch == 1>
+				<tr>
+					<th><@s.m "out.lunch"/>:</th><td colspan="5">${out.outMeetingId.lunchStart}&nbsp;至&nbsp;${out.outMeetingId.lunchEnd}</td>
+				</tr>
+				</#if></#if>
+				<#if out.isDinner??><#if out.isDinner == 1>
+				<tr>
+					<th><@s.m "out.dinner"/>:</th><td colspan="5">${out.outMeetingId.dinnerStart}&nbsp;至&nbsp;${out.outMeetingId.dinnerEnd}</td>
+				</tr>
+				</#if></#if>
 			</#if></#if>
 			<!-- 餐饮部分结束 -->
 			<!-- 自驾车辆部分开始 -->
-			<#if meeting.isDrive??><#if meeting.isDrive == 1>
+			<#if out.isDrive??><#if out.isDrive == 1>
 			<tr>
 				<th><@s.m "out.carNo"/>:</th><td colspan="5">${out.carNo!}</td>
 			</tr>
 			</#if></#if>
 			<!-- 自驾车辆部分结束 -->
 			<!-- 其他附件部分开始 -->
-			<#if meeting.userType??><#if meeting.userType==2 or meeting.userType==3>
+			<#if out.userType??><#if out.userType==2 || out.userType==3>
 			<tr>
 				<th><@s.m "out.other"/>:</th><td colspan="3"><#if out.other??><a href="javascript:download('${out.other.path}')">${out.other.filename!}</a></#if></td>
 			</tr>
 			</#if></#if>
 			<!-- 其他附件部分结束 -->
 			<!-- 身份信息部分开始 -->
-			<#if meeting.userType??><#if meeting.userType!=1>
+			<#if out.userType??><#if out.userType!=1>
 			<tr>
 				<th><@s.m "out.bankNo"/>:</th><td>${out.bankNo!}</td>
 				<th><@s.m "out.bankAddress"/>:</th><td>${out.bankAddress!}</td>

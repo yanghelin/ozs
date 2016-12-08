@@ -18,7 +18,7 @@
 		var itemName = $("#itemName").val();
 		var itemNum = $("#itemNum").val();
 		var liablePeople = $("#liablePeople").val();
-		if(meeting_id == meeting_id || name == '') {
+		if(meeting_id == null || meeting_id == '') {
 			alert("会议名称为必选项");
 			return false;
 		}
@@ -74,7 +74,7 @@
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
+		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" id="meeting_id" name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
 		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" value="" readonly="readonly" /><@p.tr/>
 		<@p.text width="50" colspan="1" label="items.name" id="itemName" name="itemName" maxlength="100" required="true"/>
 		<@p.text width="50" colspan="1" label="items.num" id="itemNum" name="itemNum" maxlength="100" required="true"/>

@@ -41,36 +41,44 @@ $(function(){
 			<li><a href="../out_meeting/list.do" target="rightFrame">会议管理</a>
 			</li>
 		</@cms_perm>
-		<@cms_perm url="/in_meeting/list.do">
+		<!-- <@cms_perm url="/in_meeting/list.do">
 			<li><a href="../in_meeting/list.do" target="rightFrame">所内会议</a>
 			</li>
-		</@cms_perm>
+		</@cms_perm> -->
 		<@cms_perm url="/in_meeting_items/list.do">
 			<li><a href="../in_meeting_items/list.do" target="rightFrame">会议用品管理</a>
+			</li>
+		</@cms_perm>
+		<@cms_perm url="/in_meeting_room/list.do">
+			<li><a href="../in_meeting_room/list.do" target="rightFrame">会议室管理</a>
 			</li>
 		</@cms_perm>
 		<@cms_perm url="/out_meeting/enroll_list.do?userType=0">
 			<li><a href="../out_meeting/enroll_list.do?userType=0" target="rightFrame">会议报名</a>
 			</li>
 		</@cms_perm>
-		<@cms_perm url="/in_meeting_detail/list.do?isAll=1">
+		<!-- <@cms_perm url="/in_meeting_detail/list.do?isAll=1">
 			<li><a href="../in_meeting_detail/list.do?isAll=1" target="rightFrame">会议邀请</a>
+			</li>
+		</@cms_perm> -->
+		<@cms_perm url="/in_meeting/list.do">
+			<li><a href="../in_meeting/list.do" target="rightFrame">会议邀请</a>
 			</li>
 		</@cms_perm>
 		<@cms_perm url="/in_meeting_detail/list.do">
 			<li><a href="../in_meeting_detail/list.do" target="rightFrame">我的会议</a>
 			</li>
 		</@cms_perm>
-		<@cms_perm url="/out_meeting/enroll_list.do?type=1">
-			<li><a href="../out_meeting/stc_list.do?type=1" target="rightFrame">住宿管理</a>
+		<@cms_perm url="/out_meeting/stay_list.do">
+			<li><a href="../out_meeting/stay_list.do" target="rightFrame">住宿管理</a>
 			</li>
 		</@cms_perm>
-		<@cms_perm url="/out_meeting/stc_list.do?type=2">
-			<li><a href="../out_meeting/stc_list.do?type=2" target="rightFrame">机票管理</a>
+		<@cms_perm url="/out_meeting/ticket_list.do">
+			<li><a href="../out_meeting/ticket_list.do" target="rightFrame">机票管理</a>
 			</li>
 		</@cms_perm>
-		<@cms_perm url="/out_meeting/stc_list.do?type=3">
-			<li><a href="../out_meeting/stc_list.do?type=3" target="rightFrame">车辆管理</a>
+		<@cms_perm url="/out_meeting/car_list.do">
+			<li><a href="../out_meeting/car_list.do" target="rightFrame">车辆管理</a>
 			</li>
 		</@cms_perm>
 		<@cms_perm url="/out_meeting/enroll_list.do">

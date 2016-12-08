@@ -54,7 +54,7 @@ function download(path) {
 </form>
 <form id="tableForm" method="post">
 <input type="hidden" name="pageNo" value="${pageNo!}"/>
-<@p.table value=pagination;briefing,i,has_next><#rt/>
+<@p.table listAction="list.do" value=pagination;briefing,i,has_next><#rt/>
 	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="25" align="center">
 		<input type='checkbox' name='ids' value='${briefing.id}' onclick="Pn.selectCheckBox('${briefing.id}',this.checked)"/><#t/>
 	</@p.column><#t/>
@@ -69,8 +69,6 @@ function download(path) {
 		<#t/>
 	</@p.column><#t/>
 </@p.table>
-<div style="background:url(${base}/res/common/img/theme/boxTitleBG.jpg) repeat-x; height:20px; overflow:hidden;">
-<input class="del-button" type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/ style="float:left; border-right:1px solid #ffffff;"></div>
 </form>
 <form name="downloadForm" id="downloadForm" action="download.do" method="post">
 	<input type="hidden" id="downloadFileName" name="downloadFileName" value="">
