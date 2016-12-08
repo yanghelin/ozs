@@ -14,6 +14,8 @@ import com.jeecms.common.page.Pagination;
 @Repository
 public class OutMeetingErollDaoImpl extends HibernateBaseDao<OutMeetingEroll, Integer>
 		implements OutMeetingErollDao {
+	
+	//查看会议报名（发言嘉宾和参会人员）和媒体速记管理（媒体和速记）
 	public Pagination getPage(String name, String userType, int pageNo, int pageSize) {
 		Finder f = Finder.create("select bean from OutMeetingEroll bean");
 		f.append(" where 1=1 and bean.isDelete = 0 ");
@@ -30,13 +32,14 @@ public class OutMeetingErollDaoImpl extends HibernateBaseDao<OutMeetingEroll, In
 		return find(f, pageNo, pageSize);
 	}
 	
+	//住宿管理、机票管理、车辆管理
 	public Pagination getPage(String name, Integer type, int pageNo, int pageSize) {
 		Finder f = Finder.create("select bean from OutMeetingEroll bean");
 		f.append(" where 1=1 and bean.isDelete = 0 and bean.userType in(0,1) ");
 		if(type==1) {//住宿管理
-			f.append(" and bean.isStay=1 ");
+			f.append(" and bean.isStay=1 and bean.isDeleteStay=0");
 		}else if(type==2){//机票管理
-			f.append(" and (bean.isForeign=1 or bean.isDomestic=1)");
+			f.append(" and (bean.isForeign=1 or bean.isDomestic=1) and bean.isDeleteTicket=0");
 		}else {//车辆管理
 			f.append(" and bean.isDrive=1");
 		}
@@ -53,7 +56,7 @@ public class OutMeetingErollDaoImpl extends HibernateBaseDao<OutMeetingEroll, In
 		Finder f = Finder.create("select bean from OutMeetingEroll bean");
 		f.append(" where 1=1 and bean.isDelete = 0 ");
 		if (!StringUtils.isBlank(name)) {
-			f.append(" and bean.name like :name");
+			f.append(" and bean.outMeetingId.name like :name");
 			f.setParam("name", "%" + name + "%");
 		}
 		f.append(" order by bean.id desc");

@@ -1,6 +1,7 @@
 package com.jeecms.cms.entity.meeting;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.jeecms.core.entity.CmsUser;
@@ -97,10 +98,14 @@ public class OutMeetingEroll implements Serializable {
     private Date createTime;
 
     private Byte isStay;
+
+    private Byte isDeleteStay;
     
     private Byte isForeign;
     
     private Byte isDomestic;
+    
+    private Byte isDeleteTicket;
     
     private Byte isFood;
     
@@ -212,6 +217,11 @@ public class OutMeetingEroll implements Serializable {
 		this.outName = outName;
 	}
 
+	public String getOutBirthdayStr() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(outBirthday);
+	}
+	
 	public Date getOutBirthday() {
 		return outBirthday;
 	}
@@ -460,6 +470,14 @@ public class OutMeetingEroll implements Serializable {
 		this.isStay = isStay;
 	}
 
+	public Byte getIsDeleteStay() {
+		return isDeleteStay;
+	}
+
+	public void setIsDeleteStay(Byte isDeleteStay) {
+		this.isDeleteStay = isDeleteStay;
+	}
+
 	public Byte getIsForeign() {
 		return isForeign;
 	}
@@ -474,6 +492,14 @@ public class OutMeetingEroll implements Serializable {
 
 	public void setIsDomestic(Byte isDomestic) {
 		this.isDomestic = isDomestic;
+	}
+
+	public Byte getIsDeleteTicket() {
+		return isDeleteTicket;
+	}
+
+	public void setIsDeleteTicket(Byte isDeleteTicket) {
+		this.isDeleteTicket = isDeleteTicket;
 	}
 
 	public Byte getIsFood() {

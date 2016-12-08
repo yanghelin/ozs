@@ -41,6 +41,18 @@ public class InMeetingItemsDaoImpl extends HibernateBaseDao<InMeetingItems, Inte
 		InMeetingItems entity = get(id);
 		return entity;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<InMeetingItems> findByMeetingId(Integer meetingId) {
+		Finder f = Finder.create("select bean from InMeetingItems bean");
+		f.append(" where 1=1 and bean.isDelete = 0 ");
+		if (meetingId != null) {
+			f.append(" and bean.meetingId.id =:mid");
+			f.setParam("mid", meetingId);
+		}
+		f.append(" order by bean.id desc");
+		return find(f);
+	}
 
 	public InMeetingItems save(InMeetingItems bean) {
 		getSession().save(bean);

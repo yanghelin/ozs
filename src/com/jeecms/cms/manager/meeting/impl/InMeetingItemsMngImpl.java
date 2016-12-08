@@ -32,6 +32,12 @@ public class InMeetingItemsMngImpl implements InMeetingItemsMng {
 		InMeetingItems entity = inMeetingItemsDao.findById(id);
 		return entity;
 	}
+	
+	@Transactional(readOnly = true)
+	public List<InMeetingItems> findByMeetingId(Integer meetingId) {
+		List<InMeetingItems> itemList = inMeetingItemsDao.findByMeetingId(meetingId);
+		return itemList;
+	}
 
 	public InMeetingItems addInMeetingItems(InMeetingItems bean){
 		return bean;

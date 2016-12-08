@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title> <#include "/jeecms_sys/head.html"/>
+<script type="text/javascript">
+	$(function() {
+		$("#jvForm").validate();
+	});
+	function allChannelSelect() {
+		$("#allChannelHide").val($("#allChannel").prop("checked"));
+	}
+	function allControlChannelSelect() {
+		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
+	}
+	function formSubmit() {
+		var meeting_id = $("#meeting_id").val();
+		var attendeeNum = $("#attendeeNum").val();
+		var guestNum = $("#guestNum").val();
+		var meetingRoom = $("#meetingRoom").val();
+		if(meeting_id == null || meeting_id == '') {
+			alert("会议名称为必选项");
+			return false;
+		}
+		if(attendeeNum == null || attendeeNum == '') {
+			alert("参会人数为必填项");
+			return false;
+		}else {
+			if(isNaN(attendeeNum)){
+				 alert("参会人数须输入数字");
+				 return false;
+			}
+		}
+		if(guestNum == null || guestNum == '') {
+			alert("外宾人数为必填项");
+			return false;
+		}else {
+			if(isNaN(guestNum)){
+				 alert("外宾人数须输入数字");
+				 return false;
+			}
+		}
+		var i=0;
+		$('input[name="meetingRoom"]:checked').each(function(){
+			i++;
+		})
+		if(i<1) {
+			alert("会议室名称为必选项");
+			return false;
+		}
+		if(liablePeople == null || liablePeople == '') {
+			alert("负责人为必填项");
+			return false;
+		}
+		$("#jvForm").submit();
+	}
+	
+	function changeData(obj){
+		if(obj && obj.value != null && obj.value !='') {
+			$.ajax({
+		        type: "POST",
+		        url: "../in_meeting/findBy.do",
+		        data: {meetingId:obj.value},
+		        dataType: "json",
+		        success: function(data){
+		        	if(data){
+						$("#startTime").val(data.startTime);
+						//根据会议ID获取关联会议的物品
+						$.ajax({
+					        type: "POST",
+					        url: "../in_meeting_items/findByMeetingId.do",
+					        data: {meetingId:obj.value},
+					        dataType: "json",
+					        success: function(data){
+					        	if(data){
+					        		var items = data.itemList;
+					        		$("#itemsTable").empty();
+					        		var table = $("#itemsTable");
+					        		var thHtml = $("<tr></tr>");
+					        		var tdHtml = $("<tr></tr>");
+					        		thHtml.appendTo(table);
+					        		tdHtml.appendTo(table);
+					        		$.each(items, function(){
+					        			 var th=$("<th>"+items[i].itemName+"</th>");
+					        			 var td=$("<td>"+items[i].itemNum+"</td>");
+					        			 th.appendTo(thHtml);
+					        			 td.appendTo(tdHtml);
+					        		})
+								}
+					        },
+					        error:function(){
+					        	$.alert("请求失败");
+					 	 	}
+					    });
+					}
+		        },
+		        error:function(){
+		        	$.alert("请求失败");
+		 	 	}
+		    });
+		}
+	}
+</script>
+</head>
+<body>
+	<div class="box-positon">
+		<div class="rpos"><@s.m "global.position"/>: <@s.m "meeting.room"/> - <@s.m "global.add"/></div>
+		<form class="ropt">
+			<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
+		</form>
+		<div class="clear"></div>
+	</div>
+	<div class="body-box">
+		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
+		<@p.form id="jvForm" action="save.do" labelWidth="12">
+		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
+		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" value="" readonly="readonly" />
+		<@p.tr/>
+		<@p.text width="50" colspan="1" label="room.attendeeNum" id="attendeeNum" name="attendeeNum" maxlength="10" required="true"/>
+		<@p.text width="50" colspan="1" label="room.guestNum" id="guestNum" name="guestNum" maxlength="10" required="true"/>
+		<@p.tr/>
+		<@p.td width="50" colspan="2" label="room.items">
+			<table id="itemsTable" style="border-collapse: collapse;border:1px solid #000;">
+			</table>
+		</@p.td>
+		<@p.tr/>
+		<@p.radio width="50" colspan="2" label="room.meetingRoom" id="meetingRoom" name="meetingRoom" list={"1":"room.room1","2":"room.room2","3":"room.room3","4":"room.room4"} required="true"/>
+		<@p.tr/>
+		<@p.text width="50" colspan="1" label="room.organizingDept" id="organizingDept" name="organizingDept" maxlength="50"/>
+		<@p.text width="50" colspan="1" label="room.hoster" id="hoster" name="hoster" maxlength="50" required="true"/>
+		<@p.tr/>
+		<@p.text width="50" colspan="1" label="room.itemHoster" id="itemHoster" name="itemHoster" maxlength="50" required="true"/>
+		<@p.text width="50" colspan="1" label="room.phone" id="phone" name="phone" maxlength="50"/>
+		<@p.tr/>
+		<@p.text width="50" colspan="2" label="room.position" id="position" name="position" maxlength="20"/>
+		<@p.tr/>
+		<@p.textarea colspan="2" label="room.remark" name="remark" cols="70" rows="5"/>
+		<@p.tr/>
+		<@p.td colspan="2"><input type="button" name="btn" onclick="formSubmit()" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
+		</@p.form>
+	</div>
+</body>
+</html>

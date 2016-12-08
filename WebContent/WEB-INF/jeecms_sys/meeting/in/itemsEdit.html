@@ -14,11 +14,11 @@
 		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
 	}
 	function formSubmit() {
-		var meeting_id = $("#meeting_id").val();
+		var meetingId = $("#meetingId").val();
 		var itemName = $("#itemName").val();
 		var itemNum = $("#itemNum").val();
 		var liablePeople = $("#liablePeople").val();
-		if(meeting_id == meeting_id || name == '') {
+		if(name == null || name == '') {
 			alert("会议名称为必选项");
 			return false;
 		}
@@ -73,18 +73,19 @@
 	</div>
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
-		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
+		<@p.form id="jvForm" action="update.do" labelWidth="12">
+		<@p.hidden name="id" value=item.id />
+		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" value=item.meeting.id name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
 		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" value="" readonly="readonly" /><@p.tr/>
-		<@p.text width="50" colspan="1" label="items.name" id="itemName" name="itemName" maxlength="100" required="true"/>
-		<@p.text width="50" colspan="1" label="items.num" id="itemNum" name="itemNum" maxlength="100" required="true"/>
+		<@p.text width="50" colspan="1" label="items.name" value=item.itemName id="itemName" name="itemName" maxlength="100" required="true"/>
+		<@p.text width="50" colspan="1" label="items.num" value=item.itemNum id="itemNum" name="itemNum" maxlength="100" required="true"/>
 		<@p.tr/>
-		<@p.text width="50" colspan="1" label="items.liablePeople" id="liablePeople" name="liablePeople" maxlength="100" required="true"/>
-		<@p.text width="50" colspan="1" label="items.phone" id="phone" name="phone" maxlength="100"/>
+		<@p.text width="50" colspan="1" label="items.liablePeople" value=item.liablePeople id="liablePeople" name="liablePeople" maxlength="100" required="true"/>
+		<@p.text width="50" colspan="1" label="items.phone" value=item.phone id="phone" name="phone" maxlength="100"/>
 		<@p.tr/>
-		<@p.text width="50" colspan="2" label="items.position" id="position" name="position" maxlength="100"/>
+		<@p.text width="50" colspan="2" label="items.position" value=item.position id="position" name="position" maxlength="100"/>
 		<@p.tr/>
-		<@p.textarea colspan="2" label="items.remark" id="remark" name="remark" cols="70" rows="5"/>
+		<@p.textarea colspan="2" label="items.remark" value=item.remark id="remark" name="remark" cols="70" rows="5"/>
 		<@p.tr/>
 		<@p.td colspan="2"><input type="button" name="btn" onclick="formSubmit()" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
 		</@p.form>

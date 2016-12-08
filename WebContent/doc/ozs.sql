@@ -15,7 +15,7 @@ CREATE TABLE `ozs_in_meeting` (
   `update_by` int(11) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='所内会议管理表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='所内会议管理表';
 
 CREATE TABLE `ozs_in_meeting_briefing` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -193,9 +193,7 @@ CREATE TABLE `ozs_out_meeting` (
   `update_by` int(11) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='国际会议表';
-
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='国际会议表';
 
 CREATE TABLE `ozs_out_meeting_enroll` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '报名表ID',
@@ -244,13 +242,15 @@ CREATE TABLE `ozs_out_meeting_enroll` (
   `other` int(11) DEFAULT NULL COMMENT '其他:存放附件id',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `is_stay` tinyint(4) DEFAULT NULL COMMENT '是否住宿：0、否；1、是',
+  `is_delete_stay` tinyint(4) DEFAULT NULL COMMENT '是否删除住宿：0、未删除；1、已删除',
   `is_foreign` tinyint(4) DEFAULT NULL COMMENT '是否外方机票：0、否；1、是',
   `is_domestic` tinyint(4) DEFAULT NULL COMMENT '是否中方机票：0、否；1、是',
+  `is_delete_ticket` tinyint(4) DEFAULT NULL COMMENT '是否删除机票：0、未删除；1、已删除',
   `is_food` tinyint(4) DEFAULT NULL COMMENT '是否就餐：0、否；1、是',
   `is_drive` tinyint(4) DEFAULT NULL COMMENT '是否自驾车辆：0、否；1、是',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='国际会议报名表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='国际会议报名表';
 
 CREATE TABLE `ozs_work_meal` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -266,7 +266,7 @@ CREATE TABLE `ozs_work_meal` (
   `update_by` int(11) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='订餐管理';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订餐管理';
 
 
 CREATE TABLE `ozs_meeting_menu` (

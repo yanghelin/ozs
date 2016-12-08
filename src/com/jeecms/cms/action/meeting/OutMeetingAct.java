@@ -347,7 +347,7 @@ public class OutMeetingAct {
 	
 	
 	
-	//===================================其他模块的功能===============================================
+	//===================================【查看会议报名】和【速记和媒体信息管理】===============================================
 	@RequiresPermissions("out_meeting:enroll_list")
 	@RequestMapping("/out_meeting/enroll_list.do")
 	public String enrollList(String meetingName,String userType,Integer pageNo, HttpServletRequest request,ModelMap model) {
@@ -390,6 +390,26 @@ public class OutMeetingAct {
 		enrollMng.saveOutMeetingEroll(bean);
 		log.info("save OutMeetingEroll id={}", bean.getId());
 		return "redirect:eroll_list.do";
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @param showType	显示类型:不传参数是【查看报名信息】和【速记媒体信息管理】；1、机票管理
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("out_meeting:enroll_view")
+	@RequestMapping("/out_meeting/enroll_view.do")
+	public String enrollView(Integer id, String showType, HttpServletRequest request,ModelMap model) {
+		OutMeetingEroll enroll = null;
+		if(id != null) {
+			enroll = enrollMng.findById(id);
+		}
+		model.addAttribute("out", enroll);
+		model.addAttribute("showType", showType);
+		return "meeting/out/enrollView";
 	}
 	
 	//转换用户类型属性
@@ -500,15 +520,35 @@ public class OutMeetingAct {
 	
 	
 	//=======================住宿、机票、车辆管理================================
-	@RequiresPermissions("out_meeting:stc_list")
-	@RequestMapping("/out_meeting/stc_list.do")
-	public String stcList(String meetingName, Integer type, Integer pageNo, HttpServletRequest request,ModelMap model) {
+	//type：1、住宿管理；2、机票管理；3、车辆管理
+	@RequiresPermissions("out_meeting:stay_list")
+	@RequestMapping("/out_meeting/stay_list.do")
+	public String stayList(String meetingName, Integer pageNo, HttpServletRequest request,ModelMap model) {
 		
-		Pagination pagination = enrollMng.getPage(meetingName, type, cpn(pageNo), CookieUtils.getPageSize(request));
+		Pagination pagination = enrollMng.getPage(meetingName, 1, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
-		model.addAttribute("type", type);
-		return "meeting/out/enrollList";
+		return "meeting/out/stayList";
+	}
+	
+	@RequiresPermissions("out_meeting:ticket_list")
+	@RequestMapping("/out_meeting/ticket_list.do")
+	public String ticketList(String meetingName, Integer pageNo, HttpServletRequest request,ModelMap model) {
+		
+		Pagination pagination = enrollMng.getPage(meetingName, 2, cpn(pageNo), CookieUtils.getPageSize(request));
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("meetingName", meetingName);
+		return "meeting/out/ticketList";
+	}
+	
+	@RequiresPermissions("out_meeting:car_list")
+	@RequestMapping("/out_meeting/car_list.do")
+	public String carList(String meetingName, Integer pageNo, HttpServletRequest request,ModelMap model) {
+		
+		Pagination pagination = enrollMng.getPage(meetingName, 3, cpn(pageNo), CookieUtils.getPageSize(request));
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("meetingName", meetingName);
+		return "meeting/out/carList";
 	}
 	
 	@Autowired

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jeecms_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+});
+function download(path) {
+	var filepath = "";
+	var filename = "";
+	if(path != null && path.length>0) {
+		var end = path.lastIndexOf("/");
+		if(end<0) {
+			end = path.lastIndexOf("\\");
+		}
+		filepath = path.substring(0,end);
+		filename = path.substring(end+1,path.length);
+	}
+	$("#downloadFilePath").val(filepath);
+	$("#downloadFileName").val(filename);
+	$("#downloadForm").submit();
+}
+</script>
+<style type="text/css">
+	#meetingTable{
+		width:100%;
+		margin:0px auto;
+		padding:0px;
+	}
+	#meetingTable tr th{
+		width:10%;
+		text-align:right;
+		/* font-weight: 400; */
+		height:30px;
+		line-height:30px;
+	}
+	
+	.td_left{
+		
+	}
+	.td_right {
+	}
+</style>
+</head>
+<body>
+<div class="box-positon">
+	<div class="rpos"><@s.m "global.position"/>:  <@s.m "out.out.manager"/> - <@s.m "out.view"/></div>
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
+		<input type="hidden" name="pageNo" value="${pageNo!}"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<form name="downloadForm" id="downloadForm" action="download.do" method="post">
+	<input type="hidden" id="downloadFileName" name="downloadFileName" value="" />
+	<input type="hidden" id="downloadFilePath" name="downloadFilePath" value="" />
+</form>
+<div>
+	<table id="meetingTable" style="border-collapse: collapse;width:100%;">
+		<tr>
+			<td colspan="6" style="text-align:center;">
+			<h1>
+			<#if showType??>
+				会议报名机票信息查看
+			<#else>
+				会议报名信息查看
+			</#if>
+			</h1>
+			</td>
+		</tr>
+		<tr>
+			<th><@s.m "out.cnName"/>:</th><td>${out.cnName}</td>
+			<th><@s.m "out.sex"/>:</th><td><@s.m "out.sex"+"${out.sex}" /></td>
+			<th><@s.m "out.national"/>:</th><td>${out.national}</td>
+		</tr>
+		<tr>
+			<th><@s.m "out.enName"/>:</th><td>${out.enName!}</td>
+			<th><@s.m "out.position"/>:</th><td>${out.position!}</td>
+			<th><@s.m "out.phone"/>:</th><td>${out.phone!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "out.unit"/>:</th><td colspan="3">${out.unit!}</td>
+			<th><@s.m "out.email"/>:</th><td>${out.email!}</td>
+		</tr>
+		<!-- 外方机票部分开始 -->
+		<#if meeting.isForeignTicket??><#if meeting.isForeignTicket == 1>
+		<tr>
+			<th><@s.m "out.outName"/>:</th><td>${out.outName!}</td>
+			<th><@s.m "out.outBirthday"/>:</th><td>${out.outBirthdayStr!}</td>
+			<th><@s.m "out.outSex"/>:</th><td><@s.m "out.sex"+"${out.outSex}" /></td>
+		</tr>
+		<tr>
+			<th><@s.m "out.outNational"/>:</th><td>${out.outNational!}</td>
+			<th><@s.m "out.passport"/>:</th><td>${out.passport!}</td>
+			<th><@s.m "out.outFrom"/>:</th><td>${out.outFrom!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "out.outArrive"/>:</th><td>${out.outArrive!}</td>
+			<th><@s.m "out.outGoTime"/>:</th><td>${out.outGoTime!}</td>
+			<th><@s.m "out.outBackTime"/>:</th><td>${out.outBackTime!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "out.outGoFlight"/>:</th><td>${out.outGoFlight!}</td>
+			<th><@s.m "out.outBackFlight"/>:</th><td>${out.outBackFlight!}</td>
+		</tr>
+		</#if></#if>
+		<!-- 外方机票部分结束 -->
+		<tr>
+			<td colspan="6"></td>
+		</tr>
+		<!-- 中方机票部分开始 -->
+		
+		<#if meeting.isDomesticTicket??><#if meeting.isDomesticTicket == 1>
+		<tr>
+			<th><@s.m "out.inName"/>:</th><td>${out.inName!}</td>
+			<th><@s.m "out.inBirthday"/>:</th><td>${out.inBirthdayStr!}</td>
+			<th><@s.m "out.inSex"/>:</th><td><@s.m "out.sex"+"${out.inSex}" /></td>
+		</tr>
+		<tr>
+			<th><@s.m "out.inNational"/>:</th><td>${out.inNational!}</td>
+			<th><@s.m "out.card"/>:</th><td>${out.card!}</td>
+			<th><@s.m "out.inFrom"/>:</th><td>${out.inFrom!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "out.inArrive"/>:</th><td>${out.inArrive!}</td>
+			<th><@s.m "out.inGoTime"/>:</th><td>${out.inGoTime!}</td>
+			<th><@s.m "out.inBackTime"/>:</th><td>${out.inBackTime!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "out.inGoFlight"/>:</th><td>${out.inGoFlight!}</td>
+			<th><@s.m "out.inBackFlight"/>:</th><td>${out.inBackFlight!}</td>
+		</tr>
+		</#if></#if>
+		<!-- 中方机票部分结束 -->
+		<#if showType??>
+		<#else>
+			<!-- 餐饮部分开始 -->
+			<#if meeting.isFood??><#if meeting.isFood == 1>
+			<tr>
+				<th><@s.m "out.breakfast"/>:</th><td colspan="5">${out.breakfastStart}&nbsp;至&nbsp;${out.breakfastEnd}</td>
+			</tr>
+			<tr>
+				<th><@s.m "out.lunch"/>:</th><td colspan="5">${out.lunchStart}&nbsp;至&nbsp;${out.lunchEnd}</td>
+			</tr>
+			<tr>
+				<th><@s.m "out.dinner"/>:</th><td colspan="5">${out.dinnerStart}&nbsp;至&nbsp;${out.dinnerEnd}</td>
+			</tr>
+			</#if></#if>
+			<!-- 餐饮部分结束 -->
+			<!-- 自驾车辆部分开始 -->
+			<#if meeting.isDrive??><#if meeting.isDrive == 1>
+			<tr>
+				<th><@s.m "out.carNo"/>:</th><td colspan="5">${out.carNo!}</td>
+			</tr>
+			</#if></#if>
+			<!-- 自驾车辆部分结束 -->
+			<!-- 其他附件部分开始 -->
+			<#if meeting.userType??><#if meeting.userType==2 or meeting.userType==3>
+			<tr>
+				<th><@s.m "out.other"/>:</th><td colspan="3"><#if out.other??><a href="javascript:download('${out.other.path}')">${out.other.filename!}</a></#if></td>
+			</tr>
+			</#if></#if>
+			<!-- 其他附件部分结束 -->
+			<!-- 身份信息部分开始 -->
+			<#if meeting.userType??><#if meeting.userType!=1>
+			<tr>
+				<th><@s.m "out.bankNo"/>:</th><td>${out.bankNo!}</td>
+				<th><@s.m "out.bankAddress"/>:</th><td>${out.bankAddress!}</td>
+				<th><@s.m "out.bankName"/>:</th><td>${out.bankName!}</td>
+			</tr>
+			<tr>
+				<th><@s.m "out.bankCard"/>:</th><td colspan="5">${out.bankCard!}</td>
+			</tr>
+			</#if></#if>
+			<!-- 身份信息部分结束 -->
+		</#if>
+	</table>
+</div>
+</body>
+</html>

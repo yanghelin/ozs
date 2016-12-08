@@ -141,7 +141,7 @@ public class InMeetingAct {
 	
 	@RequiresPermissions("in_meeting:findBy")
 	@RequestMapping("/in_meeting/findBy.do")
-	public void move(Integer meetingId,HttpServletResponse response) throws JSONException {
+	public void findBy(Integer meetingId,HttpServletResponse response) throws JSONException {
 		JSONObject json = new JSONObject();
 		InMeeting meeting = null;
 		if(meetingId != null) {

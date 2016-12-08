@@ -15,6 +15,8 @@ public interface InMeetingItemsDao{
 	public List<InMeetingItems> getList(String name);
 
 	public InMeetingItems findById(Integer id);
+	
+	public List<InMeetingItems> findByMeetingId(Integer meetingId);
 
 	public InMeetingItems save(InMeetingItems bean);
 

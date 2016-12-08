@@ -50,6 +50,7 @@ function doDelete(){
 	<@p.column code="meeting.name" align="center"><#if item.meetingId??>${item.meetingId.name!}</#if></@p.column><#t/>
 	<@p.column code="items.remark" align="center">${item.remark!}</@p.column><#t/>
 	<@p.column code="global.operate" align="center">
+		<a href="to_edit.do?id=${item.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/>
 		<a href="delete.do?id=${item.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
 	</@p.column><#t/>
 </@p.table>

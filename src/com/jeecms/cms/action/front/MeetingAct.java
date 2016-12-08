@@ -113,6 +113,8 @@ public class MeetingAct {
 		eroll.setLoginId(currUser);
 		eroll.setLoginName(currUser.getUsername());
 		eroll.setIsDelete((byte)0);
+		eroll.setIsDeleteStay((byte)0);
+		eroll.setIsDeleteTicket((byte)0);
 		eroll.setCreateTime(new Date());
 		
 		OutMeeting meeting = new OutMeeting();

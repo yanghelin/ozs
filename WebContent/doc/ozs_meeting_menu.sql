@@ -12,7 +12,7 @@ INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('报名删�
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('住宿信息删除', '/out_meeting/enroll_delete.do?type=1', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('机票信息查看', '/out_meeting/view.do?type=2', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('机票信息删除', '/out_meeting/enroll_delete.do?type=2', 0);
-INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('订餐信息查看', '/work_meal/view.do', 0);
+INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('订餐信息新增', '/work_meal/to_add.do', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('订餐信息修改', '/work_meal/to_edit.do', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('会议材料上传', '/in_meeting/list.do', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `is_delete`) VALUES ('会议材料下载', '/in_meeting/list.do', 0);
