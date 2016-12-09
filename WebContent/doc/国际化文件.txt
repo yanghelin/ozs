@@ -129,7 +129,7 @@ room.remark=特别要求
 
 briefing.manager=简报管理
 briefing.name=简报名称
-briefing.fileType=简报类型
+briefing.type=简报类型
 briefing.attachment=简报附件
 briefing.createTime=上传时间
 briefing.createBy=上传人员
@@ -137,7 +137,7 @@ briefing.download=下载
 
 materials.manager=材料管理
 materials.name=材料名称
-materials.fileType=材料类型
+materials.type=材料类型
 materials.attachment=简报附件
 materials.createTime=上传时间
 materials.createBy=上传人员
@@ -155,6 +155,7 @@ ozs.meesage=站内信管理
 ozs.meesage.name=名称
 ozs.meesage.content=详细内容
 ozs.meesage.sendUser=发送用户
+ozs.meesage.reply=回复
 
 meeting.auth=权限分配
 meeting.view=查看
