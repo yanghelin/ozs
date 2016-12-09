@@ -15,17 +15,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeecms.cms.entity.meeting.InMeeting;
-import com.jeecms.cms.manager.meeting.InMeetingMng;
+import com.jeecms.cms.entity.meeting.InMeetingMaterials;
+import com.jeecms.cms.entity.meeting.MeetingAttachment;
+import com.jeecms.cms.manager.meeting.InMeetingMaterialsMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.web.CookieUtils;
-import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.manager.CmsUserExtMng;
-import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.web.util.CmsUtils;
 
 /**
- * 所内会议Action
+ * 会议相关材料管理Action
  */
 @Controller
 public class InMeetingMaterialsAct {
@@ -34,12 +33,12 @@ public class InMeetingMaterialsAct {
 	@RequiresPermissions("in_meeting_materials:list")
 	@RequestMapping("/in_meeting_materials/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		CmsUser currUser = CmsUtils.getUser(request);
-		Pagination pagination = inMeetingMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
+		/*CmsSite site = CmsUtils.getSite(request);
+		CmsUser currUser = CmsUtils.getUser(request);*/
+		Pagination pagination = inMeetingMaterialsMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
-		return "meeting/in/list";
+		return "meeting/in/materialsList";
 	}
 	
 	@RequiresPermissions("in_meeting_materials:to_add")
@@ -53,36 +52,47 @@ public class InMeetingMaterialsAct {
 		model.addAttribute("groupList", groupList);
 		model.addAttribute("roleList", roleList);
 		model.addAttribute("currRank", currUser.getRank());*/
-		return "meeting/in/add";
+		return "meeting/in/materialsAdd";
 	}
 	
 	@RequiresPermissions("in_meeting_materials:save")
 	@RequestMapping("/in_meeting_materials/save.do")
-	public String save(InMeeting bean,HttpServletRequest request,ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		/*WebErrors errors = validateSave(bean, request);
+	public String save(InMeetingMaterials bean, Integer meeting_id, Integer attachmentId, HttpServletRequest request,ModelMap model) {
+		/*CmsSite site = CmsUtils.getSite(request);
+		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
 		CmsUser currUser = CmsUtils.getUser(request);
-		bean.setPublisher(currUser);
-		bean.setPublishTime(new Date());
+		bean.setCreateBy(currUser);
+		bean.setCreateTime(new Date());
 		bean.setIsDelete((byte)0);
-		bean.setType((byte)1);
-		inMeetingMng.saveInMeeting(bean);
-		log.info("save InMeeting id={}", bean.getId());
+		
+		if(attachmentId != null) {
+			MeetingAttachment matt = new MeetingAttachment();
+			matt.setId(attachmentId);
+			bean.setAttachment(matt);
+		}
+		InMeeting meeting = new InMeeting();
+		meeting.setId(meeting_id);
+		bean.setMeetingId(meeting);
+		inMeetingMaterialsMng.saveInMeetingMaterials(bean);
+		log.info("save InMeetingMaterials id={}", bean.getId());
 		//cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId() + ";username=" + bean.getUsername());
 		return "redirect:list.do";
 	}
 	
 	@RequiresPermissions("in_meeting_materials:delete")
 	@RequestMapping("/in_meeting_materials/delete.do")
-	public String delete(InMeeting bean,HttpServletRequest request,ModelMap model) {
+	public String delete(InMeetingMaterials bean,HttpServletRequest request,ModelMap model) {
+		CmsUser currUser = CmsUtils.getUser(request);
 		bean.setIsDelete((byte)1);
-		inMeetingMng.updateInMeeting(bean);
+		bean.setUpdateBy(currUser);
+		bean.setUpdateTime(new Date());
+		inMeetingMaterialsMng.updateInMeetingMaterials(bean);
 		return "redirect:list.do";
 	}
 
 	@Autowired
-	private InMeetingMng inMeetingMng;
+	private InMeetingMaterialsMng inMeetingMaterialsMng;
 }

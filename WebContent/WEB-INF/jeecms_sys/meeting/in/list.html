@@ -47,7 +47,7 @@ function doDelete(){
 	<@p.column code="meeting.name" align="center">${meeting.name!}</@p.column><#t/>
 	<@p.column code="meeting.type" align="center"><@s.m "meeting.type1"/></@p.column><#t/>
 	<@p.column code="meeting.publishTime" align="center">${meeting.publishTime!}</@p.column><#t/>
-	<@p.column code="meeting.publisher" align="center">${meeting.publisher.username!}</@p.column><#t/>
+	<@p.column code="meeting.publisher" align="center">${meeting.publisher.realname!}</@p.column><#t/>
 	<@p.column code="meeting.content" align="center"><@text_cut s=meeting.content?html len=25 append="..."/></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
 		<!-- <a href="to_edit.do?id=${meeting.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/> -->

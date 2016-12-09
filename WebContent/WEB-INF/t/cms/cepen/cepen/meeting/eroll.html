@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-<title>中国中东欧国家智库交流与合作网络</title>
+<title> 英文 - 中国中东欧国家智库交流与合作网络</title>
 
 
 <!--[if lt IE 9]>
@@ -365,24 +365,24 @@
 	<div class="w670 mt10" style="width:1000px;">
         <div class="text" style="width:900px;">
 			<div class="p_title">
-				<h3>报名信息</h3>
+				<h3>Application Form</h3>
 			</div>
             <form id="erollForm" name="erollForm" action="/meeting/erollSave.jspx" method="post">
             	<input type="hidden" name="meetingId" value="${meeting.id}">
 	            <table id="erollTable" style="border-collapse: collapse;border-bottom:1px solid grey;width:100%;">
 	            	<tr>
-	            		<td class="td_right">中文名称：</td><td><input type="text" class="required" name="cnName" id="cnName" value="" /></td>
-	            		<td class="td_right">性别：</td><td><input type="radio" name="outSex" id="outSex0" value="0" checked/>男&nbsp;&nbsp;<input type="radio" name="outSex" id="outSex1" value="1"/>女&nbsp;&nbsp;</td>
-	            		<td class="td_right">国籍：</td><td><input type="text" class="required" name="national" id="national" value="" /></td>
+	            		<td class="td_right">Chinese Name：</td><td><input type="text" class="required" name="cnName" id="cnName" value="" /></td>
+	            		<td class="td_right">Gender：</td><td><input type="radio" name="outSex" id="outSex0" value="0" checked/>男&nbsp;&nbsp;<input type="radio" name="outSex" id="outSex1" value="1"/>女&nbsp;&nbsp;</td>
+	            		<td class="td_right">Nationality：</td><td><input type="text" class="required" name="national" id="national" value="" /></td>
 	            	</tr>
 	            	<tr>
-	            		<td class="td_right">英文名称：</td><td><input type="text" class="required" name="enName" id="enName" value="" /></td>
-	            		<td class="td_right">职位：</td><td><input type="text" class="required" name="position" id="position" value="" /></td>
-	            		<td class="td_right">联系电话：</td><td><input type="text" class="required" name="phone" id="phone" value="" /></td>
+	            		<td class="td_right">English Name：</td><td><input type="text" class="required" name="enName" id="enName" value="" /></td>
+	            		<td class="td_right">Professional Title：</td><td><input type="text" class="required" name="position" id="position" value="" /></td>
+	            		<td class="td_right">Phone：</td><td><input type="text" class="required" name="phone" id="phone" value="" /></td>
 	            	</tr>
 	            	<tr>
-	            		<td class="td_right">工作单位：</td><td colspan="3"><input type="text" name="unit" id="unit" value="" style="width:380px;" /></td>
-	            		<td class="td_right">联系邮箱：</td><td><input type="text" class="required email" name="email" id="email" value="" /></td>
+	            		<td class="td_right">Working place：</td><td colspan="3"><input type="text" name="unit" id="unit" value="" style="width:380px;" /></td>
+	            		<td class="td_right">Email：</td><td><input type="text" class="required email" name="email" id="email" value="" /></td>
 	            	</tr>
             	</table>
             	<table id="otherTable" style="border-collapse: collapse;width:100%; ">
@@ -391,14 +391,14 @@
 			            	<tr>
 			            		<td style="width:100%;border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="checkbox" name="Stay" id="Stay" onclick="isCheck(this)" />提供住宿</span>
+			            				<span><input type="checkbox" name="Stay" id="Stay" onclick="isCheck(this)" />Accommodate</span>
 			            				<input type="hidden" name="isStay" id="isStay" />
 			            			</div>
 			            			<div class="div_left">
-			            				住宿时间：${meeting.stayStart}&nbsp;至&nbsp;${meeting.stayEnd}
+			            				Accommodation Date：${meeting.stayStart}&nbsp;to&nbsp;${meeting.stayEnd}
 		            				</div>
 		            				<div class="div_left">
-			            				住宿酒店：${meeting.stayHotel}
+			            				Hotel Name：${meeting.stayHotel}
 			            			</div>
 			            		</td>
 			           		</tr>
@@ -409,27 +409,27 @@
 			            	<tr style="border:1px">
 			            		<td style="border:1px; border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="checkbox" name="Foreign" id="Foreign" onclick="isCheck(this)" />提供外方机票</span>
+			            				<span><input type="checkbox" name="Foreign" id="Foreign" onclick="isCheck(this)" />Provide air tickets for the foreign guests</span>
 			            				<input type="hidden" name="isForeign" id="isForeign" />
 			            			</div>
 			            			<div class="div_left">
-			            				建议时间：${meeting.foreignStart}&nbsp;至&nbsp;${meeting.foreignEnd}
+			            				Suggested Departure Time：${meeting.foreignStart}&nbsp;to&nbsp;${meeting.foreignEnd}
 		            				</div>
 		            				<div id="ForeignDiv" style="display:none;">
-			            				<span class="span_left">英文名称：</span><span class="span_right"><input type="text" name="outName" id="outName" /></span>
-			            				<span class="span_left">出生日期：</span><span class="span_right"><input type="text" name="outBirthday" id="outBirthday" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/></span>
-			            				<span class="span_left">性别：</span><span class="span_right"><input type="radio" name="outSex" id="outSex0" value="0"/>男&nbsp;&nbsp;<input type="radio" name="outSex" id="outSex1" value="1"/>女&nbsp;&nbsp;</span>
+			            				<span class="span_left">English Name：</span><span class="span_right"><input type="text" name="outName" id="outName" /></span>
+			            				<span class="span_left">Date of Birth：</span><span class="span_right"><input type="text" name="outBirthday" id="outBirthday" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/></span>
+			            				<span class="span_left">Gender：</span><span class="span_right"><input type="radio" name="outSex" id="outSex0" value="0"/>男&nbsp;&nbsp;<input type="radio" name="outSex" id="outSex1" value="1"/>女&nbsp;&nbsp;</span>
 			            				<br />
-			            				<span class="span_left">国籍：</span><span class="span_right"><input type="text" name="outNational" id="outNational" /></span>
-			            				<span class="span_left">护照号：</span><span class="span_right"><input type="text" name="passport" id="passport" /></span>
-			            				<span class="span_left">出发地：</span><span class="span_right"><input type="text" name="outFrom" id="outFrom" /></span>
+			            				<span class="span_left">Nationality：</span><span class="span_right"><input type="text" name="outNational" id="outNational" /></span>
+			            				<span class="span_left">Passport Number：</span><span class="span_right"><input type="text" name="passport" id="passport" /></span>
+			            				<span class="span_left">Departure Place：</span><span class="span_right"><input type="text" name="outFrom" id="outFrom" /></span>
 			            				<br />
-			            				<span class="span_left">目的地：</span><span class="span_right"><input type="text" name="outArrive" id="outArrive" /></span>
-			            				<span class="span_left">意向出发时间：</span><span class="span_right"><input type="text" name="outGoTimePage" id="outGoTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/></span>
-			            				<span class="span_left">意向返程时间：</span><span class="span_right"><input type="text" name="outBackTimePage" id="outBackTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
+			            				<span class="span_left">Destination：</span><span class="span_right"><input type="text" name="outArrive" id="outArrive" /></span>
+			            				<span class="span_left">Preferred Departure Time：</span><span class="span_right"><input type="text" name="outGoTimePage" id="outGoTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/></span>
+			            				<span class="span_left">Preferred Departure Time：</span><span class="span_right"><input type="text" name="outBackTimePage" id="outBackTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
 			            				<br />
-			            				<span class="span_left">来程意向航班：</span><span class="span_right"><input type="text" name="outGoFlight" id="outGoFlight" /></span>
-			            				<span class="span_left">返程意向航班：</span><span class="span_right"><input type="text" name="outBackFlight" id="outBackFlight" /></span>
+			            				<span class="span_left">Preferred Coming Flight：</span><span class="span_right"><input type="text" name="outGoFlight" id="outGoFlight" /></span>
+			            				<span class="span_left">Preferred Returning Flight：</span><span class="span_right"><input type="text" name="outBackFlight" id="outBackFlight" /></span>
 			            			</div>
 			            		</td>
 			           		</tr>
@@ -440,27 +440,27 @@
 			            	<tr style="border:1px">
 			            		<td style="border:1px; border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="checkbox" name="Domestic" id="Domestic" onclick="isCheck(this)" />提供中方机票</span>
+			            				<span><input type="checkbox" name="Domestic" id="Domestic" onclick="isCheck(this)" />Provide air tickets for the Chinese guests</span>
 			            				<input type="hidden" name="isDomestic" id="isDomestic" />
 			            			</div>
 			            			<div class="div_left">
-			            				建议时间：${meeting.foreignStart}&nbsp;至&nbsp;${meeting.foreignEnd}
+			            				Suggested Departure Time：${meeting.foreignStart}&nbsp;to&nbsp;${meeting.foreignEnd}
 		            				</div>
 		            				<div id="DomesticDiv" style="display:none;">
-			            				<span class="span_left">中文名称：</span><span class="span_right"><input type="text" name="inName" id="inName" /></span>
-			            				<span class="span_left">出生日期：</span><span class="span_right"><input type="text" name="inBirthday" id="inBirthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" /></span>
-			            				<span class="span_left">性别：</span><span class="span_right"><input type="radio" name="inSex" id="inSex0" value="0"/>男&nbsp;&nbsp;<input type="radio" name="inSex" id="inSex1" value="0"/>女&nbsp;&nbsp;</span>
+			            				<span class="span_left">Chinese Name：</span><span class="span_right"><input type="text" name="inName" id="inName" /></span>
+			            				<span class="span_left">Date of Birth：</span><span class="span_right"><input type="text" name="inBirthday" id="inBirthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" /></span>
+			            				<span class="span_left">Gender：</span><span class="span_right"><input type="radio" name="inSex" id="inSex0" value="0"/>男&nbsp;&nbsp;<input type="radio" name="inSex" id="inSex1" value="0"/>女&nbsp;&nbsp;</span>
 			            				<br />
-			            				<span class="span_left">国籍：</span><span class="span_right"><input type="text" name="inNational" id="inNational" /></span>
-			            				<span class="span_left">身份证号：</span><span class="span_right"><input type="text" name="card" id="card" /></span>
-			            				<span class="span_left">出发地：</span><span class="span_right"><input type="text" name="inFrom" id="inFrom" /></span>
+			            				<span class="span_left">Nationality：</span><span class="span_right"><input type="text" name="inNational" id="inNational" /></span>
+			            				<span class="span_left">Identification Number：</span><span class="span_right"><input type="text" name="card" id="card" /></span>
+			            				<span class="span_left">Departure Place：</span><span class="span_right"><input type="text" name="inFrom" id="inFrom" /></span>
 			            				<br />
-			            				<span class="span_left">目的地：</span><span class="span_right"><input type="text" name="inArrive" id="inArrive" /></span>
-			            				<span class="span_left">意向出发时间：</span><span class="span_right"><input type="text" name="inGoTimePage" id="inGoTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
-			            				<span class="span_left">意向返程时间：</span><span class="span_right"><input type="text" name="inBackTimePage" id="inBackTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
+			            				<span class="span_left">Destination：</span><span class="span_right"><input type="text" name="inArrive" id="inArrive" /></span>
+			            				<span class="span_left">Preferred Departure Time：</span><span class="span_right"><input type="text" name="inGoTimePage" id="inGoTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
+			            				<span class="span_left">Preferred Departure Time：</span><span class="span_right"><input type="text" name="inBackTimePage" id="inBackTimePage" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" /></span>
 			            				<br />
-			            				<span class="span_left">来程意向航班：</span><span class="span_right"><input type="text" name="inGoFlight" id="inGoFlight" /></span>
-			            				<span class="span_left">返程意向航班：</span><span class="span_right"><input type="text" name="inBackFlight" id="inBackFlight" /></span>
+			            				<span class="span_left">Preferred Coming Flight：</span><span class="span_right"><input type="text" name="inGoFlight" id="inGoFlight" /></span>
+			            				<span class="span_left">Preferred Returning Flight：</span><span class="span_right"><input type="text" name="inBackFlight" id="inBackFlight" /></span>
 			            			</div>
 			            		</td>
 			           		</tr>
@@ -471,7 +471,7 @@
 			            	<tr style="border:1px">
 			            		<td style="border:1px; border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="checkbox" name="Food" id="Food" onclick="isCheck(this)" />提供餐饮</span>
+			            				<span><input type="checkbox" name="Food" id="Food" onclick="isCheck(this)" />Provide meal</span>
 			            				<input type="hidden" name="isFood" id="isFood" />
 			            				<input type="hidden" name="isBreakfast" id="isBreakfast" value=""/>
 			            				<input type="hidden" name="isLunch" id="isLunch" value=""/>
@@ -479,13 +479,13 @@
 			            			</div>
 		            				<div id="FoodDiv" style="display:none;">
 			            				<div>
-			            					<span class="span_left">早餐：</span>${meeting.breakfastStart}&nbsp;至&nbsp;${meeting.breakfastEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">Breakfast：</span>${meeting.breakfastStart}&nbsp;至&nbsp;${meeting.breakfastEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;yes or no</span>
 			            				</div>
 			            				<div>
-			            					<span class="span_left">午餐：</span>${meeting.lunchStart}&nbsp;至&nbsp;${meeting.lunchEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">Lunch：</span>${meeting.lunchStart}&nbsp;至&nbsp;${meeting.lunchEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;yes or no</span>
 			            				</div>
 			            				<div>
-			            					<span class="span_left">晚餐：</span>${meeting.dinnerStart}&nbsp;至&nbsp;${meeting.dinnerEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">Dinner：</span>${meeting.dinnerStart}&nbsp;至&nbsp;${meeting.dinnerEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;yes or no</span>
 			            				</div>
 			            			</div>
 			            		</td>
@@ -497,11 +497,11 @@
 			            	<tr style="border:1px">
 			            		<td style="border:1px; border-bottom:1px solid grey;">
 			            			<div>
-			            				<span><input type="checkbox" name="Drive" id="Drive" onclick="isCheck(this)" />自驾车辆</span>
+			            				<span><input type="checkbox" name="Drive" id="Drive" onclick="isCheck(this)" />Car</span>
 			            				<input type="hidden" name="isDrive" id="isDrive" />
 			            			</div>
 		            				<div id="DriveDiv" style="display:none;">
-			            				<span class="span_left">车牌号：</span><span class="span_right"><input type="text" name="carNo" id="carNo" /></span>
+			            				<span class="span_left">Car License Number：</span><span class="span_right"><input type="text" name="carNo" id="carNo" /></span>
 			            			</div>
 			            		</td>
 			           		</tr>
@@ -511,19 +511,19 @@
 	           		<tr style="border:1px">
 	            		<td style="border:1px; border-bottom:1px solid grey;">
 	            			<div>
-	            				<span>身份信息</span>
+	            				<span>Identity Info</span>
 	            			</div>
 	            			<div class="div_left">
-	            				会员类型：[#if muserType??]${muserType}[#else]未知[/#if]
+	            				Identity：[#if muserType??][#if muserType!="参会人员"]participant[/#if][#if muserType!="发言嘉宾"]speaker[/#if][#if muserType=="速记"]stenographer[/#if][#if muserType=="媒体"]media[/#if]${muserType}[#else]indeterminate[/#if]
             				</div>
             				[#if muserType??][#if muserType!="参会人员"]
             				<input type="hidden" name="utype" id="utype" value="${muserType}">
             				<div>
-            					<span class="span_left">银行卡号：</span><span class="span_right"><input type="text" name="bankNo" id="bankNo" style="width:300px;" /></span>
-	            				<span class="span_left">开户行：</span><span class="span_right"><input type="text" name="bankAddress" id="bankAddress" style="width:300px;" /></span>
+            					<span class="span_left">Bank Card Number：</span><span class="span_right"><input type="text" name="bankNo" id="bankNo" style="width:300px;" /></span>
+	            				<span class="span_left">Bank Name：</span><span class="span_right"><input type="text" name="bankAddress" id="bankAddress" style="width:300px;" /></span>
 	            				<br />
-	            				<span class="span_left">账号名称：</span><span class="span_right"><input type="text" name=bankName id="bankName" style="width:300px;" /></span>
-            					<span class="span_left">身份证号：</span><span class="span_right"><input type="text" name="bankCard" id="bankCard" style="width:300px;" /></span>
+	            				<span class="span_left">Account Name：</span><span class="span_right"><input type="text" name=bankName id="bankName" style="width:300px;" /></span>
+            					<span class="span_left">Identification Number：</span><span class="span_right"><input type="text" name="bankCard" id="bankCard" style="width:300px;" /></span>
 	            			</div>
 	            			[/#if][/#if]
 	            		</td>
@@ -531,7 +531,7 @@
 	           		<tr>
 	            		<td>
 	            			<div style="text-align:center;">
-	            				<input type="button" id="button1" value="确认提交" onclick="formSubmit()"/>
+	            				<input type="button" id="button1" value="Submit" onclick="formSubmit()"/>
 	            			</div>
 	            		</td>
 	           		</tr>

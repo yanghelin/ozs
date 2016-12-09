@@ -14,12 +14,12 @@ import com.jeecms.common.page.Pagination;
 @Repository
 public class OzsMessageDetailDaoImpl extends HibernateBaseDao<OzsMessageDetail, Integer>
 		implements OzsMessageDetailDao {
-	public Pagination getPage(String name, int pageNo, int pageSize) {
+	public Pagination getPage(String name, Integer userId, int pageNo, int pageSize) {
 		Finder f = Finder.create("select bean from OzsMessageDetail bean");
 		f.append(" where 1=1 and bean.isDelete = 0 ");
-		if (!StringUtils.isBlank(name)) {
-			f.append(" and bean.name like :name");
-			f.setParam("name", "%" + name + "%");
+		if (userId != null) {
+			f.append(" and bean.receiver.id =:userId");
+			f.setParam("userId", userId);
 		}
 		f.append(" order by bean.id desc");
 		return find(f, pageNo, pageSize);

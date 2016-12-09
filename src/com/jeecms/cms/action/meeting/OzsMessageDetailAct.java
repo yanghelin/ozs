@@ -16,8 +16,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeecms.cms.entity.meeting.OzsMessage;
+import com.jeecms.cms.entity.meeting.OzsMessageDetail;
 import com.jeecms.cms.manager.meeting.OzsMessageDetailMng;
-import com.jeecms.cms.manager.meeting.OzsMessageMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
@@ -29,20 +29,21 @@ import com.jeecms.core.web.util.CmsUtils;
  * 所内会议Action
  */
 @Controller
-public class OzsMessageAct {
-	private static final Logger log = LoggerFactory.getLogger(OzsMessageAct.class);
+public class OzsMessageDetailAct {
+	private static final Logger log = LoggerFactory.getLogger(OzsMessageDetailAct.class);
 
-	@RequiresPermissions("ozs_message:list")
-	@RequestMapping("/ozs_message/list.do")
+	@RequiresPermissions("ozs_message_detail:list")
+	@RequestMapping("/ozs_message_detail/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
-		Pagination pagination = ozsMessageMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
+		CmsUser currUser = CmsUtils.getUser(request);
+		Pagination pagination = ozsMessageDetailMng.getPage(meetingName, currUser.getId(), cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
 		return "meeting/message/list";
 	}
 	
-	@RequiresPermissions("ozs_message:to_add")
-	@RequestMapping("/ozs_message/to_add.do")
+	@RequiresPermissions("ozs_message_detail:to_add")
+	@RequestMapping("/ozs_message_detail/to_add.do")
 	public String add(HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		List<CmsUser> userList = userMng.getList("", "", site.getId(), null, false, true, null);
@@ -50,44 +51,39 @@ public class OzsMessageAct {
 		return "meeting/message/add";
 	}
 	
-	@RequiresPermissions("ozs_message:reply")
-	@RequestMapping("/ozs_message/reply.do")
+	@RequiresPermissions("ozs_message_detail:reply")
+	@RequestMapping("/ozs_message_detail/reply.do")
 	public String reply(HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		List<CmsUser> userList = userMng.getList("", "", site.getId(), null, false, true, null);
 		model.addAttribute("userList", userList);
-		return "meeting/message/add";
+		return "meeting/message/reply";
 	}
 	
-	@RequiresPermissions("ozs_message:save")
-	@RequestMapping("/ozs_message/save.do")
-	public String save(OzsMessage bean,HttpServletRequest request,ModelMap model) {
+	@RequiresPermissions("ozs_message_detail:save")
+	@RequestMapping("/ozs_message_detail/save.do")
+	public String save(OzsMessageDetail bean, HttpServletRequest request,ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
 		CmsUser currUser = CmsUtils.getUser(request);
-		bean.setSendBy(currUser);
-		bean.setSendTime(new Date());
 		bean.setIsDelete((byte)0);
-		ozsMessageMng.saveOzsMessage(bean);
-		log.info("save OzsMessage id={}", bean.getId());
+		ozsMessageDetailMng.saveOzsMessageDetail(bean);
+		log.info("save OzsMessageDetail id={}", bean.getId());
 		//cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId() + ";username=" + bean.getUsername());
 		return "redirect:list.do";
 	}
 	
-	@RequiresPermissions("ozs_message:delete")
-	@RequestMapping("/ozs_message/delete.do")
-	public String delete(OzsMessage bean,HttpServletRequest request,ModelMap model) {
+	@RequiresPermissions("ozs_message_detail:delete")
+	@RequestMapping("/ozs_message_detail/delete.do")
+	public String delete(OzsMessageDetail bean,HttpServletRequest request,ModelMap model) {
 		bean.setIsDelete((byte)1);
-		ozsMessageMng.updateOzsMessage(bean);
+		ozsMessageDetailMng.updateOzsMessageDetail(bean);
 		return "redirect:list.do";
 	}
 
-	@Autowired
-	private OzsMessageMng ozsMessageMng;
-	
 	@Autowired
 	private OzsMessageDetailMng ozsMessageDetailMng;
 	

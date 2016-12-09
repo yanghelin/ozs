@@ -6,52 +6,15 @@
 <script type="text/javascript">
 	$(function() {
 		$("#jvForm").validate();
-		//部门对话框
-		$("#departDialog").dialog({
-			autoOpen : false,
-			modal : true,
-			width : 280,
-			height : 420,
-			position : [ "center", 20 ],
-			buttons : {
-				"OK" : function() {
-					$("#departId").val($("input[name='departId']:checked").val());
-					$("#departName").val($("input[name='departId']:checked+span").html());
-					$(this).dialog("close");
-				}
-			}
-		});
-		var parent_opened = false;
-		$('#depart').click(function() {
-			//第一次打开，需要获取数据。
-			if (!parent_opened) {
-				$("#departTree").treeview({
-					url : "v_depart_add.do"
-				});
-				parent_opened = true;
-				$("#departDialog").show();
-			}
-			$('#departDialog').dialog('open');
-			return false;
-		});
 	});
-	function allChannelSelect() {
-		$("#allChannelHide").val($("#allChannel").prop("checked"));
-	}
-	function allControlChannelSelect() {
-		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
-	}
 	function formSubmit() {
-		var name = $("#name").val();
-		var startTime = $("#startTime").val();
-		if(name == null || name == '') {
-			alert("会议名称为必填项");
+		var title = $("#title").val();
+		var content = $("#content").val();
+		if(title == null || title == '') {
+			alert("名称为必填项");
 			return false;
 		}
-		if(startTime == null || startTime == '') {
-			alert("会议时间为必填项");
-			return false;
-		}
+		
 		var users = "";
 		$('input[name="userBox"]:checked').each(function(){
         	users = users + this.value+",";
@@ -59,10 +22,14 @@
 		if(users != null && users.length>0) {
 			users = users.substring(0,users.length-1);
 		}else {
-			alert("请选择参会人员");
+			alert("请选择发送用户");
 			return false;
 		}
-		$("#participants").val(users);
+		$("#sendUser").val(users);
+		if(content == null || content == '') {
+			alert("详细内容为必填项");
+			return false;
+		}
 		$("#jvForm").submit();
 	}
 </script>
@@ -78,11 +45,9 @@
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.text width="50" colspan="1" label="meeting.name" name="name" id="name" required="true" maxlength="100"/>
-		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/><@p.tr/>
-		<@p.text width="50" colspan="1" label="meeting.room" id="room" name="room" maxlength="100" required="true"/>
-		<@p.td width="50" colspan="1" label="meeting.participants">
-			<input type="hidden" name="participants" id="participants" value="" />
+		<@p.text width="50" colspan="2" label="ozs.meesage.title" name="title" id="title" required="true" maxlength="100"/>
+		<@p.td width="50" colspan="2" label="ozs.meesage.sendUser">
+			<input type="hidden" name="sendUser" id="sendUser" value="" />
 			<#if userList?size gt 0>
 				<#list userList as user>
 					<div style="width:90px;float:left;"><input type="checkbox" name="userBox" id="${user.id}" value="${user.id}" />&nbsp;${user.realname}</div>
@@ -90,17 +55,10 @@
 			</#if>
 		</@p.td>
 		<@p.tr/>
-		<@p.td colspan="2" width="50" label="cms.department">
-			<@p.text id="departName" name="departName" maxlength="25"/>
-		</@p.td>
-		<@p.tr/>
-		<@p.textarea colspan="2" label="meeting.content" name="content" cols="70" rows="5"/>
+		<@p.textarea colspan="2" label="ozs.meesage.content" name="content" cols="70" rows="5"/>
 		<@p.tr/>
 		<@p.td colspan="2"><input type="button" name="btn" onclick="formSubmit()" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
 		</@p.form>
-	</div>
-	<div id="departDialog" title="<@s.m "cms.department"/>" style="display:none;">
-		<ul id="departTree" class="filetree"></ul>
 	</div>
 </body>
 </html>

@@ -11,6 +11,8 @@
 标签代表含义：
 	<@s.m "">：读取变量数据
 	<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
+	list?size gt 0	判断list长度是否为0
+	<#if item[listKey]?string==value?string>	从对象item中取出字段listKey，然后字符串之间的比较
 
 =============================列表页===============================
 1、<@p.table value=pagination;cmsUser,i,has_next><#rt/></@p.table>

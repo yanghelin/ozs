@@ -169,6 +169,7 @@ CREATE TABLE `ozs_out_meeting` (
   `phone` varchar(50) DEFAULT NULL COMMENT '负责人电话',
   `position` varchar(50) DEFAULT NULL COMMENT '职位',
   `type` int(11) DEFAULT NULL COMMENT '会议类型:0、国际会议',
+  `is_cn` tinyint(4) DEFAULT NULL COMMENT '是否中文：0、英文；1、中文',
   `is_stay` tinyint(4) DEFAULT NULL COMMENT '是否提供住宿：0、否；1、是',
   `stay_start` datetime DEFAULT NULL COMMENT '住宿开始时间',
   `stay_end` datetime DEFAULT NULL COMMENT '住宿结束时间',
@@ -282,3 +283,14 @@ CREATE TABLE `ozs_meeting_menu_user` (
   `menu_id` int(11) DEFAULT NULL COMMENT '会议菜单ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会议菜单和用户关联表';
+
+
+-- 0、参会人员
+-- 1、发言嘉宾
+-- 2、速记
+-- 3、媒体
+-- 0、participant
+-- 1、speaker
+-- 2、stenographer
+-- 3、media
+

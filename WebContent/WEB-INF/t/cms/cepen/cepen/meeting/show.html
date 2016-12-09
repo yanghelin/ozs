@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-<title>中国中东欧国家智库交流与合作网络</title>
+<title> 英文 - 中国中东欧国家智库交流与合作网络</title>
 
 
 <!--[if lt IE 9]>
@@ -18,8 +18,18 @@
 <script src="${resSys}/front.js" type="text/javascript"></script>
 <script type="text/javascript">
 	function downFile(fileName,path) {
-		$("#downloadFileName").val("");
-		$("#downloadFilePath").val(path);
+		var filepath = "";
+		var filename = "";
+		if(path != null && path.length>0) {
+			var end = path.lastIndexOf("/");
+			if(end<0) {
+				end = path.lastIndexOf("\\");
+			}
+			filepath = path.substring(0,end);
+			filename = path.substring(end+1,path.length);
+		}
+		$("#downloadFilePath").val(filepath);
+		$("#downloadFileName").val(filename);
 		$("#downloadForm").submit();
 	}
 </script>
@@ -71,7 +81,7 @@
         <div class="text">
 			<div class="p_title">
 				<h3>${meeting.name!}</h3>
-				<div class="msgbar">发布时间：${meeting.publishTime!} &nbsp; 发布人：${meeting.publisher.username!} &nbsp; 来源：本站原创
+				<div class="msgbar">Release Time：${meeting.publishTime!} &nbsp; Author：${meeting.publisher.username!} &nbsp;
 					<span id="views"></span>
 		            <span id="cancelSpan" style="display:none; cursor: pointer;">Unfavorite</span>
 		            <span id="comfirmSpan" style="display:none;cursor: pointer;">Favorite</span>
@@ -79,51 +89,51 @@
 			</div>
             <form name="erollForm" action="/meeting/eroll.jspx" method="post">
             <input type="hidden" name="id" value="${meeting.id}">
-            <table id="erollTable" style="border-collapse: collapse;">
+            <table id="erollTable" style="border-collapse: collapse;width:100%;">
             	<tr>
             		<td colspan="2">
-            			<font style="font-weight:700;font-size:15px;">会议内容</font><br />
+            			<font style="font-weight:700;font-size:15px;">Meeting Content</font><br />
 						<div style="line-height:30px;"><span style="margin-left:30px;"></span>${meeting.content}</div>
             		</td>
             	</tr>
             	<tr>
             		<td colspan="2">
-            			<font style="font-weight:700;font-size:15px;">会议日程</font><br />
+            			<font style="font-weight:700;font-size:15px;">Meeting Schedule</font><br />
 						<div style="line-height:30px;"><span style="margin-left:30px;"></span>${meeting.agenda}</div>
             		</td>
             	</tr>
             	<tr>
-            		<td style="width:50%;">会议主办单位：${meeting.hostUnits}</td>
-            		<td style="width:49%">会议承办单位：${meeting.sponsoringUnits}</td>
+            		<td style="width:50%;">Host：${meeting.hostUnits}</td>
+            		<td style="width:49%">Organizer：${meeting.sponsoringUnits}</td>
            		</tr>
             	<tr>
-            		<td style="width:50%;">境外合作机构：${meeting.overseasPartners}</td>
-            		<td style="width:49%">会议召开地点：${meeting.address}</td>
+            		<td style="width:50%;">Foreign Cooperating Institution：${meeting.overseasPartners}</td>
+            		<td style="width:49%">Holding Venue：${meeting.address}</td>
            		</tr>
             	<tr>
-            		<td style="width:50%;">会议召开时间：${meeting.startTime}</td>
-            		<td style="width:49%">会议规模：${meeting.meetingSize}</td>
+            		<td style="width:50%;">Meeting Time：${meeting.startTime}&nbsp;to&nbsp;${meeting.endTime}</td>
+            		<td style="width:49%">Meeting Scale：${meeting.meetingSize}</td>
            		</tr>
             	<tr>
-            		<td style="width:50%;">工作语言：${meeting.workLanguage}</td>
-            		<td style="width:49%">主持人：${meeting.presenter}</td>
+            		<td style="width:50%;">Working Language：${meeting.workLanguage}</td>
+            		<td style="width:49%">Host：${meeting.presenter}</td>
            		</tr>
            		<tr>
-            		<td style="width:50%;">联系电话：${meeting.contactPhone}</td>
-            		<td style="width:49%">联系邮箱：${meeting.contactEmail}</td>
+            		<td style="width:50%;">Contact Number：${meeting.contactPhone}</td>
+            		<td style="width:49%">Contact Email：${meeting.contactEmail}</td>
            		</tr>
            		<tr>
             		<td colspan="2">
-            		[#if meeting.isStay??][#if meeting.isStay==1]<input type="radio" name="isStay" value="1" checked />提供住宿[/#if][/#if]
-            		[#if meeting.isForeignTicket??][#if meeting.isForeignTicket==1]<input type="radio" name="isForeignTicket" value="1" checked />提供外方机票[/#if][/#if]
-            		[#if meeting.isDomesticTicket??][#if meeting.isDomesticTicket==1]<input type="radio" name="isDomesticTicket" value="1" checked />提供中方机票[/#if][/#if]
-            		[#if meeting.isFood??][#if meeting.isFood==1]<input type="radio" name="isFood" value="1" checked />提供餐饮[/#if][/#if]
-            		[#if meeting.isDrive??][#if meeting.isDrive==1]<input type="radio" name="isDrive" value="1" checked />自驾车辆[/#if][/#if]
+            		[#if meeting.isStay??][#if meeting.isStay==1]<input type="radio" name="isStay" value="1" checked />Accommodation[/#if][/#if]
+            		[#if meeting.isForeignTicket??][#if meeting.isForeignTicket==1]<input type="radio" name="isForeignTicket" value="1" checked />Provide air tickets for foreign guests[/#if][/#if]
+            		[#if meeting.isDomesticTicket??][#if meeting.isDomesticTicket==1]<input type="radio" name="isDomesticTicket" value="1" checked />Provide air tickets for the Chinese guests[/#if][/#if]
+            		[#if meeting.isFood??][#if meeting.isFood==1]<input type="radio" name="isFood" value="1" checked />Provide meal[/#if][/#if]
+            		[#if meeting.isDrive??][#if meeting.isDrive==1]<input type="radio" name="isDrive" value="1" checked />Self-drive car[/#if][/#if]
             		</td>
            		</tr>
            		<tr>
             		<td colspan="2">
-            			会议相关资料：[#if meeting.contentAttachment??]<a href="javascript:downFile('${meeting.contentAttachment.filename}','${meeting.contentAttachment.path}')" title="${meeting.contentAttachment.filename}" target="_blank">${meeting.contentAttachment.filename}</a>[/#if]
+            			Other Materials：[#if meeting.contentAttachment??]<a href="javascript:downFile('${meeting.contentAttachment.filename}','${meeting.contentAttachment.path}')" title="${meeting.contentAttachment.filename}" target="_blank">${meeting.contentAttachment.filename}</a>[/#if]
             					&nbsp;[#if meeting.agendaAttachment??]<a href="javascript:downFile('${meeting.agendaAttachment.filename}','${meeting.agendaAttachment.path}')" title="${meeting.agendaAttachment.filename}" target="_blank">${meeting.agendaAttachment.filename}</a>[/#if]
             					&nbsp;[#if meeting.invitation??]<a href="javascript:downFile('${meeting.invitation.filename}','${meeting.invitation.path}')" title="${meeting.invitation.filename}" target="_blank">${meeting.invitation.filename}</a>[/#if]
             					&nbsp;[#if meeting.relatedData??]<a href="javascript:downFile('${meeting.relatedData.filename}','${meeting.relatedData.path}')" title="${meeting.relatedData.filename}" target="_blank">${meeting.relatedData.filename}</a>[/#if]
@@ -132,7 +142,7 @@
            		<tr>
             		<td colspan="2">
             			<div style="text-align:center;">
-            				<input type="submit" id="button1" value="立即报名" />
+            				<input type="submit" id="button1" value="Sign up immediately" />
             			</div>
             		</td>
            		</tr>

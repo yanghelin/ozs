@@ -53,6 +53,8 @@ public class OutMeeting implements Serializable {
     private String position;
 
     private Integer type;
+    
+    private Byte isCn;
 
     private Byte isStay;
 
@@ -296,6 +298,14 @@ public class OutMeeting implements Serializable {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public Byte getIsCn() {
+		return isCn;
+	}
+
+	public void setIsCn(Byte isCn) {
+		this.isCn = isCn;
 	}
 
 	public Byte getIsStay() {

@@ -55,7 +55,11 @@ function doDelete(){
 	<@p.column code="meeting.name" align="center"><a href="enroll_view.do?id=${out.id!}"><#if out.outMeetingId??>${out.outMeetingId.name!}</#if></a></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
 		<!-- <a href="to_edit.do?id=${out.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/> -->
+		<#if userType??>
 		<a href="enroll_delete.do?id=${out.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#else>
+		<a href="media_delete.do?id=${out.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		</#if>
 	</@p.column><#t/>
 </@p.table>
 </form>

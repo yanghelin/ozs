@@ -10,7 +10,7 @@ import com.jeecms.common.page.Pagination;
  * 站内消息详细DAO接口
  */
 public interface OzsMessageDetailDao{
-	public Pagination getPage(String name, int pageNo, int pageSize);
+	public Pagination getPage(String name, Integer userId, int pageNo, int pageSize);
 	
 	public List<OzsMessageDetail> getList(String name);
 

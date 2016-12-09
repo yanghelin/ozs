@@ -61,7 +61,7 @@ function download(path) {
 	<@p.column title="ID" align="center">${briefing.id}</@p.column><#t/>
 	<@p.column code="briefing.name" align="center">${briefing.name!}</@p.column><#t/>
 	<@p.column code="briefing.name" align="center">${briefing.name!}</@p.column><#t/>
-	<@p.column code="briefing.createBy" align="center">${briefing.createBy.username!}</@p.column><#t/>
+	<@p.column code="briefing.createBy" align="center">${briefing.createBy.realname!}</@p.column><#t/>
 	<@p.column code="briefing.createTime" align="center">${briefing.createTime!}</@p.column><#t/>
 	<@p.column code="global.operate" align="center">
 		<a href="javascript:download('${briefing.attachment.path}')" class="pn-opt"><@s.m "briefing.download"/></a>

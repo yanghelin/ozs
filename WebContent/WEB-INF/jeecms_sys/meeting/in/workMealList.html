@@ -44,7 +44,7 @@ function doDelete(){
 		<input type='checkbox' name='ids' value='${workMeal.id}' onclick="Pn.selectCheckBox('${workMeal.id}',this.checked)"/><#t/>
 	</@p.column><#t/>
 	<@p.column title="ID" align="center">${workMeal.id}</@p.column><#t/>
-	<@p.column code="workMeal.createBy" align="center"><#if workMeal.createBy??>${workMeal.createBy.username!}</#if></@p.column><#t/>
+	<@p.column code="workMeal.createBy" align="center"><#if workMeal.createBy??>${workMeal.createBy.realname!}</#if></@p.column><#t/>
 	<@p.column code="workMeal.dept" align="center">${workMeal.deptName!}</@p.column><#t/>
 	<@p.column code="workMeal.number" align="center">${workMeal.number!}</@p.column><#t/>
 	<@p.column code="workMeal.createTime" align="center">${(workMeal.startTime?string('yyyy-MM-dd'))!} ~ ${(workMeal.endTime?string('yyyy-MM-dd'))!}</@p.column><#t/>

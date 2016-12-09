@@ -16,8 +16,8 @@ import com.jeecms.common.page.Pagination;
 @Transactional
 public class OzsMessageDetailMngImpl implements OzsMessageDetailMng {
 	@Transactional(readOnly = true)
-	public Pagination getPage(String name, int pageNo, int pageSize) {
-		Pagination page = ozsMessageDetailDao.getPage(name, pageNo, pageSize);
+	public Pagination getPage(String name, Integer userId, int pageNo, int pageSize) {
+		Pagination page = ozsMessageDetailDao.getPage(name, userId, pageNo, pageSize);
 		return page;
 	}
 	

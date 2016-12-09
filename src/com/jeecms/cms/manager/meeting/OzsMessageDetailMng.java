@@ -6,7 +6,7 @@ import com.jeecms.cms.entity.meeting.OzsMessageDetail;
 import com.jeecms.common.page.Pagination;
 
 public interface OzsMessageDetailMng {
-	public Pagination getPage(String meetingName, int pageNo, int pageSize);
+	public Pagination getPage(String meetingName, Integer userId, int pageNo, int pageSize);
 	
 	public List<OzsMessageDetail> getList(String name);
 

@@ -41,6 +41,10 @@ import com.jeecms.core.web.util.CmsUtils;
 
 /**
  * 所内会议Action
+ * 0、参会人员	participant
+ * 1、发言嘉宾	speaker
+ * 2、速记	stenographer
+ * 3、媒体	media
  */
 @Controller
 public class OutMeetingAct {
@@ -58,6 +62,14 @@ public class OutMeetingAct {
 	@RequiresPermissions("out_meeting:to_add")
 	@RequestMapping("/out_meeting/to_add.do")
 	public String add(HttpServletRequest request, ModelMap model) {
+		model.addAttribute("isCn", 1);
+		return "meeting/out/add";
+	}
+
+	@RequiresPermissions("out_meeting:to_add_en")
+	@RequestMapping("/out_meeting/to_add_en.do")
+	public String enAdd(HttpServletRequest request, ModelMap model) {
+		model.addAttribute("isCn", 0);
 		return "meeting/out/add";
 	}
 	
@@ -72,8 +84,8 @@ public class OutMeetingAct {
 	@RequiresPermissions("out_meeting:save")
 	@RequestMapping("/out_meeting/save.do")
 	public String save(OutMeeting bean,Integer contentAttachmentId, Integer agendaAttachmentId, Integer invitationId, Integer relatedDataId, HttpServletRequest request,ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		/*WebErrors errors = validateSave(bean, request);
+		/*CmsSite site = CmsUtils.getSite(request);
+		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
@@ -111,8 +123,8 @@ public class OutMeetingAct {
 	@RequiresPermissions("out_meeting:update")
 	@RequestMapping("/out_meeting/update.do")
 	public String update(OutMeeting bean,Integer contentAttachmentId, Integer agendaAttachmentId, Integer invitationId, Integer relatedDataId, HttpServletRequest request,ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		/*WebErrors errors = validateSave(bean, request);
+		/*CmsSite site = CmsUtils.getSite(request);
+		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
@@ -359,12 +371,22 @@ public class OutMeetingAct {
 		return "meeting/out/enrollList";
 	}
 	
+	// 会议报名删除
 	@RequiresPermissions("out_meeting:enroll_delete")
 	@RequestMapping("/out_meeting/enroll_delete.do")
-	public String enrollDelete(OutMeetingEroll bean,HttpServletRequest request,ModelMap model) {
+	public String enrollDelete(OutMeetingEroll bean, HttpServletRequest request,ModelMap model) {
 		bean.setIsDelete((byte)1);
 		enrollMng.updateOutMeetingEroll(bean);
-		return "redirect:list.do";
+		return "redirect:eroll_list.do?userType=0";
+	}
+	
+	// 媒体报名删除
+	@RequiresPermissions("out_meeting:media_delete")
+	@RequestMapping("/out_meeting/media_delete.do")
+	public String mediaDelete(OutMeetingEroll bean, HttpServletRequest request,ModelMap model) {
+		bean.setIsDelete((byte)1);
+		enrollMng.updateOutMeetingEroll(bean);
+		return "redirect:eroll_list.do";
 	}
 	
 	@RequiresPermissions("out_meeting:to_mediaAdd")
@@ -550,7 +572,20 @@ public class OutMeetingAct {
 		model.addAttribute("meetingName", meetingName);
 		return "meeting/out/carList";
 	}
-	
+	@RequiresPermissions("out_meeting:stay_delete")
+	@RequestMapping("/out_meeting/stay_delete.do")
+	public String stayDelete(OutMeetingEroll bean,HttpServletRequest request,ModelMap model) {
+		bean.setIsDeleteStay((byte)1);
+		enrollMng.updateOutMeetingEroll(bean);
+		return "redirect:stayList.do";
+	}
+	@RequiresPermissions("out_meeting:ticket_delete")
+	@RequestMapping("/out_meeting/ticket_delete.do")
+	public String ticketDelete(OutMeetingEroll bean,HttpServletRequest request,ModelMap model) {
+		bean.setIsDeleteTicket((byte)1);
+		enrollMng.updateOutMeetingEroll(bean);
+		return "redirect:ticketList.do";
+	}
 	@Autowired
 	private OutMeetingMng outMeetingMng;
 	

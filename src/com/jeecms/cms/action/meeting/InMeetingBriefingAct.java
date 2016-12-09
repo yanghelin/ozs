@@ -49,8 +49,8 @@ public class InMeetingBriefingAct {
 	@RequiresPermissions("in_meeting_briefing:list")
 	@RequestMapping("/in_meeting_briefing/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		CmsUser currUser = CmsUtils.getUser(request);
+		/*CmsSite site = CmsUtils.getSite(request);
+		CmsUser currUser = CmsUtils.getUser(request);*/
 		Pagination pagination = inMeetingBriefingMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
@@ -68,8 +68,8 @@ public class InMeetingBriefingAct {
 	@RequiresPermissions("in_meeting_briefing:save")
 	@RequestMapping("/in_meeting_briefing/save.do")
 	public String save(InMeetingBriefing bean, Integer meeting_id, Integer attachmentId, HttpServletRequest request,ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		/*WebErrors errors = validateSave(bean, request);
+		/*CmsSite site = CmsUtils.getSite(request);
+		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/

@@ -26,6 +26,7 @@
 	    <property column="phone" name="phone" type="string" />
 	    <property column="position" name="position" type="string" />
 	    <property column="type" name="type" type="java.lang.Integer" />
+	    <property column="is_cn" name="isCn" type="java.lang.Byte" />
 	    <property column="is_stay" name="isStay" type="java.lang.Byte" />
 	    <property column="stay_start" name="stayStart" type="timestamp" />
 	    <property column="stay_end" name="stayEnd" type="timestamp" />

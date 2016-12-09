@@ -81,6 +81,7 @@
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
+		<@hidden id="isCn" name="isCn" value="${isCn!}" />
 		<@p.td colspan="2" label="meeting.name" required="true">
 			<@p.text style="width:500px;" name="name" required="true" maxlength="200"/>
 		</@p.td>

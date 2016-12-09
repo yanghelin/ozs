@@ -23,16 +23,16 @@
 			return false;
 		}
 		if(name == null || name == '') {
-			alert("简报名称为必填项");
+			alert("材料名称为必填项");
 			return false;
 		}else {
 			if(name.length>100){
-				 alert("简报名称限100字");
+				 alert("材料名称限100字");
 				 return false;
 			}
 		}
 		if(attachmentId == null || attachmentId == '') {
-			alert("简报附件为必填项");
+			alert("材料附件为必填项");
 			return false;
 		}
 		$("#jvForm").submit();
@@ -60,7 +60,7 @@
 </head>
 <body>
 	<div class="box-positon">
-		<div class="rpos"><@s.m "global.position"/>: <@s.m "briefing.manager"/> - <@s.m "global.add"/></div>
+		<div class="rpos"><@s.m "global.position"/>: <@s.m "materials.manager"/> - <@s.m "global.add"/></div>
 		<form class="ropt">
 			<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
 		</form>
@@ -71,10 +71,10 @@
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
 		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" name="meeting_id" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
 		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" value="" readonly="readonly"/><@p.tr/>
-		<@p.text width="50" colspan="1" label="briefing.name" id="name" name="name" maxlength="100" required="true"/>
-		<@p.text width="50" colspan="1" label="briefing.type" id="type" name="type" maxlength="20" required="true"/>
+		<@p.text width="50" colspan="1" label="materials.name" id="name" name="name" maxlength="100" required="true"/>
+		<@p.text width="50" colspan="1" label="materials.type" id="type" name="type" maxlength="20" required="true"/>
 		<@p.tr/>
-		<@p.td colspan="2" label="briefing.attachment">
+		<@p.td colspan="2" label="materials.attachment">
 			<input type="hidden" name="attachmentId" id="attachmentId" />
 			<input type="file" id="attachmentFile" name="attachmentFile" value="浏览" style="width:200px;"/>
 			<input type="button" value="上传" onclick="myFileUpload('attachmentFile','attachmentId')"/>
