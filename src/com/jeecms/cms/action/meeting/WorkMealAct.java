@@ -34,6 +34,8 @@ public class WorkMealAct {
 		Pagination pagination = workMealMng.getPage(deptName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("deptName", deptName);
+		CmsUser currUser = CmsUtils.getUser(request);
+		model.addAttribute("auth", currUser.getUserMenu("meal"));
 		return "meeting/in/workMealList";
 	}
 	

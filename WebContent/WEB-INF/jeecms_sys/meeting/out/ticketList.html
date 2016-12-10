@@ -47,9 +47,17 @@ function doDelete(){
 	<@p.column code="out.meeting.userType" align="center"><@s.m "out.userType"+"${out.userType}"/></@p.column><#t/>
 	<@p.column code="out.personNum" align="center">1</@p.column><#t/>
 	<@p.column code="out.flightTime" align="center"><#if out.isForeignTicket??><#if meeting.isForeignTicket == 1>${out.outGoTime?string('yyyy-MM-dd')} ~ ${out.outBackTime?string('yyyy-MM-dd')}</#if><#else>${out.inGoTime?string('yyyy-MM-dd')} ~ ${out.inBackTime?string('yyyy-MM-dd')}</#if></@p.column><#t/>
-	<@p.column code="out.arrive" align="center"><a href="enroll_view.do?id=${out.id!}&showType=1"><#if out.isForeignTicket??><#if meeting.isForeignTicket == 1>${out.outArrive!}</#if><#else>${out.inArrive!}</#if></a></@p.column><#t/>
+	<#if auth[3]==true>
+		<@p.column code="out.arrive" align="center"><a href="enroll_view.do?id=${out.id!}&showType=1" class="pn-opt"><#if out.isForeignTicket??><#if meeting.isForeignTicket == 1>${out.outArrive!}</#if><#else>${out.inArrive!}</#if></a></@p.column><#t/>
+	<#else>
+		<@p.column code="out.arrive" align="center"><#if out.isForeignTicket??><#if meeting.isForeignTicket == 1>${out.outArrive!}</#if><#else>${out.inArrive!}</#if></@p.column><#t/>
+	</#if>
 	<@p.column code="global.operate" align="center">
-		<a href="ticket_delete.do?id=${out.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#if auth[2]==true>
+			<a href="ticket_delete.do?id=${out.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#else>
+			<a href="#" style="color:grey;"><@s.m "global.delete"/></a>
+		</#if>
 	</@p.column><#t/>
 </@p.table>
 </form>

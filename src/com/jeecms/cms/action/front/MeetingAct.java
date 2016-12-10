@@ -67,7 +67,7 @@ public class MeetingAct {
 		}
 		OutMeeting meeting = null;
 		if(id == null) {
-			meeting = outMeetingMng.getMaxMeetingId();
+			meeting = outMeetingMng.getMaxMeetingId(1);
 		}else {
 			meeting = outMeetingMng.findById(id);
 		}
@@ -90,7 +90,7 @@ public class MeetingAct {
 		}
 		OutMeeting meeting = null;
 		if(id == null) {
-			meeting = outMeetingMng.getMaxMeetingId();
+			meeting = outMeetingMng.getMaxMeetingId(1);
 		}else {
 			meeting = outMeetingMng.findById(id);
 		}

@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeecms.cms.entity.assist.CmsWebservice;
 import com.jeecms.cms.entity.meeting.MeetingMenu;
+import com.jeecms.cms.entity.meeting.MeetingMenuUser;
 import com.jeecms.cms.manager.meeting.MeetingMenuMng;
+import com.jeecms.cms.manager.meeting.MeetingMenuUserMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.PropertyUtils;
 import com.jeecms.common.web.CookieUtils;
@@ -58,6 +60,8 @@ public class CmsAdminLocalAct extends CmsAdminAbstract {
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private MeetingMenuMng meetingMenuMng;
+	@Autowired
+	private MeetingMenuUserMng meetingMenuUserMng;
 	
 	@RequiresPermissions("admin_local:v_list")
 	@RequestMapping("/admin_local/v_list.do")
@@ -226,7 +230,11 @@ public class CmsAdminLocalAct extends CmsAdminAbstract {
 
 		List<CmsGroup> groupList = cmsGroupMng.getList();
 		List<CmsRole> roleList = cmsRoleMng.getList();
+		List<MeetingMenu> menuList = meetingMenuMng.getList(null);
+		List<MeetingMenuUser> checkedList = meetingMenuUserMng.getList(admin.getId());
 
+		model.addAttribute("checkedList", checkedList);
+		model.addAttribute("menuList", menuList);
 		model.addAttribute("cmsAdmin", admin);
 		model.addAttribute("site", site);
 		model.addAttribute("userSite", userSite);
@@ -247,7 +255,7 @@ public class CmsAdminLocalAct extends CmsAdminAbstract {
 	public String save(CmsUser bean, CmsUserExt ext, String username,
 			String email, String password, Boolean selfAdmin, Integer rank, Integer groupId,Integer departmentId,
 			Integer[] roleIds, Integer[] channelIds,
-			Byte[] steps, Boolean[] allChannels,Boolean[] allControlChannels,
+			Byte[] steps, Boolean[] allChannels,Boolean[] allControlChannels,Integer[] menuIds,
 			HttpServletRequest request,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = validateSave(bean, request);
@@ -259,6 +267,8 @@ public class CmsAdminLocalAct extends CmsAdminAbstract {
 		bean = manager.saveAdmin(username, email, password, ip, false,
 				selfAdmin, rank, groupId, departmentId,roleIds, channelIds,
 				siteIds, steps, allChannels,allControlChannels, ext);
+		//增加保存用户的菜单权限
+		meetingMenuUserMng.saveMeetingMenuUsers(menuIds, bean);
 		cmsWebserviceMng.callWebService("true",username, password, email, ext,CmsWebservice.SERVICE_TYPE_ADD_USER);
 		log.info("save CmsAdmin id={}", bean.getId());
 		cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId()
@@ -271,7 +281,7 @@ public class CmsAdminLocalAct extends CmsAdminAbstract {
 	public String update(CmsUser bean, CmsUserExt ext, String password,
 			Integer groupId,Integer departmentId, Integer[] roleIds,Integer[] channelIds, Byte step, Boolean allChannel,Boolean allControlChannel,
 			String queryUsername, String queryEmail, Integer queryGroupId,
-			Boolean queryDisabled, Integer pageNo, HttpServletRequest request,
+			Boolean queryDisabled, Integer pageNo, HttpServletRequest request,Integer[] menuIds,
 			ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = validateUpdate(bean.getId(),bean.getRank(), request);
@@ -279,6 +289,8 @@ public class CmsAdminLocalAct extends CmsAdminAbstract {
 			return errors.showErrorPage(model);
 		}
 		bean = manager.updateAdmin(bean, ext, password, groupId,departmentId, roleIds,channelIds, site.getId(), step, allChannel,allControlChannel);
+		//增加保存用户的菜单权限
+		meetingMenuUserMng.updateMeetingMenuUsers(menuIds, bean);
 		cmsWebserviceMng.callWebService("true",bean.getUsername(), password, null, ext,CmsWebservice.SERVICE_TYPE_UPDATE_USER);
 		log.info("update CmsAdmin id={}.", bean.getId());
 		cmsLogMng.operating(request, "cmsUser.log.update", "id=" + bean.getId()

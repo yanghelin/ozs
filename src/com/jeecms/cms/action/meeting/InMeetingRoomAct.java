@@ -34,11 +34,12 @@ public class InMeetingRoomAct {
 	@RequiresPermissions("in_meeting_room:list")
 	@RequestMapping("/in_meeting_room/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
-		/*CmsSite site = CmsUtils.getSite(request);
-		CmsUser currUser = CmsUtils.getUser(request);*/
+		/*CmsSite site = CmsUtils.getSite(request);*/
 		Pagination pagination = inMeetingRoomMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
+		CmsUser currUser = CmsUtils.getUser(request);
+		model.addAttribute("auth", currUser.getUserMenu("room"));
 		return "meeting/in/roomList";
 	}
 	

@@ -33,11 +33,12 @@ public class InMeetingMaterialsAct {
 	@RequiresPermissions("in_meeting_materials:list")
 	@RequestMapping("/in_meeting_materials/list.do")
 	public String list(String meetingName,Integer pageNo,HttpServletRequest request, ModelMap model) {
-		/*CmsSite site = CmsUtils.getSite(request);
-		CmsUser currUser = CmsUtils.getUser(request);*/
+		/*CmsSite site = CmsUtils.getSite(request);*/
 		Pagination pagination = inMeetingMaterialsMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
+		CmsUser currUser = CmsUtils.getUser(request);
+		model.addAttribute("auth", currUser.getUserMenu("materials"));
 		return "meeting/in/materialsList";
 	}
 	

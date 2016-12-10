@@ -22,5 +22,5 @@ public interface OutMeetingDao{
 
 	public OutMeeting deleteById(Integer id);
 	
-	public OutMeeting getMaxMeetingId();
+	public OutMeeting getMaxMeetingId(Integer isCn);
 }

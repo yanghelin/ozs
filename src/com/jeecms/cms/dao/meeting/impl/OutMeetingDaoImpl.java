@@ -43,8 +43,13 @@ public class OutMeetingDaoImpl extends HibernateBaseDao<OutMeeting, Integer>
 	}
 	
 	@SuppressWarnings("unchecked")
-	public OutMeeting getMaxMeetingId() {
+	public OutMeeting getMaxMeetingId(Integer isCn) {
 		Finder f = Finder.create("select o from OutMeeting o where o.id = (select max(bean.id) from OutMeeting bean where 1=1 and bean.isDelete = 0)");
+		if(isCn == null) {
+			f.append(" and bean.isCn=0");
+		}else {
+			f.append(" and bean.isCn=1");
+		}
 		List<OutMeeting> meetingList = find(f);
 		OutMeeting meeting = null;
 		if(meetingList != null && meetingList.size()>0) {

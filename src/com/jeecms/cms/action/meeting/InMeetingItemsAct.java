@@ -47,6 +47,7 @@ public class InMeetingItemsAct {
 		Pagination pagination = manager.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
+		model.addAttribute("auth", currUser.getUserMenu("item"));
 		return "meeting/in/itemsList";
 	}
 	

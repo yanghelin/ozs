@@ -274,8 +274,11 @@ CREATE TABLE `ozs_meeting_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(30) DEFAULT NULL COMMENT '会议菜单名称',
   `url` varchar(100) DEFAULT NULL COMMENT '会议菜单的url链接',
+  `type` tinyint(4) DEFAULT NULL COMMENT ' 菜单类型：1、注册用户；2、国际会议；3、会议用品；4、会议室；5、国际会议报名；6、住宿；7、机票；8、订餐管理；9、会议材料；10、媒体信息；11、工作简报、12、会议邀请（所内会议）；13、站内信；14、回复站内信',
+  `type_name` varchar(20) DEFAULT NULL COMMENT '类型名称：1、user；2、out；3、item；4、room；5、enroll；6、stay；7、ticket；8、meal；9、materials；10、media；11、briefing；12、in；13、message；14、reply',
+  `is_delete` tinyint(4) DEFAULT NULL COMMENT ' 是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会议菜单表，主要为用户授权使用';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='会议菜单表，主要为用户授权使用';
 
 CREATE TABLE `ozs_meeting_menu_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -294,3 +297,5 @@ CREATE TABLE `ozs_meeting_menu_user` (
 -- 2、stenographer
 -- 3、media
 
+-- 关于权限说明
+-- 0、增加；1、编辑；2、删除；3、查看；4、下载

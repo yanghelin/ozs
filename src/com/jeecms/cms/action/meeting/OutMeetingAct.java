@@ -56,6 +56,8 @@ public class OutMeetingAct {
 		Pagination pagination = outMeetingMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
+		CmsUser currUser = CmsUtils.getUser(request);
+		model.addAttribute("auth", currUser.getUserMenu("out"));
 		return "meeting/out/list";
 	}
 	
@@ -360,6 +362,7 @@ public class OutMeetingAct {
 	
 	
 	//===================================【查看会议报名】和【速记和媒体信息管理】===============================================
+	// userType=0 查看会议报名；userType=null 速记和媒体信息管理
 	@RequiresPermissions("out_meeting:enroll_list")
 	@RequestMapping("/out_meeting/enroll_list.do")
 	public String enrollList(String meetingName,String userType,Integer pageNo, HttpServletRequest request,ModelMap model) {
@@ -368,6 +371,13 @@ public class OutMeetingAct {
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
 		model.addAttribute("userType", userType);
+		if(StringUtils.isNotBlank(userType)) {
+			CmsUser currUser = CmsUtils.getUser(request);
+			model.addAttribute("auth", currUser.getUserMenu("enroll"));
+		}else {
+			CmsUser currUser = CmsUtils.getUser(request);
+			model.addAttribute("auth", currUser.getUserMenu("media"));
+		}
 		return "meeting/out/enrollList";
 	}
 	
@@ -550,6 +560,8 @@ public class OutMeetingAct {
 		Pagination pagination = enrollMng.getPage(meetingName, 1, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
+		CmsUser currUser = CmsUtils.getUser(request);
+		model.addAttribute("auth", currUser.getUserMenu("stay"));
 		return "meeting/out/stayList";
 	}
 	
@@ -560,6 +572,8 @@ public class OutMeetingAct {
 		Pagination pagination = enrollMng.getPage(meetingName, 2, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
+		CmsUser currUser = CmsUtils.getUser(request);
+		model.addAttribute("auth", currUser.getUserMenu("ticket"));
 		return "meeting/out/ticketList";
 	}
 	

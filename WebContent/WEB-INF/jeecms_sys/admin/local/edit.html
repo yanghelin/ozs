@@ -87,6 +87,26 @@ function allControlChannelSelect(){
 	<@s.m "cmsUser.allChannelControl"/><input type="checkbox" id="allControlChannel"  value="${userSite.allChannelControl?string('true','false')}" <#if userSite.allChannelControl>checked="checked"</#if> onclick="allControlChannelSelect()"/>
 <div style="clear:both"></div>
 </@p.td><@p.tr/>
+
+<@p.td colspan="2" label="meeting.auth">
+	<div style="margin:5px;">
+		<#if menuList?size gt 0>
+			<#list menuList as menu>
+				<#assign isCheck="" />
+				<#if checkedList?size gt 0>
+					<#list checkedList as menuUser>
+						<#if menuUser.meetingMenu.id == menu.id>
+							<#assign isCheck="checked" />
+						</#if>
+					</#list>
+				</#if>
+				<div style="width:130px; float:left; height:24px; line-height:24px;"><input type="checkbox" name="menuIds" id="menu${menu.id}" value="${menu.id}" ${isCheck} style="margin:0px 3px 2px 1px; vertical-align: middle;" />${menu.name}</div>
+			</#list>
+		</#if>
+	</div>
+	<div style="margin:16px auto;">&nbsp;</div>
+</@p.td>
+<@p.tr/>
 <@p.td colspan="2">
 	<@p.hidden name="id" value=cmsAdmin.id/>
 	<@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/>

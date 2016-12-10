@@ -60,8 +60,8 @@ public class OutMeetingMngImpl implements OutMeetingMng {
 	}
 
 	@Override
-	public OutMeeting getMaxMeetingId() {
-		return outMeetingDao.getMaxMeetingId();
+	public OutMeeting getMaxMeetingId(Integer isCn) {
+		return outMeetingDao.getMaxMeetingId(isCn);
 	}
 	
 	@Autowired

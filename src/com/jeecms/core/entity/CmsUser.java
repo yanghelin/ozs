@@ -1,5 +1,6 @@
 package com.jeecms.core.entity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -12,6 +13,8 @@ import org.apache.commons.collections.CollectionUtils;
 import com.jeecms.cms.entity.assist.CmsJobApply;
 import com.jeecms.cms.entity.main.Channel;
 import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.entity.meeting.MeetingMenu;
+import com.jeecms.cms.entity.meeting.MeetingMenuUser;
 import com.jeecms.common.hibernate3.PriorityInterface;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.core.entity.base.BaseCmsUser;
@@ -521,5 +524,45 @@ public class CmsUser extends BaseCmsUser implements PriorityInterface {
 	}
 
 	/* [CONSTRUCTOR MARKER END] */
-
+	private List<MeetingMenu> menuList;
+	public Boolean[] getUserMenu(String typeName) {
+		Boolean[] auth = {false,false,false,false,false};
+		if(menuList != null && menuList.size()>0) {
+			for(MeetingMenu menu:menuList) {
+				if(menu.getTypeName().equals(typeName)) {
+					if(menu.getUrl().indexOf("to_add")>0) {
+						auth[0] = true;
+					}
+					if(menu.getUrl().indexOf("to_edit")>0) {
+						auth[1] = true;
+						auth[2] = true;
+					}
+					if(menu.getUrl().indexOf("delete")>0) {
+						auth[2] = true;
+					}
+					if(menu.getUrl().indexOf("view")>0) {
+						auth[3] = true;
+					}
+					if(menu.getUrl().indexOf("download")>0) {
+						auth[4] = true;
+					}
+				}
+			}
+		}
+		return auth;
+	}
+	public void setUserNewMenu(List<MeetingMenuUser> menuUserList) {
+		if(menuUserList != null && menuUserList.size()>0) {
+			menuList = new ArrayList<MeetingMenu>();
+			for(MeetingMenuUser menuUser:menuUserList) {
+				MeetingMenu menu = new MeetingMenu();
+				MeetingMenu mm = menuUser.getMeetingMenu();
+				menu.setName(mm.getName());
+				menu.setType(mm.getType());
+				menu.setTypeName(mm.getTypeName());
+				menu.setUrl(mm.getUrl());
+				menuList.add(menu);
+			}
+		}
+	}
 }

@@ -25,7 +25,7 @@
 			alert("请选择发送用户");
 			return false;
 		}
-		$("#sendUser").val(users);
+		$("#sendUsers").val(users);
 		if(content == null || content == '') {
 			alert("详细内容为必填项");
 			return false;
@@ -45,17 +45,18 @@
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.text width="50" colspan="2" label="ozs.meesage.title" name="title" id="title" required="true" maxlength="100"/>
-		<@p.td width="50" colspan="2" label="ozs.meesage.sendUser">
-			<input type="hidden" name="sendUser" id="sendUser" value="" />
+		<@p.text width="50" colspan="2" label="ozs.message.title" name="title" id="title" required="true" maxlength="100"/>
+		<@p.tr/>
+		<@p.td width="50" colspan="2" label="ozs.message.sendUser">
+			<input type="hidden" name="sendUsers" id="sendUsers" value="" />
 			<#if userList?size gt 0>
 				<#list userList as user>
-					<div style="width:90px;float:left;"><input type="checkbox" name="userBox" id="${user.id}" value="${user.id}" />&nbsp;${user.realname}</div>
+					<div style="width:90px;float:left;height:24px; line-height:24px;"><input type="checkbox" name="userBox" id="${user.id}" value="${user.id}" style="margin:0px 3px 2px 1px; vertical-align: middle;" />${user.realname}</div>
 				</#list>
 			</#if>
 		</@p.td>
 		<@p.tr/>
-		<@p.textarea colspan="2" label="ozs.meesage.content" name="content" cols="70" rows="5"/>
+		<@p.textarea colspan="2" label="ozs.message.content" id="content" name="content" cols="70" rows="5"/>
 		<@p.tr/>
 		<@p.td colspan="2"><input type="button" name="btn" onclick="formSubmit()" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
 		</@p.form>

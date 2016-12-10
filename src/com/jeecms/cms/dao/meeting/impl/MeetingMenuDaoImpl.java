@@ -33,7 +33,7 @@ public class MeetingMenuDaoImpl extends HibernateBaseDao<MeetingMenu, Integer>
 			f.append(" and bean.name like :name");
 			f.setParam("name", "%" + name + "%");
 		}
-		f.append(" order by bean.id desc");
+		f.append(" order by bean.id asc");
 		return find(f);
 	}
 

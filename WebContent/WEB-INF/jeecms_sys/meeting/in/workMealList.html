@@ -26,7 +26,11 @@ function doDelete(){
 <div class="box-positon">
 	<div class="rpos"><@s.m "global.position"/>: <@s.m "workMeal.manager"/> - <@s.m "global.list"/></div>
 	<form class="ropt">
-		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#if auth[0]==true>
+			<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#else>
+			<input class="add" type="button" value="<@s.m "global.add"/>" style="color:grey"/>
+		</#if>
 	</form>
 	<div class="clear"></div>
 </div>
@@ -50,7 +54,11 @@ function doDelete(){
 	<@p.column code="workMeal.createTime" align="center">${(workMeal.startTime?string('yyyy-MM-dd'))!} ~ ${(workMeal.endTime?string('yyyy-MM-dd'))!}</@p.column><#t/>
 	<@p.column code="workMeal.remark" align="center"><@text_cut s=workMeal.remark?html len=25 append="..."/></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
-		<a href="to_edit.do?id=${workMeal.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a><#t/>
+		<#if auth[1]==true>
+			<a href="to_edit.do?id=${workMeal.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a><#t/>
+		<#else>
+			<a href="#" style="color:grey;"><@s.m "global.edit"/></a>
+		</#if>
 	</@p.column><#t/>
 </@p.table>
 </form>

@@ -24,6 +24,6 @@ public interface OutMeetingMng {
 	 * 获取当前国际会议的最大ID的会议实体
 	 * @return
 	 */
-	public OutMeeting getMaxMeetingId();
+	public OutMeeting getMaxMeetingId(Integer isCn);
 
 }

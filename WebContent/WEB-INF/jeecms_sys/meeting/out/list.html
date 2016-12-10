@@ -26,7 +26,12 @@ function doDelete(){
 <div class="box-positon">
 	<div class="rpos"><@s.m "global.position"/>: <@s.m "out.meeting.manager"/> - <@s.m "global.list"/></div>
 	<form class="ropt">
-		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#if auth[0]==true>
+			<input class="add" type="submit" value="<@s.m "zh.add"/>" onclick="this.form.action='to_add.do';"/>
+			<input class="add" type="submit" value="<@s.m "en.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#else>
+			<input class="add" type="button" value="<@s.m "global.add"/>" style="color:grey"/>
+		</#if>
 	</form>
 	<div class="clear"></div>
 </div>
@@ -50,8 +55,13 @@ function doDelete(){
 	<@p.column code="meeting.publisher" align="center">${meeting.publisher.realname!}</@p.column><#t/>
 	<@p.column code="meeting.content" align="center"><a href="view.do?id=${meeting.id}"><@text_cut s=meeting.content?html len=25 append="..."/></a></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
-		<a href="to_edit.do?id=${meeting.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/>
-		<a href="delete.do?id=${meeting.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#if auth[1]==true>
+			<a href="to_edit.do?id=${meeting.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/>
+			<a href="delete.do?id=${meeting.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#else>
+			<a href="#" style="color:grey;"><@s.m "global.edit"/></a> | <#rt/>
+			<a href="#" style="color:grey;"><@s.m "global.delete"/></a><#t/>
+		</#if>
 	</@p.column><#t/>
 </@p.table>
 </form>

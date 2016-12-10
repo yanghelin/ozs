@@ -27,7 +27,11 @@ function doDelete(){
 	<div class="rpos"><@s.m "global.position"/>: <@s.m "out.meeting.manager"/> - <@s.m "global.list"/></div>
 	<#if userType??><#else>
 	<form class="ropt">
-		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_mediaAdd.do';"/>
+		<#if auth[0]==true>
+			<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_mediaAdd.do';"/>
+		<#else>
+			<input class="add" type="button" value="<@s.m "global.add"/>" style="color:grey"/>
+		</#if>
 	</form>
 	</#if>
 	<div class="clear"></div>
@@ -55,10 +59,14 @@ function doDelete(){
 	<@p.column code="meeting.name" align="center"><a href="enroll_view.do?id=${out.id!}"><#if out.outMeetingId??>${out.outMeetingId.name!}</#if></a></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
 		<!-- <a href="to_edit.do?id=${out.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/> -->
-		<#if userType??>
-		<a href="enroll_delete.do?id=${out.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#if auth[2]==true>
+			<#if userType??>
+			<a href="enroll_delete.do?id=${out.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+			<#else>
+			<a href="media_delete.do?id=${out.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+			</#if>
 		<#else>
-		<a href="media_delete.do?id=${out.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+			<a href="#" style="color:grey;"><@s.m "global.delete"/></a>
 		</#if>
 	</@p.column><#t/>
 </@p.table>

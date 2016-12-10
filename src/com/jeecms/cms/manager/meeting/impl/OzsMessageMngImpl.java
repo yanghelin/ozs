@@ -60,6 +60,8 @@ public class OzsMessageMngImpl implements OzsMessageMng {
 					OzsMessage om = new OzsMessage();
 					om.setId(message.getId());
 					detail.setMessageId(om);
+					detail.setMessageTitle(message.getTitle());
+					detail.setMessageContent(message.getContent());
 					detail.setIsDelete((byte)0);
 					detail.setSender(message.getSendBy());
 					detail.setIsRead((byte)0);

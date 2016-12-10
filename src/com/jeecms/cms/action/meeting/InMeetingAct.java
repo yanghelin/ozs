@@ -50,6 +50,7 @@ public class InMeetingAct {
 		Pagination pagination = inMeetingMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
+		model.addAttribute("auth", currUser.getUserMenu("in"));
 		return "meeting/in/list";
 	}
 	

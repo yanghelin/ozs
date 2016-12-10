@@ -26,7 +26,11 @@ function doDelete(){
 <div class="box-positon">
 	<div class="rpos"><@s.m "global.position"/>: <@s.m "meeting.items"/> - <@s.m "global.list"/></div>
 	<form class="ropt">
-		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#if auth[0]==true>
+			<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#else>
+			<input class="add" type="button" value="<@s.m "global.add"/>" style="color:grey"/>
+		</#if>
 	</form>
 	<div class="clear"></div>
 </div>
@@ -50,8 +54,11 @@ function doDelete(){
 	<@p.column code="meeting.startTime" align="center"><#if room.meetingId??>${room.meetingId.startTime!}</#if></@p.column><#t/>
 	<@p.column code="room.meetingRoom" align="center"><@s.m "room.room"+"${room.meetingRoom}"/></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
-		<!-- <a href="to_edit.do?id=${room.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/> -->
-		<a href="delete.do?id=${room.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#if auth[2]==true>
+			<a href="delete.do?id=${room.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#else>
+			<a href="#" style="color:grey;"><@s.m "global.delete"/></a>
+		</#if>
 	</@p.column><#t/>
 </@p.table>
 </form>

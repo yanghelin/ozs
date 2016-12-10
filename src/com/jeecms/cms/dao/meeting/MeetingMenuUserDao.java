@@ -18,4 +18,6 @@ public interface MeetingMenuUserDao{
 	public MeetingMenuUser updateByUpdater(Updater<MeetingMenuUser> updater);
 
 	public MeetingMenuUser deleteById(Integer id);
+	
+	public List<MeetingMenuUser> findByProperty(String property, Object value);
 }

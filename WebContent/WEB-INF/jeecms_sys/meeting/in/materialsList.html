@@ -41,7 +41,11 @@ function download(path) {
 <div class="box-positon">
 	<div class="rpos"><@s.m "global.position"/>: <@s.m "briefing.manager"/> - <@s.m "global.list"/></div>
 	<form class="ropt">
-		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#if auth[0]==true>
+			<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#else>
+			<input class="add" type="button" value="<@s.m "global.add"/>" style="color:grey"/>
+		</#if>
 	</form>
 	<div class="clear"></div>
 </div>
@@ -64,9 +68,16 @@ function download(path) {
 	<@p.column code="materials.createBy" align="center">${materials.createBy.realname!}</@p.column><#t/>
 	<@p.column code="materials.createTime" align="center">${materials.createTime!}</@p.column><#t/>
 	<@p.column code="global.operate" align="center">
-		<a href="javascript:download('${materials.attachment.path}')" class="pn-opt"><@s.m "materials.download"/></a>
-		<a href="delete.do?id=${materials.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a>
-		<#t/>
+		<#if auth[2]==true>
+			<a href="delete.do?id=${briefing.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a> | <#rt/>
+		<#else>
+			<a href="#" style="color:grey;"><@s.m "global.delete"/></a> | <#rt/>
+		</#if>
+		<#if auth[4]==true>
+			<a href="javascript:download('${materials.attachment.path}')" class="pn-opt"><@s.m "materials.download"/></a>
+		<#else>
+			<a href="#" style="color:grey;"><@s.m "materials.download"/></a><#t/>
+		</#if>
 	</@p.column><#t/>
 </@p.table>
 </form>

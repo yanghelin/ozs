@@ -1,6 +1,5 @@
 package com.jeecms.cms.web;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,7 +7,6 @@ import java.util.Set;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -19,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.UrlPathHelper;
 
+import com.jeecms.cms.manager.meeting.MeetingMenuUserMng;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
@@ -54,6 +53,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 		if (subject.isAuthenticated()) {
 			String username =  (String) subject.getPrincipal();
 			user = cmsUserMng.findByUsername(username);
+			user.setUserNewMenu(menuUserMng.getList(user.getId()));
 		}
 		// 此时用户可以为null
 		CmsUtils.setUser(request, user);
@@ -302,6 +302,8 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	private CmsAuthorizingRealm authorizingRealm;
+	@Autowired
+	private MeetingMenuUserMng menuUserMng;
 
 	@Autowired
 	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {

@@ -24,9 +24,13 @@ function doDelete(){
 </head>
 <body>
 <div class="box-positon">
-	<div class="rpos"><@s.m "global.position"/>: <@s.m "ozs.meesage"/> - <@s.m "global.list"/></div>
+	<div class="rpos"><@s.m "global.position"/>: <@s.m "ozs.message"/> - <@s.m "global.list"/></div>
 	<form class="ropt">
-		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#if auth[0]==true>
+			<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='to_add.do';"/>
+		<#else>
+			<input class="add" type="button" value="<@s.m "global.add"/>" style="color:grey"/>
+		</#if>
 	</form>
 	<div class="clear"></div>
 </div>
@@ -44,11 +48,11 @@ function doDelete(){
 		<input type='checkbox' name='ids' value='${message.id}' onclick="Pn.selectCheckBox('${message.id}',this.checked)"/><#t/>
 	</@p.column><#t/>
 	<@p.column title="ID" align="center">${message.id}</@p.column><#t/>
-	<@p.column code="message.title" align="center">${message.title!}</@p.column><#t/>
-	<@p.column code="message.sendTime" align="center">${message.sendTime!}</@p.column><#t/>
-	<@p.column code="message.content" align="center"><@text_cut s=message.content?html len=25 append="..."/></@p.column><#t/>
+	<@p.column code="ozs.message.title" align="center">${message.title!}</@p.column><#t/>
+	<@p.column code="ozs.message.sendTime" align="center">${message.sendTime!}</@p.column><#t/>
+	<@p.column code="ozs.message.content" align="center"><@text_cut s=message.content len=25 append="..."/></@p.column><#t/>
 	<!-- <@p.column code="global.operate" align="center">
-		<a href="reply.do?id=${message.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "ozs.meesage.reply"/></a>
+		<a href="reply.do?id=${message.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "ozs.message.reply"/></a>
 	</@p.column><#t/> -->
 </@p.table>
 </form>

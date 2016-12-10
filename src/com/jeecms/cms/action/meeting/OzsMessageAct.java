@@ -38,6 +38,8 @@ public class OzsMessageAct {
 		Pagination pagination = ozsMessageMng.getPage(meetingName, cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
+		CmsUser currUser = CmsUtils.getUser(request);
+		model.addAttribute("auth", currUser.getUserMenu("message"));
 		return "meeting/message/list";
 	}
 	

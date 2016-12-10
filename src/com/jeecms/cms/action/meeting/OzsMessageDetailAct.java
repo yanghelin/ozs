@@ -39,40 +39,44 @@ public class OzsMessageDetailAct {
 		Pagination pagination = ozsMessageDetailMng.getPage(meetingName, currUser.getId(), cpn(pageNo), CookieUtils.getPageSize(request));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("meetingName", meetingName);
-		return "meeting/message/list";
-	}
-	
-	@RequiresPermissions("ozs_message_detail:to_add")
-	@RequestMapping("/ozs_message_detail/to_add.do")
-	public String add(HttpServletRequest request, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		List<CmsUser> userList = userMng.getList("", "", site.getId(), null, false, true, null);
-		model.addAttribute("userList", userList);
-		return "meeting/message/add";
+		model.addAttribute("auth", currUser.getUserMenu("reply"));
+		return "meeting/message/detailList";
 	}
 	
 	@RequiresPermissions("ozs_message_detail:reply")
 	@RequestMapping("/ozs_message_detail/reply.do")
-	public String reply(HttpServletRequest request, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		List<CmsUser> userList = userMng.getList("", "", site.getId(), null, false, true, null);
-		model.addAttribute("userList", userList);
+	public String reply(Integer id, HttpServletRequest request, ModelMap model) {
+		OzsMessageDetail detail = ozsMessageDetailMng.findById(id);
+		model.addAttribute("detail", detail);
 		return "meeting/message/reply";
 	}
 	
 	@RequiresPermissions("ozs_message_detail:save")
 	@RequestMapping("/ozs_message_detail/save.do")
-	public String save(OzsMessageDetail bean, HttpServletRequest request,ModelMap model) {
+	public String save(OzsMessageDetail bean, Integer receiver_id, Integer message_id, HttpServletRequest request,ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
 		CmsUser currUser = CmsUtils.getUser(request);
+		bean.setSender(currUser);
+		bean.setCreateTime(new Date());
+		bean.setIsRead((byte)0);
 		bean.setIsDelete((byte)0);
+		bean.setIsReply((byte)1);
+		if(receiver_id != null) {
+			CmsUser receiver = new CmsUser();
+			receiver.setId(receiver_id);
+			bean.setReceiver(receiver);
+		}
+		if(message_id != null) {
+			OzsMessage message = new OzsMessage();
+			message.setId(message_id);
+			bean.setMessageId(message);
+		}
 		ozsMessageDetailMng.saveOzsMessageDetail(bean);
 		log.info("save OzsMessageDetail id={}", bean.getId());
-		//cmsLogMng.operating(request, "cmsUser.log.save", "id=" + bean.getId() + ";username=" + bean.getUsername());
 		return "redirect:list.do";
 	}
 	

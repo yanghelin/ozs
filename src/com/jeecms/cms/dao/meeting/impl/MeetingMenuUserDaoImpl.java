@@ -15,7 +15,7 @@ public class MeetingMenuUserDaoImpl extends HibernateBaseDao<MeetingMenuUser, In
 	@SuppressWarnings("unchecked")
 	public List<MeetingMenuUser> getList(Integer userId) {
 		Finder f = Finder.create("select bean from MeetingMenuUser bean");
-		f.append(" where 1=1 and bean.isDelete = 0 ");
+		f.append(" where 1=1 ");
 		if (userId != null) {
 			f.append(" and bean.user.id =:userId");
 			f.setParam("userId", userId);
@@ -40,6 +40,11 @@ public class MeetingMenuUserDaoImpl extends HibernateBaseDao<MeetingMenuUser, In
 			getSession().delete(entity);
 		}
 		return entity;
+	}
+	
+	public List<MeetingMenuUser> findByProperty(String property, Object value) {
+		List<MeetingMenuUser> menuUserList = super.findByProperty(property, value);
+		return menuUserList;
 	}
 
 	@Override

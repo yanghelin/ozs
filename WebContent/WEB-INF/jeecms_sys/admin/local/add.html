@@ -90,7 +90,17 @@ function allControlChannelSelect(){
 	 -->
 <div style="clear:both"></div>
 </@p.td><@p.tr/>
-<@p.checkboxlist colspan="2" label="meeting.auth" name="menuIds" list=menuList listKey="id" listValue="name" required="true" />
+<!-- <@p.checkboxlist colspan="2" width="100" label="meeting.auth" name="menuIds" list=menuList listKey="id" listValue="name" required="true" /> -->
+<@p.td colspan="2" label="meeting.auth">
+	<div style="margin:5px;">
+		<#if menuList?size gt 0>
+			<#list menuList as menu>
+			<div style="width:130px; float:left; height:24px; line-height:24px;"><input type="checkbox" name="menuIds" id="${menu.id}" value="${menu.id}" style="margin:0px 3px 2px 1px; vertical-align: middle;" />${menu.name}</div>
+			</#list>
+		</#if>
+	</div>
+	<div style="margin:16px auto;">&nbsp;</div>
+</@p.td>
 <@p.tr/>
 <@p.td colspan="2"><@p.submit code="global.submit"/> &nbsp; <@p.reset code="global.reset"/></@p.td>
 </@p.form>
