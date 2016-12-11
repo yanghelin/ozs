@@ -18,7 +18,7 @@ public class OutMeeting implements Serializable {
 
     private String address;
 
-    private Integer meetingSize;
+    private String meetingSize;
 
     private String presenter;
 
@@ -156,11 +156,11 @@ public class OutMeeting implements Serializable {
 		this.address = address;
 	}
 
-	public Integer getMeetingSize() {
+	public String getMeetingSize() {
 		return meetingSize;
 	}
 
-	public void setMeetingSize(Integer meetingSize) {
+	public void setMeetingSize(String meetingSize) {
 		this.meetingSize = meetingSize;
 	}
 

@@ -28,7 +28,7 @@ function doDelete(){
 	<form class="ropt">
 		<#if auth[0]==true>
 			<input class="add" type="submit" value="<@s.m "zh.add"/>" onclick="this.form.action='to_add.do';"/>
-			<input class="add" type="submit" value="<@s.m "en.add"/>" onclick="this.form.action='to_add.do';"/>
+			<input class="add" type="submit" value="<@s.m "en.add"/>" onclick="this.form.action='to_add_en.do';"/>
 		<#else>
 			<input class="add" type="button" value="<@s.m "global.add"/>" style="color:grey"/>
 		</#if>
@@ -53,7 +53,7 @@ function doDelete(){
 	<@p.column code="meeting.type" align="center"><@s.m "meeting.type0"/></@p.column><#t/>
 	<@p.column code="meeting.publishTime" align="center">${meeting.publishTime!}</@p.column><#t/>
 	<@p.column code="meeting.publisher" align="center">${meeting.publisher.realname!}</@p.column><#t/>
-	<@p.column code="meeting.content" align="center"><a href="view.do?id=${meeting.id}"><@text_cut s=meeting.content?html len=25 append="..."/></a></@p.column><#t/>
+	<@p.column code="meeting.content" align="center"><a href="view.do?id=${meeting.id}" class="pn-opt"><@text_cut s=meeting.content?html len=25 append="..."/></a></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
 		<#if auth[1]==true>
 			<a href="to_edit.do?id=${meeting.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/>

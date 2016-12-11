@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-<title>中国中东欧国家智库交流与合作网络</title>
+<title> 英文 - 中国中东欧国家智库交流与合作网络</title>
 
 
 <!--[if lt IE 9]>
@@ -106,7 +106,7 @@
 
 
 <div class="register-box login-box">   
-	<div class="register-nav"><span>会员登录</span><div class="register-login">没有账号，<a class="tc" href="${base}/register.jspx">立即注册 ></a></div></div> 
+	<div class="register-nav"><span>Member Login</span><div class="register-login"><a class="tc" href="${base}/register.jspx"> Sign up></a></div></div> 
 	<form id="jvForm" action="${base}/login.jspx" method="post">
 		<div class="inf-message">
 			[#if message??]
@@ -136,19 +136,19 @@
 				[/#if]
 				[#if success??]
 				[#if success]
-					注册成功！
+					Registration Completed！
 				[/#if]
 	    
 			[/#if]
 		</div>
-		<div class="username-con"><i></i><input id="username" name="username" class="required  login-input" type="text" placeholder="用户名"></div>
-		<div class="password-con"><i></i><input id="password" name="password" class="required  password-input" type="password" placeholder="密码"></div>
-		<div class="captcha-con clearfix"><i></i><input type="text" id="captcha" name="captcha" class="required captcha-input" placeholder="验证码"><img src="${base}/captcha.svl" onclick="this.src='${base}/captcha.svl?d='+new Date()*1"></div>
+		<div class="username-con"><i></i><input id="username" name="username" class="required  login-input" type="text" placeholder="Username"></div>
+		<div class="password-con"><i></i><input id="password" name="password" class="required  password-input" type="password" placeholder="Password"></div>
+		<div class="captcha-con clearfix"><i></i><input type="text" id="captcha" name="captcha" class="required captcha-input" placeholder="Captcha"><img src="${base}/captcha.svl" onclick="this.src='${base}/captcha.svl?d='+new Date()*1"></div>
 		<div class="login-rem clearfix">
-			<div class="next-day"><input type="checkbox" class="login-checkbox"  value="true" name="rememberMe">下次自动登录</div>
+			<div class="next-day"><input type="checkbox" class="login-checkbox"  value="true" name="rememberMe">Keep me logged in</div>
 			<!-- <a href="/member/forgot_password.jspx">忘记密码</a> -->
 		</div>
-		<input type="submit" class="login-btn" value="登 录">
+		<input type="submit" class="login-btn" value="Sign In">
 	</form>
 </div>
 

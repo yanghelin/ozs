@@ -9,16 +9,6 @@
 <!--[if lt IE 9]>
 <script src="${resSys}/html5.js" type="text/javascript"></script>
 <![endif]-->
-<!-- 新增CSS start -->
-	<link href="/${res}/css/bootstrap/bootstrap.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="/${res}/css/compiled/elements.css">
-	<link rel="stylesheet" href="/${res}/css/compiled/signin.css" type="text/css" media="screen" />
-<!-- end -->
-<!-- 新增js start -->
-<!--     <script src="http://code.jquery.com/jquery-latest.js"></script>
- -->   <!--  <script src="/${res}/js/bootstrap.min.js"></script> -->
-    <script src="/${res}/js/theme.js"></script>
-<!-- end -->
 <link href="/${res}/css/html5.css" rel="stylesheet" type="text/css"/>
 <script src="/${res}/js/indexshow.js" type="text/javascript"></script>
 <script src="/${res}/js/imgFlip.js" type="text/javascript"></script>
@@ -29,7 +19,6 @@
 <script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
 <script type="text/javascript">
-
 $(function() {
 	Cms.siteFlow("${base}", location.href, document.referrer);
 	$.cookie("_site_id_cookie","${site.id!}",{path: '${base}' });
@@ -87,6 +76,7 @@ $(document).ready(function(e) {
 <body>
 <!-- [#include "../include/header.html"/] -->
 <div class="container">
+
     [#include "../include/search_csi.html"/]
     [#include "../include/navi.html"/]
     <div class="main">

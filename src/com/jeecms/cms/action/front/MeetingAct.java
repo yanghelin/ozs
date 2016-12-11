@@ -67,7 +67,11 @@ public class MeetingAct {
 		}
 		OutMeeting meeting = null;
 		if(id == null) {
-			meeting = outMeetingMng.getMaxMeetingId(1);
+			if(site.getAccessPath().equals("zh")) {
+				meeting = outMeetingMng.getMaxMeetingId(1);
+			}else {
+				meeting = outMeetingMng.getMaxMeetingId(null);
+			}
 		}else {
 			meeting = outMeetingMng.findById(id);
 		}
@@ -90,7 +94,11 @@ public class MeetingAct {
 		}
 		OutMeeting meeting = null;
 		if(id == null) {
-			meeting = outMeetingMng.getMaxMeetingId(1);
+			if(site.getAccessPath().equals("zh")) {
+				meeting = outMeetingMng.getMaxMeetingId(1);
+			}else {
+				meeting = outMeetingMng.getMaxMeetingId(null);
+			}
 		}else {
 			meeting = outMeetingMng.findById(id);
 		}

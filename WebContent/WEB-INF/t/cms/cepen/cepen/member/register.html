@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-<title>中国中东欧国家智库交流与合作网络</title>
+<title> 英文 - 中国中东欧国家智库交流与合作网络</title>
 
 
 <!--[if lt IE 9]>
@@ -26,7 +26,7 @@
 .register-login a{color:#368cf6;}
 .register-list{padding-left:81px; padding-top:10px;}
 .register-list li{margin-top:28px; line-height:36px; color:#333; font-size:16px;}
-.register-list li span{width:90px; line-height:36px; display:inline-block;}
+.register-list li span{width:90px; line-height:36px; text-align:right; margin-right:8px; display:inline-block;}
 .register-list .register-input{line-height:36px; height:36px; width:306px; box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; -webkit-box-sizing:border-box; border:1px solid #b5b5b5; border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; -webkit-border-radius:5px; box-shadow:inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8); -moz-box-shadow:inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8); -webkit-box-shadow:inset 0 -1px rgba(34,25,25,.15),0 -1px rgba(255,255,255,.8); text-indent:10px; font-size:13px;}
 .register-list .register-input:focus{border:1px solid #7dabdf;}
 .register-list .register-code{width:160px;}
@@ -52,7 +52,7 @@
         	i++
         });
 		if(i<1) {
-			alert("用户类型为必填项");
+			alert("User type is required ");
 			return false;
 		}
 		$("#jvForm").submit();
@@ -69,19 +69,20 @@
 
 
 <div class="register-box"> 
-  <div class="register-nav"><span>注册</span><div class="register-login">已有账号，<a class="tc" href="${base}/login.jspx">马上登录 ></a></div></div> 
+  <div class="register-nav"><span>CREATE ACCOUNT</span><div class="register-login">IF YOU HAVE AN ACCOUNT，<a class="tc" href="${base}/login.jspx">PLEASE SIGN IN></a></div></div> 
   <form id="jvForm" action="${base}/register.jspx" method="post">
   <div class="register-list">
     <ul>
-		<li><span>&nbsp;&nbsp;&nbsp;用户名:</span><input type="text" id="username"  vld="{required:true,rangelength:[${site.usernameMinLen},20],username:true,remote:'username_unique.jspx',messages:{remote:'用户名已存在'}}" name="username" placeholder="3~14字符，中文字符/英文字母/数字" class="register-input" /></li>
-		<li><span>电子邮箱:</span><input type="text" id="email" maxlength="30" vld="{remote:'email_unique.jspx',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
+		<li><span>User name:</span><input type="text" id="username"  vld="{required:true,rangelength:[${site.usernameMinLen},20],username:true,remote:'username_unique.jspx',messages:{remote:'username already exists'}}" name="username" placeholder="3~14 characters, Chinese characters, English letters / numbers" class="register-input" /></li>
+		<li><span>Email:</span><input type="text" id="email" maxlength="30" vld="{remote:'email_unique.jspx',messages:{remote:'email already exists！'}}" name="email" placeholder="use to find your password" class="register-input" /></li>
 		<!-- 自定义注册项  -->
-		[#include "register_items.html"/]
-		<li><span>设置密码:</span><input id="password" type="password" name="password" vld="{required:true,rangelength:[${site.passwordMinLen},20]}" class="register-input" /></li>
-		<li><span>确认密码:</span><input type="password" equalto="#password" vld="{required:true,rangelength:[${site.passwordMinLen},20]}" class="register-input" /></li>
-		<li><span>&nbsp;&nbsp;&nbsp;验证码:</span><input type="text" maxlength="20" name="captcha" class="register-input register-code" /><i class="code-img"><img id="guestbookCaptcha" onclick="this.src='${base}/captcha.svl?d='+new Date()" alt="" src="${base}/captcha.svl"></i></li>
-		<li class="register-txt"><input type="checkbox" class="register-checkbox" />我已阅读并接受<a>《网站注册协议》</a></li>
-		<li class="register-btn"><input type="button" name="register" value="立即注册" onclick="formSubmit()"/></li>
+		<!-- [#include "register_items.html"/] -->
+		<li><span>User type:</span><label><input type="radio" value="发言嘉宾" name="attr_muser_type">Participant</label> <label><input type="radio" value="参会人员" name="attr_muser_type">Speaker</label> <label><input type="radio" value="速记" name="attr_muser_type">Stenographer</label> <label><input type="radio" value="媒体" name="attr_muser_type">Media</label></li>
+		<li><span>Password:</span><input id="password" type="password" name="password" vld="{required:true,rangelength:[${site.passwordMinLen},20]}" class="register-input" /></li>
+		<li><span>Confirm Password:</span><input type="password" equalto="#password" vld="{required:true,rangelength:[${site.passwordMinLen},20]}" class="register-input" /></li>
+		<li><span>&nbsp;&nbsp;&nbsp;Captcha:</span><input type="text" maxlength="20" name="captcha" class="register-input register-code" /><i class="code-img"><img id="guestbookCaptcha" onclick="this.src='${base}/captcha.svl?d='+new Date()" alt="" src="${base}/captcha.svl"></i></li>
+		<li class="register-txt"><input type="checkbox" class="register-checkbox" />I agree to Terms and Privacy</li>
+		<li class="register-btn"><input type="button" name="register" value="Create Account" onclick="formSubmit()"/></li>
     </ul>
   </div>
   </form>

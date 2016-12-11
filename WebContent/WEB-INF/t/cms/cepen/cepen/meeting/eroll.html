@@ -29,70 +29,70 @@
 		var email = $("#email").val();
 		if(!isEmpty(cnName)) {
 			if(cnName.length>10) {
-				alert("中文名称超出最大字符数");
+				alert("Chinese Name is too long");
 				return false;
 			}
 		}else {
-			alert("中文名称为必填项，请输入");
+			alert("Chinese Name is required");
 			return false;
 		}
 		if(!isEmpty(national)) {
 			if(national.length>10) {
-				alert("国籍超出最大字符数");
+				alert("Nationality is too long");
 				return false;
 			}
 		}else {
-			alert("国籍为必填项，请输入");
+			alert("Nationality is required");
 			return false;
 		}
 		if(!isEmpty(enName)) {
 			if(enName.length>25) {
-				alert("英文名称超出最大字符数");
+				alert("English Name is too long");
 				return false;
 			}
 		}else {
-			alert("英文名称为必填项，请输入");
+			alert("English Name is required");
 			return false;
 		}
 		if(!isEmpty(position)) {
 			if(position.length>10) {
-				alert("职位超出最大字符数");
+				alert("Professional Title is too long");
 				return false;
 			}
 		}else {
-			alert("职位为必填项，请输入");
+			alert("Professional Title is required");
 			return false;
 		}
 		if(!isEmpty(phone)) {
 			if(!checkPhone(phone)) {
-				alert("联系电话输入有误，请重新输入");
+				alert("Phone format is not correct, please fill out");
 				return false;
 			}
 		}else {
-			alert("联系电话为必填项，请输入");
+			alert("Phone is required");
 			return false;
 		}
 		if(!isEmpty(unit)) {
 			if(unit.length>50) {
-				alert("工作单位超出最大字符数");
+				alert("Working place is too long");
 				return false;
 			}
 		}else {
-			alert("工作单位为必填项，请输入");
+			alert("Working place is required");
 			return false;
 		}
 		if(!isEmpty(email)) {
 			if(email.length>50) {
-				alert("邮箱超出最大字符数");
+				alert("Email is too long");
 				return false;
 			}else{
 				if(!isEmail(email)) {
-					alert("邮箱格式错误，请重试");
+					alert("Email format is not correct, please fill out");
 					return false;
 				}
 			}
 		}else {
-			alert("邮箱为必填项，请输入");
+			alert("Email is required");
 			return false;
 		}
 		
@@ -104,15 +104,15 @@
 			var outBirthday = $("#outBirthday").val();
 			var passport = $("#passport").val();
 			if(isEmpty(outBirthday)) {
-				alert("提供外方机票中的出生日期为必填项");
+				alert("The foreign guests's birthday is required");
 				return false;
 			}
 			if(isEmpty(passport)) {
-				alert("提供外方机票中的护照号码为必填项");
+				alert("The foreign guests's Passport Number is required");
 				return false;
 			}else{
 				if(passport.length>10) {
-					alert("提供外方机票中的护照号码超长，请重新输入");
+					alert("The foreign guests's Passport Number is too long");
 					return false;
 				}
 			}
@@ -121,16 +121,16 @@
 			var inBirthday = $("#inBirthday").val();
 			var card=$("#card").val();
 			if(isEmpty(inBirthday)) {
-				alert("提供中方机票中的出生日期为必填项");
+				alert("The Chinese guests's birthday is required");
 				return false;
 			}
 			if(!isEmpty(card)) {
 				if(!identityCodeValid(card)) {
-					alert("提供中方机票中的身份证号输入有误,请重试");
+					alert("The Chinese guests's Passport Number is required");
 					return false;
 				}
 			}else {
-				alert("提供中方机票中的身份证号为必填项");
+				alert("The Chinese guests's Passport Number is too long");
 			}
 		}
 		if(isFood && isFood == 1) {
@@ -139,14 +139,14 @@
             	i++
             });
 			if(i<1) {
-				alert("至少选择其中一项");
+				alert("Provide meal is required");
 				return false;
 			}
 		}
 		if(isDrive && isDrive == 1) {
 			var carNo = $("#carNo").val();
 			if(isEmpty(carNo)) {
-				alert("车牌号为必填项");
+				alert("Car License Number is required");
 				return false;
 			}
 		}
@@ -161,43 +161,43 @@
 			var bankCard = $("#bankCard").val();
 			if(!isEmpty(bankNo)) {
 				if(bankNo.length>25) {
-					alert("银行卡号超出最大字符数");
+					alert("Bank Card Number is too long");
 					return false;
 				}
 			}else {
-				alert("银行卡号为必填项，请输入");
+				alert("Bank Card Number is required");
 				return false;
 			}
 			if(!isEmpty(bankAddress)) {
 				if(bankAddress.length>50) {
-					alert("开户行超出最大字符数");
+					alert("Bank Name is too long");
 					return false;
 				}
 			}else {
-				alert("开户行为必填项，请输入");
+				alert("Bank Name is required");
 				return false;
 			}
 			if(!isEmpty(bankName)) {
 				if(bankName.length>50) {
-					alert("账号名称超出最大字符数");
+					alert("Account Name is too long");
 					return false;
 				}
 			}else {
-				alert("账号名称为必填项，请输入");
+				alert("Account Name is required");
 				return false;
 			}
 			if(!isEmpty(bankCard)) {
 				if(bankCard.length>20) {
-					alert("身份证号超出最大字符数");
+					alert("Identification Number is too long");
 					return false;
 				}else {
 					if(!identityCodeValid(bankCard)) {
-						alert("身份信息一栏中的身份证号输入有误,请重试.");
+						alert("Identification Number format is not correct, please fill out");
 						return false;
 					}
 				}
 			}else {
-				alert("身份信息一栏中的身份证号为必填项，请输入");
+				alert("Identification Number is required");
 				return false;
 			}
 		}
@@ -299,12 +299,14 @@
 		color:#000;
 	}
 	#erollTable tr td input[type=text]{
-		width:200px;
+		width:180px;
 		height:24px;
+		font-size:14px;
 		line-height:24px;
 		margin:3px 8px 3px 0px;
 	}
 	.td_right{
+		width:200px;
 		text-align:right;
 	}
 	input#button1 {
@@ -343,14 +345,16 @@
 	}
 	.span_left {
 		text-align:right;
-		width:100px;
+		font-size:14px;
+		width:180px;
 		display:inline-block;
 	}
 	.span_right {
 		text-align:left;
 	}
 	.span_right input[type=text] {
-		width:180px;
+		width:140px;
+		font-size:14px;
 		height:24px;
 		line-height:24px;
 		margin:3px 5px 3px 0px;
@@ -363,7 +367,7 @@
     [#include "../include/navi.html"/]
 	<!-- 左栏_begin -->
 	<div class="w670 mt10" style="width:1000px;">
-        <div class="text" style="width:900px;">
+        <div class="text" style="width:1000px;">
 			<div class="p_title">
 				<h3>Application Form</h3>
 			</div>
@@ -514,7 +518,7 @@
 	            				<span>Identity Info</span>
 	            			</div>
 	            			<div class="div_left">
-	            				Identity：[#if muserType??][#if muserType!="参会人员"]participant[/#if][#if muserType!="发言嘉宾"]speaker[/#if][#if muserType=="速记"]stenographer[/#if][#if muserType=="媒体"]media[/#if]${muserType}[#else]indeterminate[/#if]
+	            				Identity：[#if muserType??][#if muserType=="参会人员"]participant[/#if][#if muserType=="发言嘉宾"]speaker[/#if][#if muserType=="速记"]stenographer[/#if][#if muserType=="媒体"]media[/#if][#else]indeterminate[/#if]
             				</div>
             				[#if muserType??][#if muserType!="参会人员"]
             				<input type="hidden" name="utype" id="utype" value="${muserType}">
