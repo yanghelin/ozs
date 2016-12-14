@@ -395,10 +395,10 @@
 			            				<input type="hidden" name="isStay" id="isStay" />
 			            			</div>
 			            			<div class="div_left">
-			            				住宿时间：${meeting.stayStart}&nbsp;至&nbsp;${meeting.stayEnd}
+			            				住宿时间：${meeting.stayStart!}&nbsp;至&nbsp;${meeting.stayEnd!}
 		            				</div>
 		            				<div class="div_left">
-			            				住宿酒店：${meeting.stayHotel}
+			            				住宿酒店：${meeting.stayHotel!}
 			            			</div>
 			            		</td>
 			           		</tr>
@@ -479,13 +479,13 @@
 			            			</div>
 		            				<div id="FoodDiv" style="display:none;">
 			            				<div>
-			            					<span class="span_left">早餐：</span>${meeting.breakfastStart}&nbsp;至&nbsp;${meeting.breakfastEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">早餐：</span>${meeting.breakfastStart!}&nbsp;至&nbsp;${meeting.breakfastEnd!}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;是否用餐</span>
 			            				</div>
 			            				<div>
-			            					<span class="span_left">午餐：</span>${meeting.lunchStart}&nbsp;至&nbsp;${meeting.lunchEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">午餐：</span>${meeting.lunchStart!}&nbsp;至&nbsp;${meeting.lunchEnd!}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;是否用餐</span>
 			            				</div>
 			            				<div>
-			            					<span class="span_left">晚餐：</span>${meeting.dinnerStart}&nbsp;至&nbsp;${meeting.dinnerEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;是否用餐</span>
+			            					<span class="span_left">晚餐：</span>${meeting.dinnerStart!}&nbsp;至&nbsp;${meeting.dinnerEnd!}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;是否用餐</span>
 			            				</div>
 			            			</div>
 			            		</td>

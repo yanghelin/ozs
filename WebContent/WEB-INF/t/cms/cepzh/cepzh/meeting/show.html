@@ -93,34 +93,34 @@
             	<tr>
             		<td colspan="2">
             			<font style="font-weight:700;font-size:15px;">会议内容</font><br />
-						<div style="line-height:30px;"><span style="margin-left:30px;"></span>${meeting.content}</div>
+						<div style="line-height:30px;"><span style="margin-left:30px;"></span>${meeting.content!}</div>
             		</td>
             	</tr>
             	<tr>
             		<td colspan="2">
             			<font style="font-weight:700;font-size:15px;">会议日程</font><br />
-						<div style="line-height:30px;"><span style="margin-left:30px;"></span>${meeting.agenda}</div>
+						<div style="line-height:30px;"><span style="margin-left:30px;"></span>${meeting.agenda!}</div>
             		</td>
             	</tr>
             	<tr>
-            		<td style="width:50%;">会议主办单位：${meeting.hostUnits}</td>
-            		<td style="width:49%">会议承办单位：${meeting.sponsoringUnits}</td>
+            		<td style="width:50%;">会议主办单位：${meeting.hostUnits!}</td>
+            		<td style="width:49%">会议承办单位：${meeting.sponsoringUnits!}</td>
            		</tr>
             	<tr>
-            		<td style="width:50%;">境外合作机构：${meeting.overseasPartners}</td>
-            		<td style="width:49%">会议召开地点：${meeting.address}</td>
+            		<td style="width:50%;">境外合作机构：${meeting.overseasPartners!}</td>
+            		<td style="width:49%">会议召开地点：${meeting.address!}</td>
            		</tr>
             	<tr>
-            		<td style="width:50%;">会议召开时间：${meeting.startTime}</td>
-            		<td style="width:49%">会议规模：${meeting.meetingSize}</td>
+            		<td style="width:50%;">会议召开时间：${meeting.startTime!}</td>
+            		<td style="width:49%">会议规模：${meeting.meetingSize!}</td>
            		</tr>
             	<tr>
-            		<td style="width:50%;">工作语言：${meeting.workLanguage}</td>
-            		<td style="width:49%">主持人：${meeting.presenter}</td>
+            		<td style="width:50%;">工作语言：${meeting.workLanguage!}</td>
+            		<td style="width:49%">主持人：${meeting.presenter!}</td>
            		</tr>
            		<tr>
-            		<td style="width:50%;">联系电话：${meeting.contactPhone}</td>
-            		<td style="width:49%">联系邮箱：${meeting.contactEmail}</td>
+            		<td style="width:50%;">联系电话：${meeting.contactPhone!}</td>
+            		<td style="width:49%">联系邮箱：${meeting.contactEmail!}</td>
            		</tr>
            		<tr>
             		<td colspan="2">
@@ -133,10 +133,10 @@
            		</tr>
            		<tr>
             		<td colspan="2">
-            			会议相关资料：[#if meeting.contentAttachment??]<a href="javascript:downFile('${meeting.contentAttachment.filename}','${meeting.contentAttachment.path}')" title="${meeting.contentAttachment.filename}" target="_blank">${meeting.contentAttachment.filename}</a>[/#if]
-            					&nbsp;[#if meeting.agendaAttachment??]<a href="javascript:downFile('${meeting.agendaAttachment.filename}','${meeting.agendaAttachment.path}')" title="${meeting.agendaAttachment.filename}" target="_blank">${meeting.agendaAttachment.filename}</a>[/#if]
-            					&nbsp;[#if meeting.invitation??]<a href="javascript:downFile('${meeting.invitation.filename}','${meeting.invitation.path}')" title="${meeting.invitation.filename}" target="_blank">${meeting.invitation.filename}</a>[/#if]
-            					&nbsp;[#if meeting.relatedData??]<a href="javascript:downFile('${meeting.relatedData.filename}','${meeting.relatedData.path}')" title="${meeting.relatedData.filename}" target="_blank">${meeting.relatedData.filename}</a>[/#if]
+            			会议相关资料：[#if meeting.contentAttachment??]<a href="javascript:downFile('${meeting.contentAttachment.filename}','${meeting.contentAttachment.path}')" title="${meeting.contentAttachment.filename}" target="_blank">${meeting.contentAttachment.filename!}</a>[/#if]
+            					&nbsp;[#if meeting.agendaAttachment??]<a href="javascript:downFile('${meeting.agendaAttachment.filename}','${meeting.agendaAttachment.path}')" title="${meeting.agendaAttachment.filename}" target="_blank">${meeting.agendaAttachment.filename!}</a>[/#if]
+            					&nbsp;[#if meeting.invitation??]<a href="javascript:downFile('${meeting.invitation.filename}','${meeting.invitation.path}')" title="${meeting.invitation.filename}" target="_blank">${meeting.invitation.filename!}</a>[/#if]
+            					&nbsp;[#if meeting.relatedData??]<a href="javascript:downFile('${meeting.relatedData.filename}','${meeting.relatedData.path}')" title="${meeting.relatedData.filename}" target="_blank">${meeting.relatedData.filename!}</a>[/#if]
             		</td>
            		</tr>
            		<tr>

@@ -75,7 +75,7 @@
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="update.do" labelWidth="12">
 		<@p.hidden name="id" value=item.id />
-		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" value=item.meeting.id name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
+		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" value=item.meetingId.id name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
 		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" value="" readonly="readonly" /><@p.tr/>
 		<@p.text width="50" colspan="1" label="items.name" value=item.itemName id="itemName" name="itemName" maxlength="100" required="true"/>
 		<@p.text width="50" colspan="1" label="items.num" value=item.itemNum id="itemNum" name="itemNum" maxlength="100" required="true"/>

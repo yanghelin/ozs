@@ -399,10 +399,10 @@
 			            				<input type="hidden" name="isStay" id="isStay" />
 			            			</div>
 			            			<div class="div_left">
-			            				Accommodation Date：${meeting.stayStart}&nbsp;to&nbsp;${meeting.stayEnd}
+			            				Accommodation Date：${meeting.stayStart!}&nbsp;to&nbsp;${meeting.stayEnd!}
 		            				</div>
 		            				<div class="div_left">
-			            				Hotel Name：${meeting.stayHotel}
+			            				Hotel Name：${meeting.stayHotel!}
 			            			</div>
 			            		</td>
 			           		</tr>
@@ -417,7 +417,7 @@
 			            				<input type="hidden" name="isForeign" id="isForeign" />
 			            			</div>
 			            			<div class="div_left">
-			            				Suggested Departure Time：${meeting.foreignStart}&nbsp;to&nbsp;${meeting.foreignEnd}
+			            				Suggested Departure Time：${meeting.foreignStart!}&nbsp;to&nbsp;${meeting.foreignEnd!}
 		            				</div>
 		            				<div id="ForeignDiv" style="display:none;">
 			            				<span class="span_left">English Name：</span><span class="span_right"><input type="text" name="outName" id="outName" /></span>
@@ -448,7 +448,7 @@
 			            				<input type="hidden" name="isDomestic" id="isDomestic" />
 			            			</div>
 			            			<div class="div_left">
-			            				Suggested Departure Time：${meeting.foreignStart}&nbsp;to&nbsp;${meeting.foreignEnd}
+			            				Suggested Departure Time：${meeting.foreignStart!}&nbsp;to&nbsp;${meeting.foreignEnd!}
 		            				</div>
 		            				<div id="DomesticDiv" style="display:none;">
 			            				<span class="span_left">Chinese Name：</span><span class="span_right"><input type="text" name="inName" id="inName" /></span>
@@ -483,13 +483,13 @@
 			            			</div>
 		            				<div id="FoodDiv" style="display:none;">
 			            				<div>
-			            					<span class="span_left">Breakfast：</span>${meeting.breakfastStart}&nbsp;至&nbsp;${meeting.breakfastEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;yes or no</span>
+			            					<span class="span_left">Breakfast：</span>${meeting.breakfastStart!}&nbsp;至&nbsp;${meeting.breakfastEnd!}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="breakfastBox" onclick="changeStatus(this,'breakfast')" />&nbsp;yes or no</span>
 			            				</div>
 			            				<div>
-			            					<span class="span_left">Lunch：</span>${meeting.lunchStart}&nbsp;至&nbsp;${meeting.lunchEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;yes or no</span>
+			            					<span class="span_left">Lunch：</span>${meeting.lunchStart!}&nbsp;至&nbsp;${meeting.lunchEnd!}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="lunchBox" onclick="changeStatus(this,'lunch')" />&nbsp;yes or no</span>
 			            				</div>
 			            				<div>
-			            					<span class="span_left">Dinner：</span>${meeting.dinnerStart}&nbsp;至&nbsp;${meeting.dinnerEnd}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;yes or no</span>
+			            					<span class="span_left">Dinner：</span>${meeting.dinnerStart!}&nbsp;至&nbsp;${meeting.dinnerEnd!}<span style="padding-left:100px;"><input type="checkbox" name="foodBox" id="dinnerBox" onclick="changeStatus(this,'dinner')" />&nbsp;yes or no</span>
 			            				</div>
 			            			</div>
 			            		</td>
