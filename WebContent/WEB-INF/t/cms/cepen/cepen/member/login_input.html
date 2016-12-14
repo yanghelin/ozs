@@ -118,7 +118,7 @@
 				<input type="hidden" name="message" value="${message}"/>
 				[/#if]	
 				[#if processUrl??]<input type="hidden" name="processUrl" value="${processUrl}"/>[/#if]
-				[#if returnUrl??]<input type="hidden" name="returnUrl" value="${returnUrl}"/>[#else]<input type="hidden" name="returnUrl" value="${base}/"/>[/#if]
+				[#if returnUrl??]<input type="hidden" name="returnUrl" value="${returnUrl}"/>[#else]<input type="hidden" name="returnUrl" value="/en/index.jhtml"/>[/#if]
 				[#if error??]
 				<div class="error-message">
 						[#if error=="org.apache.shiro.authc.IncorrectCredentialsException"]
