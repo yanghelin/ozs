@@ -4,9 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title></title> <#include "/jeecms_sys/head.html"/>
 <script type="text/javascript">
-	$(function() {
-		$("#jvForm").validate();
-	});
+	
 	function allChannelSelect() {
 		$("#allChannelHide").val($("#allChannel").prop("checked"));
 	}
@@ -14,11 +12,11 @@
 		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
 	}
 	function formSubmit() {
-		var meetingId = $("#meetingId").val();
+		var meetingId = $("#meeting_id").val();
 		var itemName = $("#itemName").val();
 		var itemNum = $("#itemNum").val();
 		var liablePeople = $("#liablePeople").val();
-		if(name == null || name == '') {
+		if(meetingId == null || meetingId == '') {
 			alert("会议名称为必选项");
 			return false;
 		}
@@ -61,6 +59,26 @@
 		    });
 		}
 	}
+	$(function() {
+		$("#jvForm").validate();
+		var meeting_id = $("#meeting_id").val();
+		if(meeting_id != null && meeting_id != '') {
+			$.ajax({
+		        type: "POST",
+		        url: "../in_meeting/findBy.do",
+		        data: {meetingId:meeting_id},
+		        dataType: "json",
+		        success: function(data){
+		        	if(data){
+						$("#startTime").val(data.startTime);
+					}
+		        },
+		        error:function(){
+		        	$.alert("请求失败");
+		 	 	}
+		    });
+		}
+	});
 </script>
 </head>
 <body>
@@ -75,7 +93,7 @@
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="update.do" labelWidth="12">
 		<@p.hidden name="id" value=item.id />
-		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" value=item.meetingId.id name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
+		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" value=item.meetingId.id id="meeting_id" name="meeting_id" other="startTime" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
 		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" value="" readonly="readonly" /><@p.tr/>
 		<@p.text width="50" colspan="1" label="items.name" value=item.itemName id="itemName" name="itemName" maxlength="100" required="true"/>
 		<@p.text width="50" colspan="1" label="items.num" value=item.itemNum id="itemNum" name="itemNum" maxlength="100" required="true"/>

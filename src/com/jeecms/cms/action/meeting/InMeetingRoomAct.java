@@ -16,7 +16,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeecms.cms.entity.meeting.InMeeting;
+import com.jeecms.cms.entity.meeting.InMeetingItems;
 import com.jeecms.cms.entity.meeting.InMeetingRoom;
+import com.jeecms.cms.manager.meeting.InMeetingItemsMng;
 import com.jeecms.cms.manager.meeting.InMeetingMng;
 import com.jeecms.cms.manager.meeting.InMeetingRoomMng;
 import com.jeecms.common.page.Pagination;
@@ -83,9 +85,27 @@ public class InMeetingRoomAct {
 		return "redirect:list.do";
 	}
 	
+	@RequiresPermissions("in_meeting_room:to_view")
+	@RequestMapping("/in_meeting_room/to_view.do")
+	public String view(Integer id, HttpServletRequest request, ModelMap model) {
+		List<InMeeting> meetingList = inMeetingMng.getList(null);
+		InMeetingRoom room = inMeetingRoomMng.findById(id);
+		List<InMeetingItems> itemList = null;
+		if(room != null && room.getMeetingId() != null && room.getMeetingId().getId() != null) {
+			itemList = itemsMng.findByMeetingId(room.getMeetingId().getId());
+		}
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("room", room);
+		model.addAttribute("meetingList", meetingList);
+		return "meeting/in/roomView";
+	}
+	
 	@Autowired
 	private InMeetingRoomMng inMeetingRoomMng;
 	
 	@Autowired
 	private InMeetingMng inMeetingMng;
+	
+	@Autowired
+	private InMeetingItemsMng itemsMng;
 }

@@ -421,7 +421,7 @@ public class OutMeetingAct {
 		//bean.setUserType(changeUserAttr(currUser.getAttr().get("muser_type")));
 		enrollMng.saveOutMeetingEroll(bean);
 		log.info("save OutMeetingEroll id={}", bean.getId());
-		return "redirect:eroll_list.do";
+		return "redirect:enroll_list.do";
 	}
 	
 	/**

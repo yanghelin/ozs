@@ -24,6 +24,8 @@ public class InMeetingBriefing implements Serializable {
 
     private Byte isDelete;
     
+    private String type;
+    
     private InMeeting meetingId;
     
     private MeetingAttachment attachment;
@@ -72,6 +74,14 @@ public class InMeetingBriefing implements Serializable {
 
 	public void setIsDelete(Byte isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public InMeeting getMeetingId() {

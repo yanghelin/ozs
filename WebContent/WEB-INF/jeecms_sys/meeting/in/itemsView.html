@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title> <#include "/jeecms_sys/head.html"/>
+<style type="text/css">
+	#meetingTable{
+		width:100%;
+		margin:0px auto;
+		padding:0px;
+	}
+	#meetingTable tr th{
+		width:10%;
+		text-align:right;
+		/* font-weight: 400; */
+		height:30px;
+		line-height:30px;
+	}
+	
+	.td_left{
+		
+	}
+	.td_right {
+	}
+</style>
+<script type="text/javascript">
+	$(function() {
+		$("#jvForm").validate();
+	});
+	function allChannelSelect() {
+		$("#allChannelHide").val($("#allChannel").prop("checked"));
+	}
+	function allControlChannelSelect() {
+		$("#allControlChannelHide").val($("#allControlChannel").prop("checked"));
+	}
+	function formSubmit() {
+		var meetingId = $("#meetingId").val();
+		var itemName = $("#itemName").val();
+		var itemNum = $("#itemNum").val();
+		var liablePeople = $("#liablePeople").val();
+		if(name == null || name == '') {
+			alert("会议名称为必选项");
+			return false;
+		}
+		if(itemName == null || itemName == '') {
+			alert("物品名称为必填项");
+			return false;
+		}
+		if(itemNum == null || itemNum == '') {
+			alert("物品数量为必填项");
+			
+			return false;
+		}else {
+			if(isNaN(itemNum)){
+				 alert("物品数量须输入数字");
+				 return false;
+			}
+		}
+		if(liablePeople == null || liablePeople == '') {
+			alert("负责人为必填项");
+			return false;
+		}
+		$("#jvForm").submit();
+	}
+	
+	function changeData(obj){
+		if(obj && obj.value != null && obj.value !='') {
+			$.ajax({
+		        type: "POST",
+		        url: "../in_meeting/findBy.do",
+		        data: {meetingId:obj.value},
+		        dataType: "json",
+		        success: function(data){
+		        	if(data){
+						$("#startTime").val(data.startTime);
+					}
+		        },
+		        error:function(){
+		        	$.alert("请求失败");
+		 	 	}
+		    });
+		}
+	}
+</script>
+</head>
+<body>
+	<div class="box-positon">
+		<div class="rpos"><@s.m "global.position"/>: <@s.m "meeting.items"/> - <@s.m "global.add"/></div>
+		<form class="ropt">
+			<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
+		</form>
+		<div class="clear"></div>
+	</div>
+	<div>
+	<table id="meetingTable" style="border-collapse: collapse; width:100%;">
+		<tr>
+			<td colspan="4" style="text-align:center;"><h1>会议用品查看</h1></td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.name"/>:</th><td style="width:40%;"><#if item.meetingId??>${item.meetingId.name!}</#if></td>
+			<th><@s.m "meeting.startTime"/>:</th><td><#if item.meetingId??>${item.meetingId.startTime!}</#if></td>
+		</tr>
+		<tr>
+			<th><@s.m "items.name"/>:</th><td>${item.name!}</td>
+			<th><@s.m "items.num"/>:</th><td>${item.num!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "items.liablePeople"/>:</th><td>${item.liablePeople!}</td>
+			<th><@s.m "items.phone"/>:</th><td>${item.phone!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "items.position"/>:</th><td>${item.position!}</td><td></td><td></td>
+		</tr>
+		<tr>
+			<th><@s.m "items.remark"/>:</th><td>${item.remark!}</td><td></td><td></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

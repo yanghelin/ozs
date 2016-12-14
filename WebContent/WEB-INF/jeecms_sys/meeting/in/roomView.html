@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title> <#include "/jeecms_sys/head.html"/>
+<style type="text/css">
+	#meetingTable{
+		width:100%;
+		margin:0px auto;
+		padding:0px;
+	}
+	#meetingTable tr th{
+		width:10%;
+		text-align:right;
+		/* font-weight: 400; */
+		height:30px;
+		line-height:30px;
+	}
+	#itemsTable tr td{
+		height:20px;
+		line-height:20px;
+		padding:8px;
+		text-align:center;
+		border-bottom:1px solid #000;
+		border-right:1px solid #000;
+	}
+</style>
+</head>
+<body>
+	<div class="box-positon">
+		<div class="rpos"><@s.m "global.position"/>: <@s.m "meeting.room"/> - <@s.m "global.add"/></div>
+		<form class="ropt">
+			<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
+		</form>
+		<div class="clear"></div>
+	</div>
+	<div>
+	<table id="meetingTable" style="border-collapse: collapse;width:100%;">
+		<tr>
+			<td colspan="4" style="text-align:center;"><h1>会议室信息查看</h1></td>
+		</tr>
+		<tr>
+			<th><@s.m "meeting.name"/>:</th><td><#if room.meetingId??>${room.meetingId.name!}</#if></td>
+			<th><@s.m "meeting.startTime"/>:</th><td><#if room.meetingId??>${room.meetingId.startTime!}</#if></td>
+		</tr>
+		<tr>
+			<th><@s.m "room.attendeeNum"/>:</th><td>${room.attendeeNum!}</td>
+			<th><@s.m "room.guestNum"/>:</th><td>${room.guestNums!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "room.item"/>:</th><td colspan="3">
+				<table id="itemsTable" style="margin-left:3px;border-collapse: collapse;border:1px solid #000;">
+					<tr>
+						<td>名称</td>
+						<#list itemList as item>
+							<td>${item.itemName!}</td>
+						</#list>
+					</tr>
+					<tr>
+						<td>数量</td>
+						<#list itemList as item>
+							<td>${item.itemNum!}</td>
+						</#list>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th><@s.m "room.meetingRoom"/>:</th><td colspan="3"><@s.m "room.room"+"${room.meetingRoom!}"/></td>
+		</tr>
+		<tr>
+			<th><@s.m "room.organizingDept"/>:</th><td>${room.organizingDept!}</td>
+			<th><@s.m "room.hoster"/>:</th><td>${room.hoster!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "room.itemHoster"/>:</th><td>${room.itemHoster!}</td>
+			<th><@s.m "room.phone"/>:</th><td>${room.phone!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "room.position"/>:</th><td colspan="3">${room.position!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "room.remark"/>:</th><td colspan="3">${room.remark!}</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

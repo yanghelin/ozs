@@ -13,6 +13,7 @@
 	    <property column="update_time" name="updateTime" type="timestamp" />
 	    <!-- <property column="update_by" name="updateBy" type="java.lang.Integer" /> -->
 	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
+	    <property column="type" name="type" type="string" />
 	    <many-to-one name="meetingId" column="meeting_id" class="com.jeecms.cms.entity.meeting.InMeeting" not-null="false"></many-to-one>
 	    <many-to-one name="attachment" column="attachment" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
 	    <many-to-one name="createBy" column="create_by" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>

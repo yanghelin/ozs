@@ -119,6 +119,16 @@ public class InMeetingItemsAct {
 		return "redirect:list.do";
 	}
 	
+	@RequiresPermissions("in_meeting_items:to_view")
+	@RequestMapping("/in_meeting_items/to_view.do")
+	public String view(Integer id, HttpServletRequest request, ModelMap model) {
+		InMeetingItems item = manager.findById(id);
+		List<InMeeting> meetingList = meetingMng.getList(null);
+		model.addAttribute("meetingList", meetingList);
+		model.addAttribute("item", item);
+		return "meeting/in/itemsView";
+	}
+	
 
 	@RequiresPermissions("in_meeting_items:findByMeetingId")
 	@RequestMapping("/in_meeting_items/findByMeetingId.do")
