@@ -16,7 +16,7 @@ INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`)
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`) VALUES ('订餐信息修改', '/work_meal/to_edit.do', 8, 'meal', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`) VALUES ('会议材料上传', '/in_meeting_materials/to_add.do', 9, 'materials', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`) VALUES ('会议材料下载', '/in_meeting_materials/download.do', 9, 'materials', 0);
-INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`) VALUES ('新增媒体', '/out_meeting/to_mediaAdd.do', 10, 'media', 0);
+INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`) VALUES ('新增媒体', '/out_meeting/to_addMedia.do', 10, 'media', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`) VALUES ('查看媒体信息', '/out_meeting/enroll_view.do', 10, 'media', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`) VALUES ('删除媒体信息', '/out_meeting/media_delete.do', 10, 'media', 0);
 INSERT INTO `ozs_meeting_menu` (`name`, `url`, `type`, `type_name`, `is_delete`) VALUES ('新增工作简报', '/in_meeting_briefing/to_add.do', 11, 'briefing', 0);

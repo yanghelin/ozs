@@ -292,6 +292,7 @@ CREATE TABLE `ozs_meeting_menu_user` (
 -- 1、发言嘉宾
 -- 2、速记
 -- 3、媒体
+-- muser_type: 参会人员,发言嘉宾,速记,媒体
 -- 0、participant
 -- 1、speaker
 -- 2、stenographer

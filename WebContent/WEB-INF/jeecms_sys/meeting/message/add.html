@@ -51,7 +51,7 @@
 			<input type="hidden" name="sendUsers" id="sendUsers" value="" />
 			<#if userList?size gt 0>
 				<#list userList as user>
-					<div style="width:90px;float:left;height:24px; line-height:24px;"><input type="checkbox" name="userBox" id="${user.id}" value="${user.id}" style="margin:0px 3px 2px 1px; vertical-align: middle;" />${user.realname}</div>
+					<div style="width:90px;float:left;height:24px; line-height:24px;"><input type="checkbox" name="userBox" id="${user.id}" value="${user.id}" style="margin:0px 3px 2px 1px; vertical-align: middle;" />${user.realname!}</div>
 				</#list>
 			</#if>
 		</@p.td>

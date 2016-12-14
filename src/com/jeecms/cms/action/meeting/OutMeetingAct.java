@@ -399,9 +399,9 @@ public class OutMeetingAct {
 		return "redirect:eroll_list.do";
 	}
 	
-	@RequiresPermissions("out_meeting:to_mediaAdd")
-	@RequestMapping("/out_meeting/to_mediaAdd.do")
-	public String mediaAdd(HttpServletRequest request, ModelMap model) {
+	@RequiresPermissions("out_meeting:to_addMedia")
+	@RequestMapping("/out_meeting/to_addMedia.do")
+	public String addMedia(HttpServletRequest request, ModelMap model) {
 		return "meeting/out/mediaAdd";
 	}
 	
