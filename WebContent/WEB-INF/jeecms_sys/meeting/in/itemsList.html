@@ -52,7 +52,7 @@ function doDelete(){
 	<@p.column code="items.num" align="center">${item.itemNum!}</@p.column><#t/>
 	<@p.column code="meeting.startTime" align="center"><#if item.meetingId??>${item.meetingId.startTime!}</#if></@p.column><#t/>
 	<@p.column code="meeting.name" align="center"><#if item.meetingId??>${item.meetingId.name!}</#if></@p.column><#t/>
-	<@p.column code="meeting.remark" align="center"><a href="to_view.do?id=${item.id}" class="pn-opt">${item.remark!}</a></@p.column><#t/>
+	<@p.column code="meeting.remark" align="center"><a href="to_view.do?id=${item.id}" class="pn-opt"><#if item.remark!=''>${item.remark!}<#else>无</#if></a></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
 		<#if auth[1]==true>
 			<a href="to_edit.do?id=${item.id}&pageNo=${pageNo!}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/>

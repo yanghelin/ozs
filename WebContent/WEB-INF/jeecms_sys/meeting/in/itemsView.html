@@ -85,7 +85,7 @@
 </head>
 <body>
 	<div class="box-positon">
-		<div class="rpos"><@s.m "global.position"/>: <@s.m "meeting.items"/> - <@s.m "global.add"/></div>
+		<div class="rpos"><@s.m "global.position"/>: <@s.m "meeting.items"/> - <@s.m "meeting.view"/></div>
 		<form class="ropt">
 			<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='list.do';" class="return-button"/>
 		</form>
@@ -101,8 +101,8 @@
 			<th><@s.m "meeting.startTime"/>:</th><td><#if item.meetingId??>${item.meetingId.startTime!}</#if></td>
 		</tr>
 		<tr>
-			<th><@s.m "items.name"/>:</th><td>${item.name!}</td>
-			<th><@s.m "items.num"/>:</th><td>${item.num!}</td>
+			<th><@s.m "items.name"/>:</th><td>${item.itemName!}</td>
+			<th><@s.m "items.num"/>:</th><td>${item.itemNum!}</td>
 		</tr>
 		<tr>
 			<th><@s.m "items.liablePeople"/>:</th><td>${item.liablePeople!}</td>
