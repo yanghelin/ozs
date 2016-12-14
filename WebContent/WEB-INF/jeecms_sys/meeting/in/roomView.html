@@ -40,7 +40,7 @@
 			<td colspan="4" style="text-align:center;"><h1>会议室信息查看</h1></td>
 		</tr>
 		<tr>
-			<th><@s.m "meeting.name"/>:</th><td><#if room.meetingId??>${room.meetingId.name!}</#if></td>
+			<th><@s.m "meeting.name"/>:</th><td style="width:40%;"><#if room.meetingId??>${room.meetingId.name!}</#if></td>
 			<th><@s.m "meeting.startTime"/>:</th><td><#if room.meetingId??>${room.meetingId.startTime!}</#if></td>
 		</tr>
 		<tr>

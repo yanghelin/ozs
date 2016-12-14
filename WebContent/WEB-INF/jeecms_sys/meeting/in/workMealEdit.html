@@ -64,7 +64,7 @@
 			<input name="endTime" id="endTime" value="${workMeal.endTime!}" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 		</@p.td>
 		<@p.tr/>
-		<@p.textarea colspan="2" label="workMeal.remark" name="remark" cols="70" rows="5"/>
+		<@p.textarea colspan="2" label="workMeal.remark" value=workMeal.remark name="remark" cols="70" rows="5"/>
 		<@p.tr/>
 		<@p.td colspan="2"><input type="button" name="btn" onclick="formSubmit()" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
 		</@p.form>
