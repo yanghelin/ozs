@@ -69,7 +69,7 @@
 	<div class="body-box">
 		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
 		<@p.form id="jvForm" action="save.do" labelWidth="12">
-		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default id="meeting_id" name="meeting_id" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
+		<@p.select colspan="1" width="50" label="meeting.name" headerKey="" headerValue="global.default" id="meeting_id" name="meeting_id" onchange="changeData(this)" list=meetingList listKey="id" listValue="name" required="true" class="required"/>
 		<@p.text width="50" colspan="1" label="meeting.startTime" name="startTime" id="startTime" value="" readonly="readonly"/><@p.tr/>
 		<@p.text width="50" colspan="1" label="briefing.name" id="name" name="name" maxlength="100" required="true"/>
 		<@p.text width="50" colspan="1" label="briefing.fileType" id="type" name="type" maxlength="20" required="true"/>
