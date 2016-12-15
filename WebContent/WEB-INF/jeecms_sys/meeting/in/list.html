@@ -54,9 +54,10 @@ function doDelete(){
 	<@p.column code="meeting.publisher" align="center">${meeting.publisher.realname!}</@p.column><#t/>
 	<@p.column code="meeting.content" align="center"><@text_cut s=meeting.content?html len=25 append="..."/></@p.column><#t/>
 	<@p.column code="global.operate" align="center">
-		<!-- <#if auth[2]==true> -->
 			<a href="delete.do?id=${meeting.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
-		<!-- <#else>
+		<!-- <#if auth[2]==true>
+			<a href="delete.do?id=${meeting.id}&pageNo=${pageNo!}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a><#t/>
+		<#else>
 			<a href="#" style="color:grey;"><@s.m "global.delete"/></a><#t/>
 		</#if> -->
 	</@p.column><#t/>
