@@ -48,7 +48,23 @@
 			<th><@s.m "room.guestNum"/>:</th><td>${room.guestNums!}</td>
 		</tr>
 		<tr>
-			<th><@s.m "room.item"/>:</th><td colspan="3">
+			<th><@s.m "room.meetingRoom"/>:</th><td><@s.m "room.room"+"${room.meetingRoom!}"/></td>
+			<th><@s.m "room.organizingDept"/>:</th><td>${room.organizingDept!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "room.hoster"/>:</th><td>${room.hoster!}</td>
+			<th><@s.m "room.itemHoster"/>:</th><td>${room.itemHoster!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "room.phone"/>:</th><td>${room.phone!}</td>
+		
+			<th><@s.m "room.position"/>:</th><td>${room.position!}</td>
+		</tr>
+		<tr>
+			<th><@s.m "room.remark"/>:</th><td colspan="3">${room.remark!}</td>
+		</tr>
+		<tr>
+			<th style="vertical-align: top;"><@s.m "room.item"/>:</th><td colspan="3">
 				<table id="itemsTable" style="margin-left:3px;border-collapse: collapse;border:1px solid #000;">
 					<tr>
 						<td>名称</td>
@@ -64,23 +80,6 @@
 					</tr>
 				</table>
 			</td>
-		</tr>
-		<tr>
-			<th><@s.m "room.meetingRoom"/>:</th><td colspan="3"><@s.m "room.room"+"${room.meetingRoom!}"/></td>
-		</tr>
-		<tr>
-			<th><@s.m "room.organizingDept"/>:</th><td>${room.organizingDept!}</td>
-			<th><@s.m "room.hoster"/>:</th><td>${room.hoster!}</td>
-		</tr>
-		<tr>
-			<th><@s.m "room.itemHoster"/>:</th><td>${room.itemHoster!}</td>
-			<th><@s.m "room.phone"/>:</th><td>${room.phone!}</td>
-		</tr>
-		<tr>
-			<th><@s.m "room.position"/>:</th><td colspan="3">${room.position!}</td>
-		</tr>
-		<tr>
-			<th><@s.m "room.remark"/>:</th><td colspan="3">${room.remark!}</td>
 		</tr>
 	</table>
 </div>
