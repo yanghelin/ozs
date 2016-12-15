@@ -591,14 +591,14 @@ public class OutMeetingAct {
 	public String stayDelete(OutMeetingEroll bean,HttpServletRequest request,ModelMap model) {
 		bean.setIsDeleteStay((byte)1);
 		enrollMng.updateOutMeetingEroll(bean);
-		return "redirect:stayList.do";
+		return "redirect:stay_list.do";
 	}
 	@RequiresPermissions("out_meeting:ticket_delete")
 	@RequestMapping("/out_meeting/ticket_delete.do")
 	public String ticketDelete(OutMeetingEroll bean,HttpServletRequest request,ModelMap model) {
 		bean.setIsDeleteTicket((byte)1);
 		enrollMng.updateOutMeetingEroll(bean);
-		return "redirect:ticketList.do";
+		return "redirect:ticket_list.do";
 	}
 	@Autowired
 	private OutMeetingMng outMeetingMng;
