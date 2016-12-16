@@ -3,26 +3,29 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>首页 - 英文 - 中国中东欧国家智库交流与合作网络</title>
-<meta http-equiv="keywords" content=""/>
-<meta http-equiv="description" content=""/>
+<title>首页 - 中文 - 中国中东欧国家智库交流与合作网络</title>
+<meta http-equiv="keywords" content="中文"/>
+<meta http-equiv="description" content="中文"/>
 <head>
 <!--[if lt IE 9]>
 <script src="/r/cms/html5.js" type="text/javascript"></script>
 <![endif]-->
-<link href="/r/cms/cepen/cepen/css/html5.css" rel="stylesheet" type="text/css"/>
-<script src="/r/cms/cepen/cepen/js/indexshow.js" type="text/javascript"></script>
-<script src="/r/cms/cepen/cepen/js/imgFlip.js" type="text/javascript"></script>
+
+<link href="/r/cms/cepzh/cepzh/css/html5.css" rel="stylesheet" type="text/css"/>
+<script src="/r/cms/cepzh/cepzh/js/indexshow.js" type="text/javascript"></script>
+<script src="/r/cms/cepzh/cepzh/js/imgFlip.js" type="text/javascript"></script>
 
 <link href="/r/cms/front.css" rel="stylesheet" type="text/css"/>
 <link href="/r/cms/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
 <script src="/r/cms/jquery.js" type="text/javascript"></script>
 <script src="/r/cms/jqueryUI/jquery-ui.js" type="text/javascript"></script>
 <script src="/r/cms/front.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/footprint.js"></script>
 <script type="text/javascript">
+
 $(function() {
 	Cms.siteFlow("", location.href, document.referrer);
-	$.cookie("_site_id_cookie","2",{path: '' });
+	$.cookie("_site_id_cookie","1",{path: '' });
 });
 
 //JavaScript Document
@@ -71,42 +74,13 @@ $(document).ready(function(e) {
 		}
 	})    
 });
+
+
 </script>
 
 </head>
 <body>
-<!-- <div class="theTop">
-    <div class="header_top">
-    	<p><a class="swsy" onclick="SetHome(window.location)"href="javascript:void(0)">Set Home</a><a class="jrsc" onclick="AddFavorite(window.location,document.title)"href="javascript:void(0)">Join Collection</a></p>
-    </div>
-</div>
-<script type="text/javascript" language="javascript">
-   //加入收藏
-       function AddFavorite(sURL, sTitle) {
-           sURL =encodeURI(sURL); 
-       try{   
-          window.external.addFavorite(sURL, sTitle);   
-       }catch(e) {   
-          try{   
-              window.sidebar.addPanel(sTitle, sURL, "");   
-           }catch (e){   
-              alert("Your browser does not support automatic add collection function, please use Ctrl + D to add, or manually set in the browser.");
-          }   
-       }
-   }
-   
-   //设为首页
-   function SetHome(url){
-       if (document.all) {
-          document.body.style.behavior='url(#default#homepage)';
-             document.body.setHomePage(url);
-       }else{
-           alert("Your browser does not support automatic Settings page for the home page, please manually set up this page for home page in the browser!");
-       }
-   }
-</script> -->
 <div class="container">
-
 <script>
 //delay延迟时间（毫秒）
 $(function() {
@@ -142,7 +116,7 @@ function qkeypress(){
 <div class="pageTitle">
     <!-- LOGO_begin -->
     <div class="webLogo">
-		<img src="/r/cms/cepen/cepen/img/index/webLogo.gif" />
+       <img src="/r/cms/cepzh/cepzh/img/index/webLogo.gif" />
     </div>
     <!-- LOGO_end -->
     <!-- 搜索_begin -->
@@ -150,7 +124,7 @@ function qkeypress(){
         <form action="/search.jspx" target="_blank" id="searchForm">
         <div class="ui-widget">
             <div class="searchBg">
-            	<input name="q" value="Please enter the keywords" type="text" onfocus="if(this.value=='Please enter the keywords')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='Please enter the keywords'"  maxlength="50" autocomplete="off" / style="border:0;width:98%;">
+            	<input name="q" value="站内搜索" type="text" onfocus="if(this.value=='站内搜索')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='站内搜索'"  maxlength="50" autocomplete="off" / style="border:0;width:98%;">
             </div>
 		</div>
             <input type="submit" class="searchMenu" value=""/ >
@@ -159,37 +133,38 @@ function qkeypress(){
      -->
     <div class="search">
     	<form action="/search.jspx" target="_blank" id="searchForm">
-    		<input class="znss" name="q" value="Please enter the keywords" type="text" onfocus="if(this.value=='Please enter the keywords')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='Please enter the keywords'"  maxlength="50" autocomplete="off" />
+    		<input class="znss" name="q" value="站内搜索" type="text" onfocus="if(this.value=='站内搜索')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='站内搜索'"  maxlength="50" autocomplete="off" />
 	     		<input type="submit" class="button" value=""/ >
-	         <a href="/zh/index.jhtml">中文</a>
+	         <a href="/en/index.jhtml">English</a>
          </form>
      </div>
     <!-- 搜索_end -->
+</div>
 <div class="clear"></div> <!-- <div id="menu" class="page box relative">
     <dl id="topmenu">  
                <dt class="menu_first">
-        <a href="http://localhost:8080//index.html" target="_self" class="selected"><span>Home</span></a>
+        <a href="http://192.168.1.8:8080//html/index.html" target="_self" class="selected"><span>首页</span></a>
         </dt>
         <dt>
-        <a href="http://localhost:8080/en/1/index.jhtml"  target="_self" ><span>Research Achievement</span></a>
+        <a href="http://192.168.1.8:8080/zh/1/index.jhtml"  target="_self" ><span>研究成果</span></a>
         </dt>
         <dt>
-        <a href="http://localhost:8080/en/2/index.jhtml"  target="_self" ><span>National Conditions</span></a>
+        <a href="http://192.168.1.8:8080/zh/2/index.jhtml"  target="_self" ><span>国情介绍</span></a>
         </dt>
         <dt>
-        <a href="http://localhost:8080/en/3/index.jhtml"  target="_self" ><span>China-CEEC Thinktanks' Cooperaion</span></a>
+        <a href="http://192.168.1.8:8080/zh/3/index.jhtml"  target="_self" ><span>中国中东欧智库合作</span></a>
         </dt>
         <dt>
-        <a href="http://localhost:8080/en/4/index.jhtml"  target="_self" ><span>About us</span></a>
+        <a href="http://192.168.1.8:8080/zh/5/index.jhtml"  target="_self" ><span>机构介绍</span></a>
         </dt>
         <dt>
-        <a href="http://localhost:8080/en/5/index.jhtml"  target="_self" ><span>Academic Exchange</span></a>
+        <a href="http://192.168.1.8:8080/zh/6/index.jhtml"  target="_self" ><span>学术交流</span></a>
         </dt>
         <dt>
-        <a href="http://localhost:8080/en/6/index.jhtml"  target="_self" ><span>About CEECs' Thinktanks</span></a>
+        <a href="http://192.168.1.8:8080/zh/7/index.jhtml"  target="_self" ><span>走进中东欧智库</span></a>
         </dt>
         <dt>
-        <a href="http://localhost:8080/en/7/index.jhtml"  target="_self" ><span>High-Level Symposium of Thinktanks of China-CEECs</span></a>
+        <a href="http://192.168.1.8:8080/zh/8/index.jhtml"  target="_self" ><span>中国中东欧国家高级别智库研讨会</span></a>
         </dt>
     </dl>
     </div>
@@ -197,73 +172,67 @@ function qkeypress(){
     <div class="nav">
        	<ul>
           	<li >
-          		<a href="http://localhost:8080//index.html" target="_self" class="selected">Home</a>
+          		<a href="http://192.168.1.8:8080//html/index.html" target="_self" class="selected">首页</a>
           	</li>
-        		
 	        	<li class="three_li">
-	        		<a href="http://localhost:8080/en/1/index.jhtml"  target="_self" >Research Achievement</a>
+	        		<a href="http://192.168.1.8:8080/zh/1/index.jhtml"  target="_self" >研究成果</a>
 	        	</li>
-	        	
-        		
 	        	<li class="three_li">
-	        		<a href="http://localhost:8080/en/2/index.jhtml"  target="_self" >National Conditions</a>
+	        		<a href="http://192.168.1.8:8080/zh/2/index.jhtml"  target="_self" >国情介绍</a>
 	        	</li>
-	        	
-        		
 	        	<li class="first_li">
-	        		<a href="http://localhost:8080/en/3/index.jhtml"  target="_self" >China-CEEC Thinktanks' Cooperaion</a>
+	        		<a href="http://192.168.1.8:8080/zh/3/index.jhtml"  target="_self" >中国中东欧智库合作</a>
 	        	</li>
-	        	
-        		
 	        	<li>
-	        		<a href="http://localhost:8080/en/4/index.jhtml"  target="_self" >About us</a>
+	        		<a href="http://192.168.1.8:8080/zh/5/index.jhtml"  target="_self" >机构介绍</a>
 	        	</li>
-	        	
-        		
 	        	<li class="three_li">
-	        		<a href="http://localhost:8080/en/5/index.jhtml"  target="_self" >Academic Exchange</a>
+	        		<a href="http://192.168.1.8:8080/zh/6/index.jhtml"  target="_self" >学术交流</a>
 	        	</li>
-	        	
-        		
 	        	<li class="three_li">
-	        		<a href="http://localhost:8080/en/6/index.jhtml"  target="_self" >About CEECs' Thinktanks</a>
+	        		<a href="http://192.168.1.8:8080/zh/7/index.jhtml"  target="_self" >走进中东欧智库</a>
 	        	</li>
-	        	
-        		
 	        	<li class="first_li">
-	        		<a href="http://localhost:8080/en/7/index.jhtml"  target="_self" >High-Level Symposium of Thinktanks of China-CEECs</a>
+	        		<a href="http://192.168.1.8:8080/zh/8/index.jhtml"  target="_self" >中国中东欧国家高级别智库研讨会</a>
 	        	</li>
-	        	
           </ul>       
        </div>
 
 <div class="clear"></div>    <div class="main">
     	<div class="w670">
         	<div class="hundred100">
-        		<!-- Dynamic news_begin -->
+        		<!-- 新闻_begin -->
             	<div class="gjNews">
             		<div class="top_title">
-            			 <a href="http://localhost:8080/en/11/index.jhtml" target="_blank">
-		                more>></a>
+            			 <a href="http://192.168.1.8:8080/zh/11/index.jhtml" target="_blank">
+		                更多>></a>
                     	
-                        <p><span class="t_left"></span><span>Dynamic news</span><span class="t_right"></span></p>
+                        <p><span class="t_left"></span><span>新闻动态</span><span class="t_right"></span></p>
                     </div>
 		            
 		                <ul class="news_ul">
 		                  <li>
-		                <a href="/11/20151111/719.html" title="Zhang Gaoli's visit to Serbia" target="_blank">Zhang Gaoli's visit to Serbia
-		                	<img src="//r/cms/www/new.gif"/>
-		                </a>
+		                <a href="/html/11/20151111/712.html" title="张德江与斯洛伐克国民议会议长佩列格里尼举行会谈" target="_blank">张德江与斯洛伐克国民议会议长佩列格里尼...</a>
 		                </li>
 		                  <li>
-		                <a href="/11/20151111/718.html" title="Li Keqiang and Serbia Prime Minister Wu Qiqi jointly attended the signing ceremony" target="_blank">Li Keqiang and Serbia Prime Minister W...
-		                	<img src="//r/cms/www/new.gif"/>
-		                </a>
+		                <a href="/html/11/20151111/711.html" title="刘延东会见捷克众议长哈马切克" target="_blank">刘延东会见捷克众议长哈马切克</a>
+		                </li>
+		                  <li>
+		                <a href="/html/11/20151111/710.html" title="比亚迪电动公交客车K9 亮相罗马尼亚首都" target="_blank">比亚迪电动公交客车K9 亮相罗马尼亚首都</a>
+		                </li>
+		                  <li>
+		                <a href="/html/11/20151111/709.html" title="习近平主席致电祝贺韦约尼斯当选拉脱维亚总统" target="_blank">习近平主席致电祝贺韦约尼斯当选拉脱维亚...</a>
+		                </li>
+		                  <li>
+		                <a href="/html/11/20151111/708.html" title="张高丽访问塞尔维亚" target="_blank">张高丽访问塞尔维亚</a>
+		                </li>
+		                  <li>
+		                <a href="/html/11/20151111/707.html" title="国航北京-布达佩斯首航欢迎仪式在匈牙利举行" target="_blank">国航北京-布达佩斯首航欢迎仪式在匈牙利举行</a>
 		                </li>
 		                </ul>
 		            
 		        </div>
-        		<!--Dynamic news_end -->
+        		<!-- 新闻_end -->
                 <div class="w310 mt10">
                     <!-- 焦点图代码宽310_begin -->
                     <div class="comiis_wrapad" id="slideContainer">
@@ -273,39 +242,39 @@ function qkeypress(){
                                 <div class="cl">
                                     <ul class="slideshow" id="slidesImgs">
                                     <li>
-                                        <a href="/1/20151110/693.html" target="_blank">
-                                            <img src="/cepc/u/cms/cepen/201511/1717445201lb.gif" alt="BYD electric bus K9 debut in the capital of Romania" width="100%" />
+                                        <a href="/html/1/20151111/697.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepzh/201511/11092611i3mq.gif" alt=""一带一路"建设与"16+1合作"国际研讨会在匈牙利举行" width="100%" />
                                         </a>
                                         <span>
-BYD electric bus K9 debut in the c...                                        </span>
+"一带一路"建设与"16+1合作"国际研讨...                                        </span>
                                     </li>
                                     <li>
-                                        <a href="/1/20151110/688.html" target="_blank">
-                                            <img src="/cepc/u/cms/cepen/201511/11095820koqu.gif" alt="Fifth China - the Middle East European countries cooperation National Coordinator meeting held in Beijing" width="100%" />
+                                        <a href="/html/1/20151111/696.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepzh/201511/11092459rcai.gif" alt="中东欧国家记者团成功访华" width="100%" />
                                         </a>
                                         <span>
-Fifth China - the Middle East Euro...                                        </span>
+中东欧国家记者团成功访华                                        </span>
                                     </li>
                                     <li>
-                                        <a href="/1/20151110/686.html" target="_blank">
-                                            <img src="/cepc/u/cms/cepen/201511/11095847idkw.jpg" alt="Liu Yandong held talks with Czech Prime Minister Sobotka" width="100%" />
+                                        <a href="/html/1/20151111/694.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepzh/201511/11092244zxqb.gif" alt="2015年中东欧国家知识竞赛正式启动" width="100%" />
                                         </a>
                                         <span>
-Liu Yandong held talks with Czech ...                                        </span>
+2015年中东欧国家知识竞赛正式启动                                        </span>
                                     </li>
                                     <li>
-                                        <a href="/1/20151110/684.html" target="_blank">
-                                            <img src="/cepc/u/cms/cepen/201511/11095940fz07.gif" alt="Xi Jinping, chairman of the call to congratulate Vee Johnny J was elected president of Latvia" width="100%" />
+                                        <a href="/html/1/20151110/685.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepzh/201511/11091501kvux.gif" alt="习近平会见塞尔维亚总统尼科利奇" width="100%" />
                                         </a>
                                         <span>
-Xi Jinping, chairman of the call t...                                        </span>
+习近平会见塞尔维亚总统尼科利奇                                        </span>
                                     </li>
                                     <li>
-                                        <a href="/1/20151110/683.html" target="_blank">
-                                            <img src="/cepc/u/cms/cepen/201511/11095916nvip.gif" alt="Xi Jinping meets with President Nikolic of Serbia" width="100%" />
+                                        <a href="/html/1/20151110/682.html" target="_blank">
+                                            <img src="/cepc/u/cms/cepzh/201511/11091703ekig.jpg" alt="李克强出席中国—中东欧国家第四届经贸论坛并致辞" width="100%" />
                                         </a>
                                         <span>
-Xi Jinping meets with President Ni...                                        </span>
+李克强出席中国—中东欧国家第四届经...                                        </span>
                                     </li>
                                     </ul>
                                 </div>
@@ -326,54 +295,74 @@ Xi Jinping meets with President Ni...                                        </s
                     </script>
                     
                 </div>
+                <!-- 焦点图代码宽310_end -->
                     <div class="clear"></div>
                 <div style="width:980px; overflow:hidden;">
-                    <!--学术交流-->
+                    <!-- 资讯排行榜宽310_begin -->
                     <div class="gjNews">
 			   	    	<div class="top_title">
-	            			 <a href="http://localhost:8080/en/1/index.jhtml" target="_blank">
-			                more>></a>
+	            			 <a href="http://192.168.1.8:8080/zh/1/index.jhtml" target="_blank">
+			                更多>></a>
 	                    	
-	                        <p><span class="t_left"></span><span>  Research Result </span><span class="t_right"></span></p>
+	                        <p><span class="t_left"></span><span>研究成果</span><span class="t_right"></span></p>
 	                    </div>
+			            <ul class="dtbox Achievement">
+			                  <li>
+			                <a href="/html/1/20151111/697.html" title=""一带一路"建设与"16+1合作"国际研讨会在匈牙利举行" target="_blank">"一带一路"建设与"16+1合作"国际研讨会在...</a>
+			                </li>
+			                  <li>
+			                <a href="/html/1/20151111/696.html" title="中东欧国家记者团成功访华" target="_blank">中东欧国家记者团成功访华</a>
+			                </li>
+			                  <li>
+			                <a href="/html/1/20151111/694.html" title="2015年中东欧国家知识竞赛正式启动" target="_blank">2015年中东欧国家知识竞赛正式启动</a>
+			                </li>
+			                  <li>
+			                <a href="/html/1/20151110/685.html" title="习近平会见塞尔维亚总统尼科利奇" target="_blank">习近平会见塞尔维亚总统尼科利奇</a>
+			                </li>
+			                  <li>
+			                <a href="/html/1/20151110/682.html" title="李克强出席中国—中东欧国家第四届经贸论坛并致辞" target="_blank">李克强出席中国—中东欧国家第四届经贸论...</a>
+			                </li>
+			            </ul>
 			            
-			                <ul class="dtbox Achievement">
-			                  <li>
-			                <a href="/1/20151110/693.html" title="BYD electric bus K9 debut in the capital of Romania" target="_blank">BYD electric bus K9 debut in the capit...</a>
-			                </li>
-			                  <li>
-			                <a href="/1/20151110/688.html" title="Fifth China - the Middle East European countries cooperation National Coordinator meeting held in Beijing" target="_blank">Fifth China - the Middle East European...</a>
-			                </li>
-			                  <li>
-			                <a href="/1/20151110/686.html" title="Liu Yandong held talks with Czech Prime Minister Sobotka" target="_blank">Liu Yandong held talks with Czech Prim...</a>
-			                </li>
-			                  <li>
-			                <a href="/1/20151110/684.html" title="Xi Jinping, chairman of the call to congratulate Vee Johnny J was elected president of Latvia" target="_blank">Xi Jinping, chairman of the call to co...</a>
-			                </li>
-			                  <li>
-			                <a href="/1/20151110/683.html" title="Xi Jinping meets with President Nikolic of Serbia" target="_blank">Xi Jinping meets with President Nikoli...</a>
-			                </li>
-			                </ul>
-			           
 			        </div>
 			        
 			        <div class="gjNews" style="float:left; width:612px;">
 			   	    	<div class="top_title">
-	            			 <a href="http://localhost:8080/en/5/index.jhtml" target="_blank">
-			                more>></a>
+	            			 <a href="http://192.168.1.8:8080/zh/6/index.jhtml" target="_blank">
+			                更多>></a>
 	                    	
-	                        <p><span class="t_left"></span><span> Academic Exchange</span><span class="t_right"></span></p>
+	                        <p><span class="t_left"></span><span>学术交流</span><span class="t_right"></span></p>
 	                    </div>
-			           
-			                 <ul class="dtbox">
+			            <ul class="dtbox">
 			                  <li>
-			                  <span style="color:#999">2015-11-10</span>
-			                <a href="/5/20151110/691.html" title="Liu Yandong met with house speaker Hama Cheik of Czech" target="_blank">Liu Yandong met with house speaker Ham...</a>
+			                  <span style="color:#999">2015-11-11</span>
+			                <a href="/html/6/20151111/727.html" title="上海收藏家刘益谦9000万天价拍下南宋花瓶(图)" target="_blank">上海收藏家刘益谦9000万天价拍下南宋花瓶(图)</a>
 			                </li>
-			                </ul>
+			                
+			                  <li>
+			                  <span style="color:#999">2015-11-11</span>
+			                <a href="/html/6/20151111/726.html" title="刘益谦：热爱艺术品的“土豪”" target="_blank">刘益谦：热爱艺术品的“土豪”</a>
+			                </li>
+			                
+			                  <li>
+			                  <span style="color:#999">2015-11-11</span>
+			                <a href="/html/6/20151111/725.html" title="中国富商刘益谦1.7亿美元购名画《斜躺的裸女》" target="_blank">中国富商刘益谦1.7亿美元购名画《斜躺的裸女》</a>
+			                </li>
+			                
+			                  <li>
+			                  <span style="color:#999">2015-11-11</span>
+			                <a href="/html/6/20151111/704.html" title="中东欧１６国将集体设展亮相第十八届中国投洽会" target="_blank">中东欧１６国将集体设展亮相第十八届中国投洽会</a>
+			                </li>
+			                
+			                  <li>
+			                  <span style="color:#999">2015-11-11</span>
+			                <a href="/html/6/20151111/703.html" title="李克强与匈牙利总理欧尔班、塞尔维亚总理达契奇共同宣布合作建设匈塞铁路" target="_blank">李克强与匈牙利总理欧尔班、塞尔维亚总理达契奇共同...</a>
+			                </li>
+			                
+			             </ul>
 			           
 			        </div>
-                    <!-- 学术交流_end -->
+                    <!-- 资讯排行榜宽310_end -->
                 </div>
                     <div class="clear"></div>
             
@@ -382,74 +371,72 @@ Xi Jinping meets with President Ni...                                        </s
         	<div class="clear"></div>
             <!-- 广告_begin -->
             <div class="hundred100 mt10">
-                <img src="../../r/cms/cepen/cepen/img/index/banner1.jpg" width="100%">
+                <img src="../../r/cms/cepzh/cepzh/img/index/banner1.jpg" width="100%">
         </div>
             <!-- 广告_end -->
 			<div class="clear"></div>
             <div class="hundred100">
             	<div class="gjNews">
 			   	    	<div class="top_title">
-	            			 <a href="http://localhost:8080/en/3/index.jhtml" target="_blank">
-			                more>></a>
+	            			 <a href="http://192.168.1.8:8080/zh/3/index.jhtml" target="_blank">
+			                更多>></a>
 	                    	
-	                        <p><span class="t_left"></span><span>China-CEEC Thinktanks' Cooperaion</span><span class="t_right"></span></p>
+	                        <p><span class="t_left"></span><span>中国中东欧智库合作</span><span class="t_right"></span></p>
 	                    </div>
-			            
-			                <ul class="dtbox Achievement">
+			              <ul class="dtbox Achievement">
 				                 <dl class="cooperimg" style="overflow: hidden;margin-bottom: 10px;">
-	              	                    <dt style="text-align: center; width: 150px; display: block; float: left;"><a href="/3/20151118/747.html" target="_blank"><img  src="/r/cms/www/no_picture.gif"  width="134" height="134"></a></dt>
-	                                    <dd style="width: 180px; float: left;">
-	                  	              		<p style="word-break:break-all;line-height: 2;"><a href="/3/20151118/747.html" title="321321321321" target="_blank" style="color:#333;">321321321321321321321321321321321321</a></p>
+	              	                    <dt style="float: left;width: 150px;text-align: center;display: block;"><a href="/html/3/20151111/735.html" target="_blank"><img  src="/r/cms/www/no_picture.gif"  width="134" height="134"></a></dt>
+	                                    <dd style="width: 180px;float: left;">
+	                  	              		<p style="line-height:24px;"><a href="/html/3/20151111/735.html" title="海外投资首超国内" target="_blank">海外投资首超国内海外投资首超国内海外投资首超国内海外投资首超国内海外投资首超国内海外投资首超国内海...</a></p>
 	                                    </dd>
 	                              </dl>
 		                             <li>
-						                <a href="/3/20151118/746.html" title="321321321321321321321321321321321321" target="_blank">321321321321321321321321321321321321</a>
+						                <a href="/html/3/20151111/734.html" title="□澳洲投资受中国资本青睐" target="_blank">□澳洲投资受中国资本青睐</a>
 					               	 </li>
 		                             <li>
-						                <a href="/3/20151118/745.html" title="321321321321321321321321321321321321" target="_blank">321321321321321321321321321321321321</a>
+						                <a href="/html/3/20151111/733.html" title="□案例：一周涨2万澳元" target="_blank">□案例：一周涨2万澳元</a>
 					               	 </li>
 		                             <li>
-						                <a href="/3/20151118/744.html" title="321321321321" target="_blank">321321321321</a>
+						                <a href="/html/3/20151111/732.html" title="去年中国海外房地产投资首超国内投资" target="_blank">去年中国海外房地产投资首超国内投资</a>
 					               	 </li>
 		                             <li>
-						                <a href="/3/20151118/743.html" title="321321321" target="_blank">321321321</a>
+						                <a href="/html/3/20151111/731.html" title="中国投资者以8888888澳元拍下墨尔本一处物业" target="_blank">中国投资者以8888888澳元拍下墨尔本...</a>
 					               	 </li>
 			                </ul>
-			          
 			        </div>
 			        
 			        <div class="gjNews"  style="float:left; width:612px;">
 			   	    	<div class="top_title">
-	            			 <a href="http://localhost:8080/en/6/index.jhtml" target="_blank">
-			                more>></a>
+	            			 <a href="http://192.168.1.8:8080/zh/7/index.jhtml" target="_blank">
+			                更多>></a>
 	                    	
-	                        <p><span class="t_left"></span><span>About CEECs' Thinktanks </span><span class="t_right"></span></p>
+	                        <p><span class="t_left"></span><span>走进中国中东欧智库 </span><span class="t_right"></span></p>
 	                    </div>
-			                 <ul class="dtbox">
-				                 <dl class="cooperimg" style="display:block;overflow:hidden;margin-buttom:10px">
-	              	                    <dt style="text-align: center; width: 150px; float: left;"><a href="/6/20151118/742.html" target="_blank"><img  src="/r/cms/www/no_picture.gif"  width="134" height="134"></a></dt>
-	                                    <dd style="width: 430px; float: left; margin-left: 15px;">
-	                  	              		<p style="word-break:break-all;line-height: 2;"><a href="/6/20151118/742.html" title="ReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewr" target="_blank"  style="color:#333;">ReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewrReewrewrewr</a></p>
+			              <ul class="dtbox">
+				                 <dl class="cooperimg" style="display:block;overflow:hidden;margin-bottom:10px">
+	              	                    <dt style="float: left;width: 150px;text-align: center;"><a href="/html/7/20151111/730.html" target="_blank"><img  src="/r/cms/www/no_picture.gif"  width="134" height="134"></a></dt>
+	                                    <dd style=" width: 430px;float: left;margin-left: 15px;">
+	                  	              		<p style="line-height:24px;"><a href="/html/7/20151111/730.html" title="“八方瓶”40年来首次流入市场" target="_blank">“八方瓶”40年来首次流入市场“八方瓶”40年来首次流入市场“八方瓶”40年来首次流入市场“八方瓶”40年来首次流入市场“八方瓶”40年来首次流入市场“八方瓶”40年来首次流入市场“八方瓶”40年来首次流入市场“...</a></p>
 	                                    </dd>
 	                              </dl>
 		                             <li>
-		                                <span style="color:#999">2015-11-18</span>
-						                <a href="/6/20151118/741.html" title="Reewrewrewr" target="_blank">Reewrewrewr</a>
+		                  	           <!-- <span style="color:#999">2015-11-11</span> -->
+						                <a href="/html/7/20151111/729.html" title="刘益谦这些年买下的天价珍品" target="_blank">刘益谦这些年买下的天价珍品</a>
 					               	 </li>
 		                             <li>
-		                                <span style="color:#999">2015-11-18</span>
-						                <a href="/6/20151118/740.html" title="Reewrewrewr" target="_blank">Reewrewrewr</a>
+		                  	           <!-- <span style="color:#999">2015-11-11</span> -->
+						                <a href="/html/7/20151111/728.html" title="上海收藏家刘益谦9000万天价拍下南宋花瓶(图)" target="_blank">上海收藏家刘益谦9000万天价拍下南宋...</a>
 					               	 </li>
 		                             <li>
-		                                <span style="color:#999">2015-11-18</span>
-						                <a href="/6/20151118/739.html" title="444444444444444" target="_blank">444444444444444</a>
+		                  	           <!-- <span style="color:#999">2015-11-11</span> -->
+						                <a href="/html/7/20151111/706.html" title="阿尔巴尼亚" target="_blank">阿尔巴尼亚</a>
 					               	 </li>
 		                             <li>
-		                                <span style="color:#999">2015-11-18</span>
-						                <a href="/6/20151118/738.html" title="321321" target="_blank">321321</a>
+		                  	           <!-- <span style="color:#999">2015-11-11</span> -->
+						                <a href="/html/7/20151111/705.html" title="阿尔巴尼亚概况" target="_blank">阿尔巴尼亚概况</a>
 					               	 </li>
 			                </ul>
-			           
+			            
 			        </div>
             <!-- 视频_end -->
             </div>
@@ -458,10 +445,10 @@ Xi Jinping meets with President Ni...                                        </s
 			<div class="hundred100 mt10">
             	<!-- 图库_begin -->
                 <div class="top_title">
-           			 <a href="http://localhost:8080/en/1/index.jhtml" target="_blank">
-	                more>></a>
+           			 <a href="http://192.168.1.8:8080/zh/8/index.jhtml" target="_blank">
+	                更多>></a>
                    	
-                       <p><span class="t_left"></span><span>High-Level Symposium of Thinktanks of China-CEECs</span><span class="t_right"></span></p>
+                       <p><span class="t_left"></span><span>中国中东欧国家高级别智库研讨会</span><span class="t_right"></span></p>
                    </div>
                 <!-- <div class="AreaContent1">
                     <ul class="box">
@@ -470,68 +457,75 @@ Xi Jinping meets with President Ni...                                        </s
                 <div class="symbox">
                         <div class="box">
                             <div class="picbox">
+                                 
                                  <ul class="piclist mainlist">
                                     <li>
-                                        <a href="/7/20151111/724.html" title="Fifth China - the Middle East European countries cooperation National Coordinator meeting held in Beijing" target="_blank">
+                                        <a href="/html/8/20151111/723.html" title="中国—中东欧国家合作贝尔格莱德纲要" target="_blank">
                                         	<div class="toll_img">
-                                           		 <img src="/cepc/u/cms/cepen/201511/11130836n7zk.gif" alt="Fifth China - the Middle East European countries cooperation National Coordinator meeting held in Beijing" width="100%" />
+                                           		 <img src="/cepc/u/cms/cepzh/201511/11130543264b.gif" alt="中国—中东欧国家合作贝尔格莱德纲要" width="100%" />
                                            	</div>
                                            	<div class="toll_info">	 
-                                           	<p>Fifth China - the Middle East Europe</p>
+                                           	<p>中国—中东欧国家合作贝尔格莱德纲要</p>
 			                            	</div>
                                         </a>
                                         <span class="title">
-Fifth China - the Middle East Euro...                                        </span>
+中国—中东欧国家合作贝尔格莱德纲要                                        </span>
                                     </li>
                                     <li>
-                                        <a href="/7/20151111/717.html" title="Li Keqiang and Serbia Prime Minister Wu Qiqi jointly attended the signing ceremony" target="_blank">
+                                        <a href="/html/8/20151111/722.html" title="刘延东与捷克总理索博特卡举行会谈" target="_blank">
                                         	<div class="toll_img">
-                                           		 <img src="/cepc/u/cms/cepen/201511/111044111bdj.gif" alt="Li Keqiang and Serbia Prime Minister Wu Qiqi jointly attended the signing ceremony" width="100%" />
+                                           		 <img src="/cepc/u/cms/cepzh/201511/11112334xym2.gif" alt="刘延东与捷克总理索博特卡举行会谈" width="100%" />
                                            	</div>
                                            	<div class="toll_info">	 
-                                           	<p>Li Keqiang and Serbia Prime Minister</p>
+                                           	<p>刘延东与捷克总理索博特卡举行会谈</p>
 			                            	</div>
                                         </a>
                                         <span class="title">
-Li Keqiang and Serbia Prime Minist...                                        </span>
+刘延东与捷克总理索博特卡举行会谈                                        </span>
                                     </li>
                                     <li>
-                                        <a href="/7/20151111/716.html" title="In June 17, 2015, foreign minister Xie Dina held talks with Poland's foreign minister, Wang Yi, in Beijing and China." target="_blank">
+                                        <a href="/html/8/20151111/721.html" title="刘延东会见捷克众议长哈马切克" target="_blank">
                                         	<div class="toll_img">
-                                           		 <img src="/cepc/u/cms/cepen/201511/11104201939v.gif" alt="In June 17, 2015, foreign minister Xie Dina held talks with Poland's foreign minister, Wang Yi, in Beijing and China." width="100%" />
+                                           		 <img src="/cepc/u/cms/cepzh/201511/11112003doch.gif" alt="刘延东会见捷克众议长哈马切克" width="100%" />
                                            	</div>
                                            	<div class="toll_info">	 
-                                           	<p>In June 17, 2015, foreign minister X</p>
+                                           	<p>刘延东会见捷克众议长哈马切克</p>
 			                            	</div>
                                         </a>
                                         <span class="title">
-In June 17, 2015, foreign minister...                                        </span>
+刘延东会见捷克众议长哈马切克                                        </span>
                                     </li>
                                     <li>
-                                        <a href="/7/20151111/715.html" title="Wang Yi and Poland Foreign Minister Xie Tina held talks and co chaired the wave inter governmental cooperation committee plenary meeting for the first" target="_blank">
+                                        <a href="/html/8/20151111/720.html" title="国航北京-布达佩斯首航欢迎仪式在匈牙利举行" target="_blank">
                                         	<div class="toll_img">
-                                           		 <img src="/cepc/u/cms/cepen/201511/11104048qdqe.jpg" alt="Wang Yi and Poland Foreign Minister Xie Tina held talks and co chaired the wave inter governmental cooperation committee plenary meeting for the first" width="100%" />
+                                           		 <img src="/cepc/u/cms/cepzh/201511/11111747vbii.gif" alt="国航北京-布达佩斯首航欢迎仪式在匈牙利举行" width="100%" />
                                            	</div>
                                            	<div class="toll_info">	 
-                                           	<p>Wang Yi and Poland Foreign Minister </p>
+                                           	<p>国航北京-布达佩斯首航欢迎仪式在匈牙</p>
 			                            	</div>
                                         </a>
                                         <span class="title">
-Wang Yi and Poland Foreign Ministe...                                        </span>
+国航北京-布达佩斯首航欢迎仪式在匈牙                                        </span>
                                     </li>
                                     <li>
-                                        <a href="/7/20151111/699.html" title="Joint press release of the first plenary session of the government of the people's Republic of China and the Republic of Poland" target="_blank">
+                                        <a href="/html/8/20151111/713.html" title="王毅与波兰外长谢蒂纳举行会谈并共同主持中波政府间合作委员会首次全体会议" target="_blank">
                                         	<div class="toll_img">
-                                           		 <img src="/cepc/u/cms/cepen/201511/11103114ljod.jpg" alt="Joint press release of the first plenary session of the government of the people's Republic of China and the Republic of Poland" width="100%" />
+                                           		 <img src="/cepc/u/cms/cepzh/201511/11102936qewn.gif" alt="王毅与波兰外长谢蒂纳举行会谈并共同主持中波政府间合作委员会首次全体会议" width="100%" />
                                            	</div>
                                            	<div class="toll_info">	 
-                                           	<p>Joint press release of the first ple</p>
+                                           	<p>王毅与波兰外长谢蒂纳举行会谈并共同主</p>
 			                            	</div>
                                         </a>
                                         <span class="title">
-Joint press release of the first p...                                        </span>
+王毅与波兰外长谢蒂纳举行会谈并共同主                                        </span>
                                     </li>
+                                    
+                                    
+			                       <!--  
+			                         -->
                     			</ul>
+                                 
+                                 
                             </div>
                             <div class="og_prev"></div>
                             <div class="og_next"></div>
@@ -545,34 +539,34 @@ Joint press release of the first p...                                        </s
 
 <div class="link" style="width:980px; margin:0 auto;">
                 	<div class="top_title">
-                        <p><span class="t_left"></span><span>friendship link</span><span class="t_right"></span></p>
+                        <p><span class="t_left"></span><span>友情链接</span><span class="t_right"></span></p>
                     </div>
                     <div class="linkbox">
                 <div style="margin-left:1.5%; float:left;">
-        <a href="http://baidu.com" onclick="$.get('/friendlink_view.jspx?id=7')" target="_blank">Tourism Cooperation</a>
+        <a href="http://www.qulxw.com/" onclick="$.get('/friendlink_view.jspx?id=1')" target="_blank">旅游合作</a>
         </div>
         <div style="margin-left:1.5%; float:left;">
-        <a href="http://baidu.com" onclick="$.get('/friendlink_view.jspx?id=8')" target="_blank">Agricultural Cooperation</a>
+        <a href="http://p4psearch.1688.com/p4p114/p4psearch/offer2.htm?keywords=%c5%a9%d2%b5%ba%cf%d7%f7&cosite=baidujj&location=exact&trackid=4014000001294497" onclick="$.get('/friendlink_view.jspx?id=2')" target="_blank">农业合作</a>
         </div>
         <div style="margin-left:1.5%; float:left;">
-        <a href="http://baidu.com" onclick="$.get('/friendlink_view.jspx?id=9')" target="_blank">Transportation Infrastructure</a>
+        <a href="http://jx.tmall.com/tmsearch?_input_charset=utf-8&keyword=基础交通设施&pid=mm_26632258_3504122_34400284&refpid=mm_26632258_3504122_34400284&b=4014000040165347&clk1=f9727fa0db6945e658cab8eb36037fd2&upsid=f9727fa0db6945e658cab8eb36037fd2" onclick="$.get('/friendlink_view.jspx?id=3')" target="_blank">交通基础设施合作</a>
         </div>
         <div style="margin-left:1.5%; float:left;">
-        <a href="http://baidu.com" onclick="$.get('/friendlink_view.jspx?id=10')" target="_blank">Logistics Cooperation</a>
+        <a href="http://mosaic.re.taobao.com/search_ou?isinner=0&buckid=2&refpid=mm_26632258_3504122_32538762&keyword=%bb%f9%b4%a1%bd%bb%cd%a8%c9%e8%ca%a9&pid=mm_26632258_3504122_32538762&b=4014000029288429&clk1=f868a633408314efb8fb743e12be727c&upsid=f868a633408314efb8fb7" onclick="$.get('/friendlink_view.jspx?id=4')" target="_blank">物流合作</a>
         </div>
         <div style="margin-left:1.5%; float:left;">
-        <a href="http://baidu.com" onclick="$.get('/friendlink_view.jspx?id=11')" target="_blank"> Business Cooperation</a>
+        <a href="http://www.amazon.cn/" onclick="$.get('/friendlink_view.jspx?id=5')" target="_blank">商务合作</a>
         </div>
         <div style="margin-left:1.5%; float:left;">
-        <a href="http://baidu.com" onclick="$.get('/friendlink_view.jspx?id=12')" target="_blank">The investment promotion work</a>
+        <a href="http://www.ihush.com/" onclick="$.get('/friendlink_view.jspx?id=6')" target="_blank">投资促进合作</a>
         </div>
                     </div>
                 </div>
 <div class="clear-10"></div>
 <div class="footer">
     <div class="clear-10"></div>
-  		Copyright belongs to China's central and eastern Europe, a think-tank, exchanges and cooperation network 2004-2015 All Rights Reserved<br />
- 		 Copyright © www.16plus1-thinktank.com, China's central and eastern Europe, a think-tank, exchanges and cooperation in network Beijing ICP for 12030723
+  		版权归 中国中东欧国家智库交流与合作网络 2004-2015 All Rights Reserved<br />
+ 		 Copyright © www.16plus1-thinktank.com 中国中东欧国家智库交流与合作网络 京ICP备12030723
 </div></div>
 </body>
 </html>
