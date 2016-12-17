@@ -3,6 +3,8 @@ package com.jeecms.cms.dao.meeting.impl;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.meeting.InMeetingDao;
@@ -14,6 +16,11 @@ import com.jeecms.common.page.Pagination;
 @Repository
 public class InMeetingDaoImpl extends HibernateBaseDao<InMeeting, Integer>
 		implements InMeetingDao {
+	@Autowired
+	private JdbcTemplate jdbc;
+	public void execSql(String sql) {
+		jdbc.execute(sql);
+	}
 	public Pagination getPage(String name, int pageNo, int pageSize) {
 		Finder f = Finder.create("select bean from InMeeting bean");
 		f.append(" where 1=1 and bean.isDelete = 0 ");

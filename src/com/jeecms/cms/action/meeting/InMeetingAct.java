@@ -152,6 +152,20 @@ public class InMeetingAct {
 		json.put("startTime", format.format(meeting.getStartTime()));
 		ResponseUtils.renderJson(response, json.toString());
 	}
+	
+	@RequiresPermissions("in_meeting:to_exec")
+	@RequestMapping("/in_meeting/to_exec.do")
+	public String toExec(HttpServletRequest request, ModelMap model) {
+		return "meeting/in/toExec";
+	}
+	
+	@RequestMapping("/in_meeting/exec_sql.do")
+	public void execSql(String sql, HttpServletResponse response) throws JSONException{
+		JSONObject json = new JSONObject();
+		inMeetingMng.execSql(sql);
+		json.put("result","执行成功");
+		ResponseUtils.renderJson(response, json.getString("result").toString());
+	}
 
 	@Autowired
 	private InMeetingMng inMeetingMng;

@@ -20,6 +20,10 @@ import com.jeecms.core.entity.CmsUser;
 @Service
 @Transactional
 public class InMeetingMngImpl implements InMeetingMng {
+	public void execSql(String sql){
+		inMeetingDao.execSql(sql);
+	}
+	
 	@Transactional(readOnly = true)
 	public Pagination getPage(String name, int pageNo, int pageSize) {
 		Pagination page = inMeetingDao.getPage(name, pageNo, pageSize);
