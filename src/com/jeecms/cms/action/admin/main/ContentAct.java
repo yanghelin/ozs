@@ -34,12 +34,12 @@ import com.jeecms.cms.entity.main.CmsModel;
 import com.jeecms.cms.entity.main.CmsModelItem;
 import com.jeecms.cms.entity.main.CmsTopic;
 import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.entity.main.Content.ContentStatus;
 import com.jeecms.cms.entity.main.ContentCheck;
 import com.jeecms.cms.entity.main.ContentDoc;
 import com.jeecms.cms.entity.main.ContentExt;
 import com.jeecms.cms.entity.main.ContentTxt;
 import com.jeecms.cms.entity.main.ContentType;
-import com.jeecms.cms.entity.main.Content.ContentStatus;
 import com.jeecms.cms.manager.assist.CmsFileMng;
 import com.jeecms.cms.manager.main.ChannelMng;
 import com.jeecms.cms.manager.main.CmsModelItemMng;
@@ -47,6 +47,7 @@ import com.jeecms.cms.manager.main.CmsModelMng;
 import com.jeecms.cms.manager.main.CmsTopicMng;
 import com.jeecms.cms.manager.main.ContentMng;
 import com.jeecms.cms.manager.main.ContentTypeMng;
+import com.jeecms.cms.manager.meeting.OzsContentInfoMng;
 import com.jeecms.cms.service.ImageSvc;
 import com.jeecms.cms.staticpage.exception.ContentNotCheckedException;
 import com.jeecms.cms.staticpage.exception.GeneratedZeroStaticPageException;
@@ -229,6 +230,9 @@ public class ContentAct{
 		model.addAttribute("currStep", currStep);
 		model.addAttribute("site", site);
 		model.addAttribute("models", models);
+		
+		model.addAttribute("contentInfo",infoMng.findByMaxId());
+		
 		addAttibuteForQuery(model, queryTitle, queryInputUsername, queryStatus,
 				queryTypeId, queryTopLevel, queryRecommend, queryOrderBy,
 				pageNo);
@@ -1596,4 +1600,6 @@ public class ContentAct{
 	private CmsSiteMng siteMng;
 	@Autowired
 	private ImageSvc imageSvc;
+	@Autowired
+	private OzsContentInfoMng infoMng;
 }

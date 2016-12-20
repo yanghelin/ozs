@@ -42,6 +42,10 @@ public class OutMeetingEroll implements Serializable {
     private String outNational;
 
     private String passport;
+    
+    private Date passportDate;
+
+    private Date passportValid;
 
     private String outFrom;
 
@@ -252,6 +256,22 @@ public class OutMeetingEroll implements Serializable {
 
 	public void setPassport(String passport) {
 		this.passport = passport;
+	}
+
+	public Date getPassportDate() {
+		return passportDate;
+	}
+
+	public void setPassportDate(Date passportDate) {
+		this.passportDate = passportDate;
+	}
+
+	public Date getPassportValid() {
+		return passportValid;
+	}
+
+	public void setPassportValid(Date passportValid) {
+		this.passportValid = passportValid;
 	}
 
 	public String getOutFrom() {

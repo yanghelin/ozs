@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jeecms.cms.entity.meeting">
+	<class name="OzsContentInfo" table="ozs_content_info" dynamic-update="true">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+    	<id name="id" type="java.lang.Integer" column="id"><generator class="identity"/></id>
+	    <property column="year" name="year" type="timestamp" />
+	    <property column="total_word" name="totalWord" type="string" />
+	    <property column="total_article" name="totalArticle" type="string" />
+	    <property column="original_word" name="originalWord" type="string" />
+	    <property column="original_article" name="originalArticle" type="string" />
+	    <property column="reprint_word" name="reprintWord" type="string" />
+	    <property column="reprint_article" name="reprintArticle" type="string" />
+	    <property column="en2zh_word" name="en2zhWord" type="string" />
+	    <property column="en2zh_article" name="en2zhArticle" type="string" />
+	    <property column="zh2en_word" name="zh2enWord" type="string" />
+	    <property column="zh2en_article" name="zh2enArticle" type="string" />
+	    <property column="zh_word" name="zhWord" type="string" />
+	    <property column="zh_article" name="zhArticle" type="string" />
+	    <property column="en_word" name="enWord" type="string" />
+	    <property column="en_article" name="enArticle" type="string" />
+	    <property column="update_time" name="updateTime" type="timestamp" />
+	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
+	    <many-to-one name="updateBy" column="update_by" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
+	    
+  </class>
+</hibernate-mapping>

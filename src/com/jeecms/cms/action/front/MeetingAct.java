@@ -45,7 +45,7 @@ public class MeetingAct {
 	private static final Logger log = LoggerFactory.getLogger(MeetingAct.class);
 
 	public static final String MEETING_SHOW = "tpl.meeting.show";
-	public static final String MEETING_SHOW2 = "tpl.meeting.show2";
+	public static final String MEETING_SUBSCRIBE = "tpl.meeting.subscribe";
 	public static final String MEETING_EROLL = "tpl.meeting.eroll";
 	public static final String MEETING_SUCCESS = "tpl.meeting.success";
 	
@@ -61,10 +61,6 @@ public class MeetingAct {
 	@RequestMapping("/meeting/show.jspx")
 	public String show(Integer id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
-		CmsUser currUser = CmsUtils.getUser(request);
-		if(currUser == null) {
-			return "redirect:/zh/login.jspx";
-		}
 		OutMeeting meeting = null;
 		if(id == null) {
 			if(site.getAccessPath().equals("zh")) {
@@ -85,12 +81,19 @@ public class MeetingAct {
 		return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEETING, MEETING_SHOW);
 	}
 	
+	@RequestMapping("/meeting/subscribe.jspx")
+	public String subscribe(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		CmsSite site = CmsUtils.getSite(request);
+		FrontUtils.frontData(request, model, site);
+		return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEETING, MEETING_SUBSCRIBE);
+	}
+	
 	@RequestMapping("/meeting/eroll.jspx")
 	public String toEroll(Integer id, HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser currUser = CmsUtils.getUser(request);
 		if(currUser == null) {
-			return "redirect:/zh/login.jspx";
+			return "redirect:/login.jspx";
 		}
 		OutMeeting meeting = null;
 		if(id == null) {
@@ -109,7 +112,7 @@ public class MeetingAct {
 	}
 	
 	@RequestMapping(value = "/meeting/erollSave.jspx", method = RequestMethod.POST)
-	public String submit(OutMeetingEroll eroll, HttpServletRequest request,Integer meetingId, String inGoTimePage, String inBackTimePage, String outGoTimePage, String outBackTimePage, ModelMap model) {
+	public String submit(OutMeetingEroll eroll, HttpServletRequest request,Integer meetingId, String passportDatePage, String passportValidPage, String inGoTimePage, String inBackTimePage, String outGoTimePage, String outBackTimePage, ModelMap model) {
 		Object error = request.getAttribute(DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
 		if (error != null) {
 			model.addAttribute("error",error);
@@ -129,6 +132,24 @@ public class MeetingAct {
 		meeting.setId(meetingId);
 		eroll.setOutMeetingId(meeting);
 		
+		if(StringUtils.isNotBlank(passportDatePage)) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH：mm：ss");
+			try {
+				Date date = format.parse(passportDatePage);
+				eroll.setPassportDate(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		if(StringUtils.isNotBlank(passportValidPage)) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH：mm：ss");
+			try {
+				Date date = format.parse(passportValidPage);
+				eroll.setPassportValid(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		if(StringUtils.isNotBlank(inGoTimePage)) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH：mm：ss");
 			try {

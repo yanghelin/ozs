@@ -22,6 +22,8 @@
 	    <property column="out_sex" name="outSex" type="java.lang.Byte" />
 	    <property column="out_national" name="outNational" type="string" />
 	    <property column="passport" name="passport" type="string" />
+	    <property column="passport_date" name="passportDate" type="timestamp" />
+	    <property column="passport_valid" name="passportValid" type="timestamp" />
 	    <property column="out_from" name="outFrom" type="string" />
 	    <property column="out_arrive" name="outArrive" type="string" />
 	    <property column="out_go_time" name="outGoTime" type="timestamp" />

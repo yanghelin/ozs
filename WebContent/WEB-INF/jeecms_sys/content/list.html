@@ -453,9 +453,29 @@ function optUnPigeonhole() {
 <@p.select name="queryOrderBy" value=queryOrderBy list={"0":"content.orderBy.0","1":"content.orderBy.1","2":"content.orderBy.2","3":"content.orderBy.3","4":"content.orderBy.4","5":"content.orderBy.5","6":"content.orderBy.6","7":"content.orderBy.7","8":"content.orderBy.8","9":"content.orderBy.9","10":"content.orderBy.10","11":"content.orderBy.11","12":"content.orderBy.12","13":"content.orderBy.13","14":"content.orderBy.14","15":"content.orderBy.15","16":"content.orderBy.16","17":"content.orderBy.17","18":"content.orderBy.18","19":"content.orderBy.19","20":"content.orderBy.20","21":"content.orderBy.21"}/>
 <input type="hidden" name="cid" value="${cid!}"/>
 <input class="query" type="submit" value="<@s.m "global.query"/>"/>
+<br />
+<#if contentInfo??>&nbsp;
+<#if contentInfo.year?? && (contentInfo.year?length>0)>${contentInfo.year?string("yyyy")}年</#if>数据统计：
+<#if contentInfo.totalWord?? && (contentInfo.totalWord?length>0)>总字数：${contentInfo.totalWord}字&nbsp;&nbsp;</#if>
+<#if contentInfo.totalArticle?? && (contentInfo.totalArticle?length>0)>总条数：${contentInfo.totalArticle}条&nbsp;&nbsp;</#if>
+<#if contentInfo.originalWord?? && (contentInfo.originalWord?length>0)>原创字数：${contentInfo.originalWord}字&nbsp;&nbsp;</#if>
+<#if contentInfo.originalArticle?? && (contentInfo.originalArticle?length>0)>原创条数：${contentInfo.originalArticle}条&nbsp;&nbsp;</#if>
+<#if contentInfo.reprintWord?? && (contentInfo.reprintWord?length>0)>转载字数：${contentInfo.reprintWord}字&nbsp;&nbsp;</#if>
+<#if contentInfo.reprintArticle?? && (contentInfo.reprintArticle?length>0)>转载条数：${contentInfo.reprintArticle}条&nbsp;&nbsp;</#if>
+<#if contentInfo.zhWord?? && (contentInfo.zhWord?length>0)>中文原创字数：${contentInfo.zhWord}字&nbsp;&nbsp;</#if>
+<#if contentInfo.zhArticle?? && (contentInfo.zhArticle?length>0)>中文原创条数：${contentInfo.zhArticle}条&nbsp;&nbsp;</#if>
+<#if contentInfo.enWord?? && (contentInfo.enWord?length>0)>英文原创字数：${contentInfo.enWord}字&nbsp;&nbsp;</#if>
+<#if contentInfo.enArticle?? && (contentInfo.enArticle?length>0)>英文原创条数：${contentInfo.enArticle}条&nbsp;&nbsp;</#if>
+<#if contentInfo.en2zhWord?? && (contentInfo.en2zhWord?length>0)>外译中字数：${contentInfo.en2zhWord}字&nbsp;&nbsp;</#if>
+<#if contentInfo.en2zhArticle?? && (contentInfo.en2zhArticle?length>0)>外译中条数：${contentInfo.en2zhArticle}条&nbsp;&nbsp;</#if>
+<#if contentInfo.zh2enWord?? && (contentInfo.zh2enWord?length>0)>中译外字数：${contentInfo.zh2enWord}字&nbsp;&nbsp;</#if>
+<#if contentInfo.zh2enArticle?? && (contentInfo.zh2enArticle?length>0)>中译外条数：${contentInfo.zh2enArticle}条&nbsp;&nbsp;</#if>
+<#else>
+2016年数据统计：原创字数：350582字&nbsp;&nbsp;转载条数：1167条&nbsp;&nbsp;英文原创字数：123365字&nbsp;&nbsp; 外译中：120531字&nbsp;&nbsp;中译外：121892字
+</#if>
 </div>
 <div style="padding-top:5px; line-height:28px; text-indent:10px;">
-<label><input type="radio" name="queryStatus" value="all" onclick="chgStatus();"<#if !status?? || queryStatus="all"> checked="checked"</#if>/><@s.m "content.status.all"/></label>
+<!-- <label><input type="radio" name="queryStatus" value="all" onclick="chgStatus();"<#if !status?? || queryStatus="all"> checked="checked"</#if>/><@s.m "content.status.all"/></label>
 <label><input type="radio" name="queryStatus" value="contribute" onclick="chgStatus();"<#if queryStatus?? && queryStatus=="contribute"> checked="checked"</#if>/><@s.m "content.status.contribute"/></label>
 <label><input type="radio" name="queryStatus" value="draft" onclick="chgStatus();"<#if queryStatus?? && queryStatus=="draft"> checked="checked"</#if>/><@s.m "content.status.draft"/></label>
 <label><input type="radio" name="queryStatus" value="prepared" onclick="chgStatus();"<#if queryStatus?? && queryStatus=="prepared"> checked="checked"</#if>/><@s.m "content.status.prepared"/></label>
@@ -463,7 +483,7 @@ function optUnPigeonhole() {
 <label><input type="radio" name="queryStatus" value="checked" onclick="chgStatus();"<#if queryStatus?? && queryStatus=="checked"> checked="checked"</#if>/><@s.m "content.status.checked"/></label>
 <label><input type="radio" name="queryStatus" value="rejected" onclick="chgStatus();"<#if queryStatus?? && queryStatus=="rejected"> checked="checked"</#if>/><@s.m "content.status.rejected"/></label>
 <label><input type="radio" name="queryStatus" value="pigeonhole" onclick="chgStatus();"<#if queryStatus?? && queryStatus=="pigeonhole"> checked="checked"</#if>/><@s.m "content.status.pigeonhole"/></label>
-</div>
+ --></div>
 </form>
 <form id="tableForm" method="post">
 <input type="hidden" name="pageNo" value="${pageNo!}"/>

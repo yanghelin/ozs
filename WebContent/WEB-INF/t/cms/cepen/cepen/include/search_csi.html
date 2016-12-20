@@ -56,8 +56,8 @@ function qkeypress(){
          </form>
      </div>
     <!-- 搜索_end -->
-    [#if user??]<div class="login-user" ><a style="float:left;">[#if user.userImg??]<img src="${user.userImg}">[#else]<img src="/r/cms/userImg.png">[/#if]&nbsp;<font style="vertical-align:top;marging:2px auto;line-height:26px;height:26px;">${user.username}</font></a><div class="user-child" style="float:left;padding-left:20px;vertical-align:middle;height:26px;line-height:26px; "><!-- <a href="${base}/member/index.jspx">会员中心</a> --><a href="${base}/logout.jspx">logout</a> <a href="${base}/meeting/show.jspx">&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;meeting enroll</a></div></div>[#else]
-      <div class="login"><a class="tc" href="${base}/login.jspx">&nbsp;&nbsp;LOG IN</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="${base}/register.jspx">REGISTER</a></div>
+    [#if user??]<div class="login-user" ><a style="float:left;">[#if user.userImg??]<img src="${user.userImg}">[#else]<img src="/r/cms/userImg.png">[/#if]&nbsp;<font style="vertical-align:top;marging:2px auto;line-height:26px;height:26px;">${user.username}</font></a><div class="user-child" style="float:left;padding-left:20px;vertical-align:middle;height:26px;line-height:26px; "><!-- <a href="${base}/member/index.jspx">会员中心</a> --><a href="${base}/logout.jspx">logout</a> <a href="${base}/meeting/show.jspx">&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;meeting enroll</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="${base}/meeting/subscribe.jspx">Subscribe</a></div></div>[#else]
+      <div class="login"><a class="tc" href="${base}/login.jspx">&nbsp;&nbsp;LOG IN</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="${base}/register.jspx">REGISTER</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="${base}/meeting/show.jspx">meeting enroll</a></div>
       [/#if]
 </div>
 <div class="clear"></div>

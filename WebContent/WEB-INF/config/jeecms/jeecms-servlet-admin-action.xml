@@ -105,5 +105,6 @@
 	<bean id="ozsMessageDetailAct" class="com.jeecms.cms.action.meeting.OzsMessageDetailAct"/>
 	<bean id="workMealAct" class="com.jeecms.cms.action.meeting.WorkMealAct"/>
 	<bean id="inMeetingDetailAct" class="com.jeecms.cms.action.meeting.InMeetingDetailAct"/>
+	<bean id="ozsContentInfoAct" class="com.jeecms.cms.action.meeting.OzsContentInfoAct"/>
 	
 </beans>

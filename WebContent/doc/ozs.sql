@@ -215,6 +215,8 @@ CREATE TABLE `ozs_out_meeting_enroll` (
   `out_sex` tinyint(4) DEFAULT NULL COMMENT '外方性别',
   `out_national` varchar(20) DEFAULT NULL COMMENT '外方国籍',
   `passport` varchar(20) DEFAULT NULL COMMENT '护照号',
+  `passport_date` datetime DEFAULT NULL COMMENT '护照签发时间',
+  `passport_valid` datetime DEFAULT NULL COMMENT '护照有效期',
   `out_from` varchar(20) DEFAULT NULL COMMENT '外方出发地',
   `out_arrive` varchar(20) DEFAULT NULL COMMENT '外方目的地',
   `out_go_time` datetime DEFAULT NULL COMMENT '外方出发时间',
@@ -251,7 +253,8 @@ CREATE TABLE `ozs_out_meeting_enroll` (
   `is_drive` tinyint(4) DEFAULT NULL COMMENT '是否自驾车辆：0、否；1、是',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='国际会议报名表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='国际会议报名表';
+
 
 CREATE TABLE `ozs_work_meal` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -286,6 +289,31 @@ CREATE TABLE `ozs_meeting_menu_user` (
   `menu_id` int(11) DEFAULT NULL COMMENT '会议菜单ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会议菜单和用户关联表';
+
+
+CREATE TABLE `ozs_content_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `year` date DEFAULT NULL COMMENT '年份',
+  `total_word` varchar(20) DEFAULT NULL COMMENT '总字数',
+  `total_article` varchar(20) DEFAULT NULL COMMENT '总条数',
+  `original_word` varchar(20) DEFAULT NULL COMMENT '原创字数',
+  `original_article` varchar(20) DEFAULT NULL COMMENT '原创文章数',
+  `reprint_word` varchar(20) DEFAULT NULL COMMENT '转载字数',
+  `reprint_article` varchar(20) DEFAULT NULL COMMENT '转载文章数',
+  `en2zh_word` varchar(20) DEFAULT NULL COMMENT '英文转中文字数',
+  `en2zh_article` varchar(20) DEFAULT NULL COMMENT '英文转中文文章数',
+  `zh2en_word` varchar(20) DEFAULT NULL COMMENT '中文转英文字数',
+  `zh2en_article` varchar(20) DEFAULT NULL COMMENT '中文转英文文章数',
+  `zh_word` varchar(20) DEFAULT NULL COMMENT '中文字数',
+  `zh_article` varchar(20) DEFAULT NULL COMMENT '中文文章数',
+  `en_word` varchar(20) DEFAULT NULL COMMENT '英文字数',
+  `en_article` varchar(20) DEFAULT NULL COMMENT '英文文章数',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新人',
+  `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文章条数信息表';
+
 
 
 -- 0、参会人员

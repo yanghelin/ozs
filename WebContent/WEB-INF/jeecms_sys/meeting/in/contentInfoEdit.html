@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title> <#include "/jeecms_sys/head.html"/>
+<script type="text/javascript">
+	$(function() {
+		$("#jvForm").validate();
+	});
+	
+</script>
+</head>
+<body>
+	<div class="box-positon">
+		<div class="rpos"><@s.m "global.position"/>: <@s.m "meeting.manager"/> - <@s.m "global.add"/></div>
+		<div class="clear"></div>
+	</div>
+	<div class="body-box">
+		<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
+		<@p.form id="jvForm" action="update.do" labelWidth="12">
+		<@p.hidden name="id" value=info.id />
+		<#if info.year??>
+			<@p.text width="50" colspan="2" label="年份" value=info.year?string("yyyy") name="year" id="year" onclick="WdatePicker({dateFmt:'yyyy'})" class="Wdate"/><@p.tr/>
+		<#else>
+			<@p.text width="50" colspan="2" label="年份"  name="year" id="year" onclick="WdatePicker({dateFmt:'yyyy'})" class="Wdate"/><@p.tr/>
+		</#if>
+		<@p.text width="50" colspan="1" label="总字数" value=info.totalWord name="totalWord" id="totalWord" />
+		<@p.text width="50" colspan="1" label="总条数" value=info.totalArticle id="totalArticle" name="totalArticle" /><@p.tr/>
+		<@p.text width="50" colspan="1" label="原创字数" value=info.originalWord name="originalWord" id="originalWord" />
+		<@p.text width="50" colspan="1" label="原创条数" value=info.originalArticle id="originalArticle" name="originalArticle" /><@p.tr/>
+		<@p.text width="50" colspan="1" label="转载字数" value=info.reprintWord name="reprintWord" id="reprintWord" />
+		<@p.text width="50" colspan="1" label="转载条数" value=info.reprintArticle id="reprintArticle" name="reprintArticle" /><@p.tr/>
+		<@p.text width="50" colspan="1" label="中文字数" value=info.zhWord name="zhWord" id="zhWord" />
+		<@p.text width="50" colspan="1" label="中文条数" value=info.zhArticle id="zhArticle" name="zhArticle" /><@p.tr/>
+		<@p.text width="50" colspan="1" label="英文字数" value=info.enWord name="enWord" id="enWord" />
+		<@p.text width="50" colspan="1" label="英文条数" value=info.enArticle id="enArticle" name="enArticle" /><@p.tr/>
+		<@p.text width="50" colspan="1" label="中文转英文字数" value=info.zh2enWord name="zh2enWord" id="zh2enWord" />
+		<@p.text width="50" colspan="1" label="中文转英文条数" value=info.zh2enArticle id="zh2enArticle" name="zh2enArticle" /><@p.tr/>
+		<@p.text width="50" colspan="1" label="英文转中文字数" value=info.en2zhWord name="en2zhWord" id="en2zhWord" />
+		<@p.text width="50" colspan="1" label="英文转中文条数" value=info.en2zhArticle id="en2zhArticle" name="en2zhArticle" /><@p.tr/>
+		<@p.tr/>
+		<@p.td colspan="2"><input type="submit" name="btn" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
+		</@p.form>
+	</div>
+</body>
+</html>

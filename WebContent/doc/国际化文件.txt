@@ -101,7 +101,7 @@ out.isDrive=提供自驾
 out.carNo=自驾车牌号
 out.bankNo=银行卡号
 out.bankAddress=开户行
-out.bankName=账号名称
+out.bankName=开户人姓名
 out.bankCard=身份证号
 out.other=其他
 
