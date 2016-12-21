@@ -17,7 +17,7 @@
 <script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
 <script type="text/javascript">
-	function downFile(fileName,path) {
+	function downFile(path) {
 		var filepath = "";
 		var filename = "";
 		if(path != null && path.length>0) {
@@ -133,10 +133,26 @@
            		</tr>
            		<tr>
             		<td colspan="2">
-            			会议相关资料：[#if meeting.contentAttachment??]<a href="javascript:downFile('${meeting.contentAttachment.filename}','${meeting.contentAttachment.path}')" title="${meeting.contentAttachment.filename}" target="_blank">${meeting.contentAttachment.filename!}</a>[/#if]
-            					&nbsp;[#if meeting.agendaAttachment??]<a href="javascript:downFile('${meeting.agendaAttachment.filename}','${meeting.agendaAttachment.path}')" title="${meeting.agendaAttachment.filename}" target="_blank">${meeting.agendaAttachment.filename!}</a>[/#if]
-            					&nbsp;[#if meeting.invitation??]<a href="javascript:downFile('${meeting.invitation.filename}','${meeting.invitation.path}')" title="${meeting.invitation.filename}" target="_blank">${meeting.invitation.filename!}</a>[/#if]
-            					&nbsp;[#if meeting.relatedData??]<a href="javascript:downFile('${meeting.relatedData.filename}','${meeting.relatedData.path}')" title="${meeting.relatedData.filename}" target="_blank">${meeting.relatedData.filename!}</a>[/#if]
+            			会议相关资料：[#if meeting.contentAttachment?? && (meeting.contentAttachment?length>0)]
+            				[#list contentList as cont]
+	            				<a href="javascript:downFile('${cont.path}')" title="${cont.filename}" target="_blank">${cont.filename!}</a>
+            				[/#list]
+            				[/#if]
+            					&nbsp;[#if meeting.agendaAttachment?? && (meeting.agendaAttachment?length>0)]
+            					[#list agendaList as agen]
+            					<a href="javascript:downFile('${agen.path}')" title="${agen.filename}" target="_blank">${agen.filename!}</a>
+            					[/#list]
+            					[/#if]
+            					&nbsp;[#if meeting.invitation?? && (meeting.invitation?length>0)]
+            					[#list invitationList as invit]
+            					<a href="javascript:downFile('${invit.path}')" title="${invit.filename}" target="_blank">${invit.filename!}</a>
+            					[/#list]
+            					[/#if]
+            					&nbsp;[#if meeting.relatedData?? && (meeting.relatedData?length>0)]
+            					[#list relatedDataList as rd]
+            					<a href="javascript:downFile('${rd.path}')" title="${rd.filename}" target="_blank">${rd.filename!}</a>
+            					[/#list]
+            					[/#if]
             		</td>
            		</tr>
            		<tr>

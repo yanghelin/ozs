@@ -14,7 +14,7 @@ public class InMeetingMaterials implements Serializable {
 
     private String type;
 
-    //private Integer attachment;
+    private String attachment;
 
     private Date createTime;
 
@@ -28,7 +28,7 @@ public class InMeetingMaterials implements Serializable {
     
     private InMeeting meetingId;
     
-    private MeetingAttachment attachment;
+    //private MeetingAttachment attachment;
     
     private CmsUser createBy;
     
@@ -58,6 +58,14 @@ public class InMeetingMaterials implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
 	}
 
 	public Date getCreateTime() {
@@ -90,14 +98,6 @@ public class InMeetingMaterials implements Serializable {
 
 	public void setMeetingId(InMeeting meetingId) {
 		this.meetingId = meetingId;
-	}
-
-	public MeetingAttachment getAttachment() {
-		return attachment;
-	}
-
-	public void setAttachment(MeetingAttachment attachment) {
-		this.attachment = attachment;
 	}
 
 	public CmsUser getCreateBy() {

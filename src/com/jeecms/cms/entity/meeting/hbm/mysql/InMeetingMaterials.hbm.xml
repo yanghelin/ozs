@@ -8,14 +8,14 @@
 	    <!-- <property column="meeting_id" name="meetingId" type="java.lang.Integer" /> -->
 	    <property column="name" name="name" type="string" />
 	    <property column="type" name="type" type="string" />
-	    <!-- <property column="attachment" name="attachment" type="java.lang.Integer" /> -->
+	    <property column="attachment" name="attachment" type="string" />
 	    <property column="create_time" name="createTime" type="timestamp" />
 	    <!-- <property column="create_by" name="createBy" type="java.lang.Integer" /> -->
 	    <property column="update_time" name="updateTime" type="timestamp" />
 	    <!-- <property column="update_by" name="updateBy" type="java.lang.Integer" /> -->
 	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
 	    <many-to-one name="meetingId" column="meeting_id" class="com.jeecms.cms.entity.meeting.InMeeting" not-null="false"></many-to-one>
-	    <many-to-one name="attachment" column="attachment" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
+	    <!-- <many-to-one name="attachment" column="attachment" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one> -->
 	    <many-to-one name="createBy" column="create_by" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
 	    <many-to-one name="updateBy" column="update_by" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
   </class>

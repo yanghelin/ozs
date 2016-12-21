@@ -28,7 +28,7 @@ public class InMeetingBriefing implements Serializable {
     
     private InMeeting meetingId;
     
-    private MeetingAttachment attachment;
+    private String attachment;
     
     private CmsUser createBy;
     
@@ -92,11 +92,11 @@ public class InMeetingBriefing implements Serializable {
 		this.meetingId = meetingId;
 	}
 
-	public MeetingAttachment getAttachment() {
+	public String getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(MeetingAttachment attachment) {
+	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
 

@@ -28,6 +28,11 @@ public class MeetingAttachmentMngImpl implements MeetingAttachmentMng {
 	}
 
 	@Transactional(readOnly = true)
+	public List<MeetingAttachment> findByIds(String ids) {
+		return meetingAttachmentDao.findByIds(ids);
+	}
+	
+	@Transactional(readOnly = true)
 	public MeetingAttachment findById(Integer id) {
 		MeetingAttachment entity = meetingAttachmentDao.findById(id);
 		return entity;

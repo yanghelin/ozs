@@ -17,7 +17,7 @@
 	function formSubmit() {
 		var meeting_id = $("#meeting_id").val();
 		var name = $("#name").val();
-		var attachmentId = $("#attachmentId").val();
+		var attachment = $("#attachment").val();
 		if(meeting_id == null || meeting_id == '') {
 			alert("会议名称为必选项");
 			return false;
@@ -31,7 +31,7 @@
 				 return false;
 			}
 		}
-		if(attachmentId == null || attachmentId == '') {
+		if(attachment == null || attachment == '') {
 			alert("材料附件为必填项");
 			return false;
 		}
@@ -75,10 +75,10 @@
 		<@p.text width="50" colspan="1" label="materials.fileType" id="type" name="type" maxlength="20" required="true"/>
 		<@p.tr/>
 		<@p.td colspan="2" label="materials.attachment">
-			<input type="hidden" name="attachmentId" id="attachmentId" />
+			<input type="hidden" name="attachment" id="attachment" />
 			<input type="file" id="attachmentFile" name="attachmentFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('attachmentFile','attachmentId')"/>
-			<span id="attachmentIdSpan"></span>
+			<input type="button" value="上传" onclick="myFileUpload('attachmentFile','attachment')"/>
+			<span id="attachmentSpan"></span>
 		</@p.td>
 		<@p.tr/>
 		<@p.td colspan="2"><input type="button" name="btn" onclick="formSubmit()" value="提交" class="submit" /> &nbsp; <@p.reset code="global.reset"/></@p.td>
@@ -127,8 +127,18 @@
 		        data:{},
 		       	success: function(data, status) {
 	 	          	if(data.code == 200) {
- 	          			$("#"+busId).val(data.busId);
- 	          			$("#"+busId+"Span").text(decodeURI(data.fileName));
+	 	          		var busIdValue = $("#"+busId).val();
+	 	          		if(busIdValue != null && busIdValue != '') {
+		 	          		$("#"+busId).val(busIdValue+","+data.busId);
+	 	          		}else {
+	 	          			$("#"+busId).val(data.busId);
+	 	          		}
+	 	          		var spanValue = $("#"+busId+"Span").text();
+	 	          		if(spanValue != null && spanValue.length>0) {
+	 	          			$("#"+busId+"Span").text(spanValue+","+decodeURI(data.fileName));
+	 	          		}else {
+	 	          			$("#"+busId+"Span").text(decodeURI(data.fileName));
+	 	          		}
  	          			$("#type").val(file_type);
 	 	          	}else {
 		 	          	alert(data.message);

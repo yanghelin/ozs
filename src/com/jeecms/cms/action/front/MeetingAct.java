@@ -9,6 +9,7 @@ import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,8 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jeecms.cms.entity.meeting.MeetingAttachment;
 import com.jeecms.cms.entity.meeting.OutMeeting;
 import com.jeecms.cms.entity.meeting.OutMeetingEroll;
+import com.jeecms.cms.manager.meeting.MeetingAttachmentMng;
 import com.jeecms.cms.manager.meeting.OutMeetingErollMng;
 import com.jeecms.cms.manager.meeting.OutMeetingMng;
 import com.jeecms.common.page.Pagination;
@@ -62,6 +65,10 @@ public class MeetingAct {
 	public String show(Integer id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		OutMeeting meeting = null;
+		List<MeetingAttachment> contentList = null;
+		List<MeetingAttachment> agendaList = null;
+		List<MeetingAttachment> invitationList = null;
+		List<MeetingAttachment> relatedDataList = null;
 		if(id == null) {
 			if(site.getAccessPath().equals("zh")) {
 				meeting = outMeetingMng.getMaxMeetingId(1);
@@ -75,7 +82,28 @@ public class MeetingAct {
 			WebErrors errors=WebErrors.create(request);
 			errors.addError("error.meeting.nomeetingfind");
 			return FrontUtils.showError(request, response, model, errors);
+		}else {
+			String contentAttachment = meeting.getContentAttachment();
+			if(StringUtils.isNotBlank(contentAttachment)) {
+				contentList = attachmentMng.findByIds(contentAttachment);
+			}
+			String agendaAttachment = meeting.getAgendaAttachment();
+			if(StringUtils.isNotBlank(agendaAttachment)) {
+				agendaList = attachmentMng.findByIds(agendaAttachment);
+			}
+			String invitation = meeting.getInvitation();
+			if(StringUtils.isNotBlank(invitation)) {
+				invitationList = attachmentMng.findByIds(invitation);
+			}
+			String relatedData = meeting.getRelatedData();
+			if(StringUtils.isNotBlank(relatedData)) {
+				relatedDataList = attachmentMng.findByIds(relatedData);
+			}
 		}
+		model.addAttribute("contentList",contentList);
+		model.addAttribute("agendaList",agendaList);
+		model.addAttribute("invitationList",invitationList);
+		model.addAttribute("relatedDataList",relatedDataList);
 		model.addAttribute("meeting",meeting);
 		FrontUtils.frontData(request, model, site);
 		return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEETING, MEETING_SHOW);
@@ -273,5 +301,8 @@ public class MeetingAct {
 	
 	@Autowired
 	private OutMeetingErollMng erollMng;
+	
+	@Autowired
+	private MeetingAttachmentMng attachmentMng;
 	
 }

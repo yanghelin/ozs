@@ -36,15 +36,15 @@ public class OutMeeting implements Serializable {
 
     private String content;
     
-    private MeetingAttachment contentAttachment;
+    private String contentAttachment;
 
     private String agenda;
     
-    private MeetingAttachment agendaAttachment;
+    private String agendaAttachment;
 
-    private MeetingAttachment invitation;
+    private String invitation;
 
-    private MeetingAttachment relatedData;
+    private String relatedData;
 
     private String hoster;
 
@@ -228,11 +228,11 @@ public class OutMeeting implements Serializable {
 		this.content = content;
 	}
 
-	public MeetingAttachment getContentAttachment() {
+	public String getContentAttachment() {
 		return contentAttachment;
 	}
 
-	public void setContentAttachment(MeetingAttachment contentAttachment) {
+	public void setContentAttachment(String contentAttachment) {
 		this.contentAttachment = contentAttachment;
 	}
 
@@ -244,27 +244,27 @@ public class OutMeeting implements Serializable {
 		this.agenda = agenda;
 	}
 
-	public MeetingAttachment getAgendaAttachment() {
+	public String getAgendaAttachment() {
 		return agendaAttachment;
 	}
 
-	public void setAgendaAttachment(MeetingAttachment agendaAttachment) {
+	public void setAgendaAttachment(String agendaAttachment) {
 		this.agendaAttachment = agendaAttachment;
 	}
 
-	public MeetingAttachment getInvitation() {
+	public String getInvitation() {
 		return invitation;
 	}
 
-	public void setInvitation(MeetingAttachment invitation) {
+	public void setInvitation(String invitation) {
 		this.invitation = invitation;
 	}
 
-	public MeetingAttachment getRelatedData() {
+	public String getRelatedData() {
 		return relatedData;
 	}
 
-	public void setRelatedData(MeetingAttachment relatedData) {
+	public void setRelatedData(String relatedData) {
 		this.relatedData = relatedData;
 	}
 

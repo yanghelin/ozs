@@ -36,6 +36,20 @@ public class MeetingAttachmentDaoImpl extends HibernateBaseDao<MeetingAttachment
 		f.append(" order by bean.id desc");
 		return find(f);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<MeetingAttachment> findByIds(String ids) {
+		Finder f = Finder.create("select bean from MeetingAttachment bean");
+		f.append(" where 1=1 and bean.isDelete = 0 ");
+		if (!StringUtils.isBlank(ids)) {
+			f.append(" and id in ("+ids+")");
+			//f.setParam("ids", ids);
+		}else {
+			return null;
+		}
+		f.append(" order by bean.id desc");
+		return find(f);
+	}
 
 	public MeetingAttachment findById(Integer id) {
 		MeetingAttachment entity = get(id);

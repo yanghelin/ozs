@@ -20,19 +20,8 @@ function doDelete(){
 	f.action="delete.do";
 	f.submit();
 }
-function download(path) {
-	var filepath = "";
-	var filename = "";
-	if(path != null && path.length>0) {
-		var end = path.lastIndexOf("/");
-		if(end<0) {
-			end = path.lastIndexOf("\\");
-		}
-		filepath = path.substring(0,end);
-		filename = path.substring(end+1,path.length);
-	}
-	$("#downloadFilePath").val(filepath);
-	$("#downloadFileName").val(filename);
+function download(id) {
+	$("#id").val(id);
 	$("#downloadForm").submit();
 }
 </script>
@@ -75,16 +64,15 @@ function download(path) {
 		</#if>
 		
 		<#if auth[4]==true>
-			<a href="javascript:download('${briefing.attachment.path}')" class="pn-opt"><@s.m "briefing.download"/></a>
+			<a href="javascript:download('${briefing.id}')" class="pn-opt"><@s.m "briefing.download"/></a>
 		<#else>
 			<a href="#" style="color:grey;"><@s.m "briefing.download"/></a><#t/>
 		</#if>
 	</@p.column><#t/>
 </@p.table>
 </form>
-<form name="downloadForm" id="downloadForm" action="download.do" method="post">
-	<input type="hidden" id="downloadFileName" name="downloadFileName" value="">
-	<input type="hidden" id="downloadFilePath" name="downloadFilePath" value="">
+<form name="downloadForm" id="downloadForm" action="zip.do" method="post">
+	<input type="hidden" id="id" name="id" value="">
 </form>
 </div>
 <#include "/common/alert_message.html"/>

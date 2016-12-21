@@ -3,8 +3,11 @@ package com.jeecms.cms.action.meeting;
 import static com.jeecms.common.page.SimplePage.cpn;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -14,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipOutputStream;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jeecms.cms.entity.meeting.InMeeting;
+import com.jeecms.cms.entity.meeting.InMeetingBriefing;
 import com.jeecms.cms.entity.meeting.InMeetingMaterials;
 import com.jeecms.cms.entity.meeting.MeetingAttachment;
 import com.jeecms.cms.manager.meeting.InMeetingMaterialsMng;
@@ -68,7 +75,7 @@ public class InMeetingMaterialsAct {
 	
 	@RequiresPermissions("in_meeting_materials:save")
 	@RequestMapping("/in_meeting_materials/save.do")
-	public String save(InMeetingMaterials bean, Integer meeting_id, Integer attachmentId, HttpServletRequest request,ModelMap model) {
+	public String save(InMeetingMaterials bean, Integer meeting_id, HttpServletRequest request,ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
@@ -79,11 +86,6 @@ public class InMeetingMaterialsAct {
 		bean.setCreateTime(new Date());
 		bean.setIsDelete((byte)0);
 		
-		if(attachmentId != null) {
-			MeetingAttachment matt = new MeetingAttachment();
-			matt.setId(attachmentId);
-			bean.setAttachment(matt);
-		}
 		InMeeting meeting = new InMeeting();
 		meeting.setId(meeting_id);
 		bean.setMeetingId(meeting);
@@ -192,6 +194,101 @@ public class InMeetingMaterialsAct {
 			IOUtils.closeQuietly(fileInputStream);
 			IOUtils.closeQuietly(out);
 		}
+	}
+	
+	@RequiresPermissions("in_meeting_materials:zip")
+	@RequestMapping("/in_meeting_materials/zip.do")
+	@ResponseBody
+	public void downloadZipFile(HttpServletRequest request, HttpServletResponse response){
+		java.io.FileInputStream fileInputStream = null;
+		javax.servlet.ServletOutputStream out = null;
+		List<MeetingAttachment> attachList = null;
+		List<File> fileList = null;
+		String tempFilePath = "";
+		try {
+			String id = request.getParameter("id");
+			if(StringUtils.isNotBlank(id)) {
+				Integer bid = Integer.valueOf(id);
+				InMeetingMaterials materials = inMeetingMaterialsMng.findById(bid);
+				if(materials != null && StringUtils.isNotBlank(materials.getAttachment())) {
+					attachList = meetingAttachmentMng.findByIds(materials.getAttachment());
+				}
+			}
+			if(attachList != null) {
+				fileList = new ArrayList<File>();
+				for(int i=0; i<attachList.size(); i++) {
+					MeetingAttachment attach = attachList.get(i);
+					String allPath = transformPath(request, attach.getPath());
+					File file = new File(allPath);
+					if (!file.exists()) {
+						log.info(file.getAbsolutePath() + " 文件不存在!");
+						return;
+					}
+					fileList.add(file);
+					if(i==0) {
+						tempFilePath = allPath;
+					}
+				}
+			}
+			
+			
+			if(StringUtils.isNotBlank(tempFilePath)) {
+				tempFilePath = tempFilePath.substring(0, tempFilePath.lastIndexOf(".")+1)+"zip";
+				ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(tempFilePath));
+				byte[] buffer = new byte[1024];
+				for(int i=0; i<fileList.size(); i++) {
+					File file = fileList.get(i);
+					FileInputStream fis = new FileInputStream(fileList.get(i));
+					zipOut.putNextEntry(new ZipEntry(file.getName()));
+					//设置压缩文件内的字符编码，不然会变成乱码 
+					zipOut.setEncoding("GBK");  
+					int len;
+					// 读入需要下载的文件的内容，打包到zip文件 
+					while ((len = fis.read(buffer)) > 0) {
+						zipOut.write(buffer, 0, len);
+					}
+					zipOut.closeEntry();  
+					fis.close();
+				}
+			}
+			
+			response.setContentType("text/html");
+			out = response.getOutputStream();
+			
+			
+			// 读取文件流
+			fileInputStream = new java.io.FileInputStream(tempFilePath);
+			// 下载文件
+			// 设置响应头和下载保存的文件名
+			String tempFileName = "材料.zip";
+			if (tempFileName != null && tempFileName.length() > 0) {
+				response.setContentType("application/x-msdownload");
+				response.setHeader("Content-Disposition", "attachment; filename=" + new String(tempFileName.getBytes("gb2312"),Charset.forName("ISO-8859-1")) + "");
+				if (fileInputStream != null) {
+					IOUtils.copy(fileInputStream, out);
+				}
+			}
+		} catch (Exception e) {
+			log.error("file download exception" , e);
+		}finally{
+			IOUtils.closeQuietly(fileInputStream);
+			IOUtils.closeQuietly(out);
+		}
+	}
+	
+	//转换路径并生成全路径
+	private String transformPath(HttpServletRequest request, String filePath) {
+		String[] paths = filePath.split("/");
+		StringBuffer newFilePath = new StringBuffer("");
+		if(paths.length >0) {
+			int pathsLength = paths.length;
+			for(int i=0; i<pathsLength; i++) {
+				newFilePath.append(paths[i]+File.separator);
+			}
+		}
+		//组装下载路径
+		filePath = request.getSession().getServletContext().getRealPath(File.separator)+ newFilePath.toString();
+		return filePath;
 	}
 	
 	@Autowired

@@ -104,35 +104,35 @@
 		<@p.text width="50" colspan="1" label="meeting.contactEmail" name="contactEmail" required="true" maxlength="100"/><@p.tr/>
 		<@p.td colspan="2" label="meeting.content">
 			<textarea name="content" cols="70" rows="5"></textarea>
-			<input type="hidden" name="contentAttachmentId" id="contentAttachmentId" />
+			<input type="hidden" name="contentAttachment" id="contentAttachment" />
 			<input type="file" id="contentFile" name="contentFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('contentFile','contentAttachmentId',1)"/>
-			<span id="contentAttachmentIdSpan"></span>
+			<input type="button" value="上传" onclick="myFileUpload('contentFile','contentAttachment',1)"/>
+			<span id="contentAttachmentSpan"></span>
 		</@p.td>
 		<!-- <@p.textarea colspan="2" label="meeting.content" name="content" cols="70" rows="5"/> -->
 		<@p.tr/>
 		<@p.td colspan="2" label="meeting.agenda">
 			<textarea name="agenda" cols="70" rows="5"></textarea>
-			<input type="hidden" name="agendaAttachmentId" id="agendaAttachmentId" />
+			<input type="hidden" name="agendaAttachment" id="agendaAttachment" />
 			<input type="file" id="agendaFile" name="agendaFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('agendaFile','agendaAttachmentId',2)"/>
-			<span id="agendaAttachmentIdSpan"></span>
+			<input type="button" value="上传" onclick="myFileUpload('agendaFile','agendaAttachment',2)"/>
+			<span id="agendaAttachmentSpan"></span>
 		</@p.td>
 		<!-- <@p.textarea colspan="2" label="meeting.agenda" name="agenda" cols="70" rows="5"/> -->
 		<@p.tr/>
 		
 		<@p.td width="100" colspan="2" label="meeting.invitation">
 			<input type="file" id="invitationFile" name="invitationFile" value="浏览" style="width:200px;"/>
-			<input type="hidden" name="invitationId" id="invitationId" />
-			<input type="button" value="上传" onclick="myFileUpload('invitationFile','invitationId',3)"/>
-			<span id="invitationIdSpan"></span>
+			<input type="hidden" name="invitation" id="invitation" />
+			<input type="button" value="上传" onclick="myFileUpload('invitationFile','invitation',3)"/>
+			<span id="invitationSpan"></span>
 		</@p.td>
 		<@p.tr/>
 		<@p.td width="100" colspan="2" label="meeting.relatedData">
 			<input type="file" id="relatedDataFile" name="relatedDataFile" value="浏览" style="width:200px;"/>
-			<input type="hidden" name="relatedDataId" id="relatedDataId" />
-			<input type="button" value="上传" onclick="myFileUpload('relatedDataFile','relatedDataId',4)"/>
-			<span id="relatedDataIdSpan"></span>
+			<input type="hidden" name="relatedData" id="relatedData" />
+			<input type="button" value="上传" onclick="myFileUpload('relatedDataFile','relatedData',4)"/>
+			<span id="relatedDataSpan"></span>
 		</@p.td>
 		<@p.tr/>
 		
@@ -248,8 +248,18 @@
 		        data:{},
 		       	success: function(data, status) {
 	 	          	if(data.code == 200) {
- 	          			$("#"+busId).val(data.busId);
- 	          			$("#"+busId+"Span").text(decodeURI(data.fileName));
+	 	          		var busIdValue = $("#"+busId).val();
+	 	          		if(busIdValue != null && busIdValue != '') {
+		 	          		$("#"+busId).val(busIdValue+","+data.busId);
+	 	          		}else {
+	 	          			$("#"+busId).val(data.busId);
+	 	          		}
+	 	          		var spanValue = $("#"+busId+"Span").text();
+	 	          		if(spanValue != null && spanValue.length>0) {
+	 	          			$("#"+busId+"Span").text(spanValue+","+decodeURI(data.fileName));
+	 	          		}else {
+	 	          			$("#"+busId+"Span").text(decodeURI(data.fileName));
+	 	          		}
 	 	          	}else {
 		 	          	alert(data.message);
 	 	          	}

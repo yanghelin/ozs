@@ -3,10 +3,13 @@ package com.jeecms.cms.action.meeting;
 import static com.jeecms.common.page.SimplePage.cpn;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -21,10 +30,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jeecms.cms.entity.meeting.MeetingAttachment;
 import com.jeecms.cms.entity.meeting.OutMeeting;
@@ -85,32 +96,13 @@ public class OutMeetingAct {
 	
 	@RequiresPermissions("out_meeting:save")
 	@RequestMapping("/out_meeting/save.do")
-	public String save(OutMeeting bean,Integer contentAttachmentId, Integer agendaAttachmentId, Integer invitationId, Integer relatedDataId, HttpServletRequest request,ModelMap model) {
+	public String save(OutMeeting bean, HttpServletRequest request,ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
-		if(contentAttachmentId != null) {
-			MeetingAttachment contentAttach = new MeetingAttachment();
-			contentAttach.setId(contentAttachmentId);
-			bean.setContentAttachment(contentAttach);
-		}
-		if(agendaAttachmentId != null) {
-			MeetingAttachment agendaAttach = new MeetingAttachment();
-			agendaAttach.setId(agendaAttachmentId);
-			bean.setAgendaAttachment(agendaAttach);
-		}
-		if(invitationId != null) {
-			MeetingAttachment invitationAttach = new MeetingAttachment();
-			invitationAttach.setId(invitationId);
-			bean.setInvitation(invitationAttach);
-		}
-		if(relatedDataId != null) {
-			MeetingAttachment relatedDataAttach = new MeetingAttachment();
-			relatedDataAttach.setId(relatedDataId);
-			bean.setRelatedData(relatedDataAttach);
-		}
+		
 		CmsUser currUser = CmsUtils.getUser(request);
 		bean.setPublisher(currUser);
 		bean.setPublishTime(new Date());
@@ -124,32 +116,13 @@ public class OutMeetingAct {
 	
 	@RequiresPermissions("out_meeting:update")
 	@RequestMapping("/out_meeting/update.do")
-	public String update(OutMeeting bean,Integer contentAttachmentId, Integer agendaAttachmentId, Integer invitationId, Integer relatedDataId, HttpServletRequest request,ModelMap model) {
+	public String update(OutMeeting bean,HttpServletRequest request,ModelMap model) {
 		/*CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}*/
-		if(contentAttachmentId != null) {
-			MeetingAttachment contentAttach = new MeetingAttachment();
-			contentAttach.setId(contentAttachmentId);
-			bean.setContentAttachment(contentAttach);
-		}
-		if(agendaAttachmentId != null) {
-			MeetingAttachment agendaAttach = new MeetingAttachment();
-			agendaAttach.setId(agendaAttachmentId);
-			bean.setAgendaAttachment(agendaAttach);
-		}
-		if(invitationId != null) {
-			MeetingAttachment invitationAttach = new MeetingAttachment();
-			invitationAttach.setId(invitationId);
-			bean.setInvitation(invitationAttach);
-		}
-		if(relatedDataId != null) {
-			MeetingAttachment relatedDataAttach = new MeetingAttachment();
-			relatedDataAttach.setId(relatedDataId);
-			bean.setRelatedData(relatedDataAttach);
-		}
+		
 		CmsUser currUser = CmsUtils.getUser(request);
 		bean.setUpdateBy(currUser);
 		bean.setUpdateTime(new Date());
@@ -173,9 +146,35 @@ public class OutMeetingAct {
 	@RequestMapping("/out_meeting/view.do")
 	public String view(Integer id,HttpServletRequest request,ModelMap model) {
 		OutMeeting outMeeting = null;
+		List<MeetingAttachment> contentList = null;
+		List<MeetingAttachment> agendaList = null;
+		List<MeetingAttachment> invitationList = null;
+		List<MeetingAttachment> relatedDataList = null;
 		if(id != null) {
 			outMeeting = outMeetingMng.findById(id);
 		}
+		if(outMeeting != null) {
+			String contentAttachment = outMeeting.getContentAttachment();
+			if(StringUtils.isNotBlank(contentAttachment)) {
+				contentList = meetingAttachmentMng.findByIds(contentAttachment);
+			}
+			String agendaAttachment = outMeeting.getAgendaAttachment();
+			if(StringUtils.isNotBlank(agendaAttachment)) {
+				agendaList = meetingAttachmentMng.findByIds(agendaAttachment);
+			}
+			String invitation = outMeeting.getInvitation();
+			if(StringUtils.isNotBlank(invitation)) {
+				invitationList = meetingAttachmentMng.findByIds(invitation);
+			}
+			String relatedData = outMeeting.getRelatedData();
+			if(StringUtils.isNotBlank(relatedData)) {
+				relatedDataList = meetingAttachmentMng.findByIds(relatedData);
+			}
+		}
+		model.addAttribute("contentList",contentList);
+		model.addAttribute("agendaList",agendaList);
+		model.addAttribute("invitationList",invitationList);
+		model.addAttribute("relatedDataList",relatedDataList);
 		model.addAttribute("meeting", outMeeting);
 		return "meeting/out/view";
 	}
@@ -407,12 +406,7 @@ public class OutMeetingAct {
 	
 	@RequiresPermissions("out_meeting:mediaSave")
 	@RequestMapping("/out_meeting/mediaSave.do")
-	public String mediaSave(OutMeetingEroll bean,Integer otherId, HttpServletRequest request,ModelMap model) {
-		if(otherId != null) {
-			MeetingAttachment other = new MeetingAttachment();
-			other.setId(otherId);
-			bean.setOther(other);
-		}
+	public String mediaSave(OutMeetingEroll bean, HttpServletRequest request,ModelMap model) {
 		//CmsUser currUser = CmsUtils.getUser(request);
 		//bean.setLoginId(currUser);
 		//bean.setLoginName(currUser.getUsername());
@@ -436,9 +430,17 @@ public class OutMeetingAct {
 	@RequestMapping("/out_meeting/enroll_view.do")
 	public String enrollView(Integer id, String showType, HttpServletRequest request,ModelMap model) {
 		OutMeetingEroll enroll = null;
+		List<MeetingAttachment> otherList = null;
 		if(id != null) {
 			enroll = enrollMng.findById(id);
 		}
+		if(enroll != null) {
+			String other = enroll.getOther();
+			if(StringUtils.isNotBlank(other)) {
+				otherList = meetingAttachmentMng.findByIds(other);
+			}
+		}
+		model.addAttribute("otherList", otherList);
 		model.addAttribute("out", enroll);
 		model.addAttribute("showType", showType);
 		return "meeting/out/enrollView";
@@ -600,6 +602,76 @@ public class OutMeetingAct {
 		enrollMng.updateOutMeetingEroll(bean);
 		return "redirect:ticket_list.do";
 	}
+	
+	//导出报名信息
+	@RequestMapping("/out_meeting/ticket_export.do")
+	public void ticketExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		String json = IOUtils.toString(request.getInputStream());
+		String jsonArr = json.substring(json.indexOf("=")+1);
+		String[] columnName = {"cnName","","","",""};
+		String[] title = {"姓名","护照号码","工作单位","机票信息","住宿信息"};
+		//姓名	护照号码	工作单位	机票信息	住宿信息
+		Assert.notNull(jsonArr, "导出数据错误，数据为空");
+		//Map<String, Object> model = ExcelUtils.parseJSON2Map(URLDecoder.decode(jsonArr, StandardCharsets.UTF_8.name()));
+		//return new ModelAndView("exportExcelView", model);
+		
+		List<OutMeetingEroll> dataList = null;
+		
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		String fileName = "机票信息";
+		if(fileName==null || "".equals(fileName)){
+			fileName = String.valueOf(new Date().getTime());
+		}
+		/*火狐*/
+		String agent=request.getHeader("user-agent");
+		fileName = fileName.replaceAll("\\+", "");
+		String	fileFullName = new String(fileName.getBytes("gb2312"), "ISO-8859-1");
+
+		response.setHeader("Content-disposition", "attachment;filename=" + fileFullName+".xls");
+		HSSFSheet sheet = workbook.createSheet(fileName);
+		for(int i = 0;i<=title.length;i++){
+			sheet.setColumnWidth(i, 32 * 150);// 对A列设置宽度为80像素  
+		}
+        
+        CellStyle style = workbook.createCellStyle();
+        CellStyle style1 = workbook.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style1.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style1.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        Font font = workbook.createFont();
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        style.setFont(font);
+         
+        HSSFRow header = sheet.createRow(0);
+        for(int i = 0;i<title.length;i++){
+        	header.createCell(i).setCellValue(title[i]);
+            header.getCell(i).setCellStyle(style);
+		}
+         
+        int rowIndex = 1;
+        for(OutMeetingEroll enroll:dataList){
+        	HSSFRow aRow = sheet.createRow(rowIndex++);
+       		aRow.createCell(0).setCellValue(enroll.getCnName());
+       		aRow.getCell(0).setCellStyle(style1);
+       		aRow.createCell(1).setCellValue(enroll.getPassport());
+       		aRow.getCell(1).setCellStyle(style1);
+       		aRow.createCell(2).setCellValue(enroll.getUnit());
+       		aRow.getCell(2).setCellStyle(style1);
+       		aRow.createCell(3).setCellValue(enroll.getCnName());
+       		aRow.getCell(3).setCellStyle(style1);
+       		/*aRow.createCell(4).setCellValue(enroll.getCnName());
+       		aRow.getCell(4).setCellStyle(style1);*/
+        }
+	}
+	
+	//导出机票住宿信息
+	
+	
+	
 	@Autowired
 	private OutMeetingMng outMeetingMng;
 	

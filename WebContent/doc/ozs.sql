@@ -21,7 +21,7 @@ CREATE TABLE `ozs_in_meeting_briefing` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `meeting_id` int(11) DEFAULT NULL COMMENT '会议ID',
   `name` varchar(100) DEFAULT NULL COMMENT '简报名称',
-  `attachment` int(11) DEFAULT NULL COMMENT '简报附件',
+  `attachment` varchar(50) DEFAULT NULL COMMENT '简报附件',
   `type` varchar(20) DEFAULT NULL COMMENT '文档类型',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) DEFAULT NULL COMMENT '创建人',
@@ -29,7 +29,7 @@ CREATE TABLE `ozs_in_meeting_briefing` (
   `update_by` int(11) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='工作简报表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='工作简报表';
 
 CREATE TABLE `ozs_in_meeting_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
@@ -66,14 +66,14 @@ CREATE TABLE `ozs_in_meeting_materials` (
   `meeting_id` int(11) DEFAULT NULL COMMENT '会议ID',
   `name` varchar(100) DEFAULT NULL COMMENT '材料名称',
   `type` varchar(20) DEFAULT NULL COMMENT '材料类型',
-  `attachment` int(11) DEFAULT NULL COMMENT '材料附件',
+  `attachment` varchar(50) DEFAULT NULL COMMENT '材料附件',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) DEFAULT NULL COMMENT '创建人',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `update_by` int(11) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会议材料管理';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='会议材料管理';
 
 CREATE TABLE `ozs_in_meeting_room` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -160,11 +160,11 @@ CREATE TABLE `ozs_out_meeting` (
   `contact_phone` varchar(50) DEFAULT NULL COMMENT '联系电话',
   `contact_email` varchar(100) DEFAULT NULL COMMENT '联系邮箱',
   `content` varchar(4000) DEFAULT NULL COMMENT '会议内容',
-  `content_attachment` int(11) DEFAULT NULL COMMENT '会议内容附件',
+  `content_attachment` varchar(50) DEFAULT NULL COMMENT '会议内容附件',
   `agenda` varchar(4000) DEFAULT NULL COMMENT '会议日程',
-  `agenda_attachment` int(11) DEFAULT NULL COMMENT '会议日程附件',
-  `invitation` int(11) DEFAULT NULL COMMENT '会议邀请函',
-  `related_data` int(11) DEFAULT NULL COMMENT '会议相关资料',
+  `agenda_attachment` varchar(50) DEFAULT NULL COMMENT '会议日程附件',
+  `invitation` varchar(50) DEFAULT NULL COMMENT '会议邀请函',
+  `related_data` varchar(50) DEFAULT NULL COMMENT '会议相关资料',
   `hoster` varchar(50) DEFAULT NULL COMMENT '会议负责人',
   `phone` varchar(50) DEFAULT NULL COMMENT '负责人电话',
   `position` varchar(50) DEFAULT NULL COMMENT '职位',
@@ -194,7 +194,7 @@ CREATE TABLE `ozs_out_meeting` (
   `update_by` int(11) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='国际会议表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='国际会议表';
 
 CREATE TABLE `ozs_out_meeting_enroll` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '报名表ID',
@@ -242,7 +242,7 @@ CREATE TABLE `ozs_out_meeting_enroll` (
   `bank_address` varchar(100) DEFAULT NULL COMMENT '开户行',
   `bank_name` varchar(100) DEFAULT NULL COMMENT '账号名称',
   `bank_card` varchar(20) DEFAULT NULL COMMENT '身份证号',
-  `other` int(11) DEFAULT NULL COMMENT '其他:存放附件id',
+  `other` varchar(50) DEFAULT NULL COMMENT '其他:存放附件id',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `is_stay` tinyint(4) DEFAULT NULL COMMENT '是否住宿：0、否；1、是',
   `is_delete_stay` tinyint(4) DEFAULT NULL COMMENT '是否删除住宿：0、未删除；1、已删除',
@@ -253,8 +253,7 @@ CREATE TABLE `ozs_out_meeting_enroll` (
   `is_drive` tinyint(4) DEFAULT NULL COMMENT '是否自驾车辆：0、否；1、是',
   `is_delete` tinyint(4) DEFAULT NULL COMMENT '是否删除：0、未删除；1、已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='国际会议报名表';
-
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='国际会议报名表';
 
 CREATE TABLE `ozs_work_meal` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -314,6 +313,25 @@ CREATE TABLE `ozs_content_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文章条数信息表';
 
+
+CREATE TABLE `cms_subscibe_email` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `insert_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- 20161221 add
+ALTER TABLE ozs_out_meeting_enroll modify column other varchar(50) DEFAULT NULL COMMENT '其他:存放附件id';
+ALTER TABLE ozs_out_meeting modify column content_attachment varchar(50) DEFAULT NULL COMMENT '会议内容附件';
+ALTER TABLE ozs_out_meeting modify column agenda_attachment varchar(50) DEFAULT NULL COMMENT '会议日程附件';
+ALTER TABLE ozs_out_meeting modify column invitation varchar(50) DEFAULT NULL COMMENT '会议邀请函';
+ALTER TABLE ozs_out_meeting modify column related_data varchar(50) DEFAULT NULL COMMENT '会议相关资料';
+ALTER TABLE ozs_in_meeting_materials modify column attachment varchar(50) DEFAULT NULL COMMENT '材料附件';
+ALTER TABLE ozs_in_meeting_briefing modify column attachment varchar(50) DEFAULT NULL COMMENT '简报附件';
+
+ALTER TABLE ozs_out_meeting_enroll ADD `passport_date` datetime DEFAULT NULL COMMENT '护照签发时间';
+ALTER TABLE ozs_out_meeting_enroll ADD `passport_valid` datetime DEFAULT NULL COMMENT '护照有效期';
 
 
 -- 0、参会人员

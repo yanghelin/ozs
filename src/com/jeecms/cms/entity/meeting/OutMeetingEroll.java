@@ -97,7 +97,7 @@ public class OutMeetingEroll implements Serializable {
 
     private String bankCard;
 
-    //private Integer other;
+    private String other;
     
     private Date createTime;
 
@@ -121,7 +121,7 @@ public class OutMeetingEroll implements Serializable {
     
     private CmsUser loginId;
     
-    private MeetingAttachment other;
+    //private MeetingAttachment other;
     
     private static final long serialVersionUID = 1L;
 
@@ -478,6 +478,14 @@ public class OutMeetingEroll implements Serializable {
 		this.bankCard = bankCard;
 	}
 
+	public String getOther() {
+		return other;
+	}
+
+	public void setOther(String other) {
+		this.other = other;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -564,13 +572,5 @@ public class OutMeetingEroll implements Serializable {
 
 	public void setLoginId(CmsUser loginId) {
 		this.loginId = loginId;
-	}
-
-	public MeetingAttachment getOther() {
-		return other;
-	}
-
-	public void setOther(MeetingAttachment other) {
-		this.other = other;
 	}
 }

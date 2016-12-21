@@ -19,5 +19,7 @@ public interface MeetingAttachmentMng {
 	public MeetingAttachment deleteById(Integer id);
 
 	public MeetingAttachment[] deleteByIds(Integer[] ids);
+	
+	public List<MeetingAttachment> findByIds(String ids);
 
 }

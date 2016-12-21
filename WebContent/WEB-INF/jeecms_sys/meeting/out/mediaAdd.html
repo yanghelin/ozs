@@ -203,10 +203,10 @@
 		<@p.text width="50" colspan="1" label="out.email" id="email" name="email" required="true" maxlength="100"/>
 		
 		<@p.td colspan="1" label="out.other">
-			<input type="hidden" name="otherId" id="otherId" />
+			<input type="hidden" name="other" id="other" />
 			<input type="file" id="otherFile" name="otherFile" value="浏览" style="width:200px;"/>
-			<input type="button" value="上传" onclick="myFileUpload('otherFile','otherId')"/>
-			<span id="otherIdSpan"></span>
+			<input type="button" value="上传" onclick="myFileUpload('otherFile','other')"/>
+			<span id="otherSpan"></span>
 		</@p.td>
 		<@p.tr/>
 		<@p.td colspan="2">
@@ -265,8 +265,18 @@
 		        data:{},
 		       	success: function(data, status) {
 	 	          	if(data.code == 200) {
- 	          			$("#"+busId).val(data.busId);
- 	          			$("#"+busId+"Span").text(decodeURI(data.fileName));
+	 	          		var busIdValue = $("#"+busId).val();
+	 	          		if(busIdValue != null && busIdValue != '') {
+		 	          		$("#"+busId).val(busIdValue+","+data.busId);
+	 	          		}else {
+	 	          			$("#"+busId).val(data.busId);
+	 	          		}
+	 	          		var spanValue = $("#"+busId+"Span").text();
+	 	          		if(spanValue != null && spanValue.length>0) {
+	 	          			$("#"+busId+"Span").text(spanValue+","+decodeURI(data.fileName));
+	 	          		}else {
+	 	          			$("#"+busId+"Span").text(decodeURI(data.fileName));
+	 	          		}
 	 	          	}else {
 		 	          	alert(data.message);
 	 	          	}

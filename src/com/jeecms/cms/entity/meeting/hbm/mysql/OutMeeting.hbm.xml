@@ -20,8 +20,10 @@
 	    <property column="contact_email" name="contactEmail" type="string" />
 	    <property column="content" name="content" type="string" />
 	    <property column="agenda" name="agenda" type="string" />
-	    <!-- <property column="invitation" name="invitation" type="java.lang.Integer" />
-	    <property column="related_data" name="relatedData" type="java.lang.Integer" /> -->
+	    <property column="content_attachment" name="contentAttachment" type="string" />
+	    <property column="agenda_attachment" name="agendaAttachment" type="string" />
+	    <property column="invitation" name="invitation" type="string" />
+	    <property column="related_data" name="relatedData" type="string" />
 	    <property column="hoster" name="hoster" type="string" />
 	    <property column="phone" name="phone" type="string" />
 	    <property column="position" name="position" type="string" />
@@ -50,10 +52,10 @@
 	    <property column="update_time" name="updateTime" type="timestamp" />
 	    <!-- <property column="update_by" name="updateBy" type="java.lang.Integer" /> -->
 	    <property column="is_delete" name="isDelete" type="java.lang.Byte" />
-	    <many-to-one name="contentAttachment" column="content_attachment" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
+	    <!-- <many-to-one name="contentAttachment" column="content_attachment" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
 	    <many-to-one name="agendaAttachment" column="agenda_attachment" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
 	    <many-to-one name="invitation" column="invitation" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
-	    <many-to-one name="relatedData" column="related_data" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one>
+	    <many-to-one name="relatedData" column="related_data" class="com.jeecms.cms.entity.meeting.MeetingAttachment" not-null="false"></many-to-one> -->
 	    <many-to-one name="publisher" column="publisher" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
 	    <many-to-one name="updateBy" column="update_by" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
   </class>

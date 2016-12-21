@@ -21,4 +21,6 @@ public interface MeetingAttachmentDao{
 	public MeetingAttachment updateByUpdater(Updater<MeetingAttachment> updater);
 
 	public MeetingAttachment deleteById(Integer id);
+	
+	public List<MeetingAttachment> findByIds(String ids);
 }
