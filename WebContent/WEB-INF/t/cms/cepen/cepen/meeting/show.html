@@ -136,22 +136,22 @@
             			Other Materials：
             			[#if meeting.contentAttachment?? && (meeting.contentAttachment?length>0)]
             				[#list contentList as cont]
-	            				<a href="javascript:downFile('${cont.path}')" title="${cont.filename}" target="_blank">${cont.filename!}</a>
+	            				<a href="javascript:downFile('${cont.path}')" title="${cont.filename}" target="_blank">${cont.filename!}</a>&nbsp;
             				[/#list]
             				[/#if]
             					&nbsp;[#if meeting.agendaAttachment?? && (meeting.agendaAttachment?length>0)]
             					[#list agendaList as agen]
-            					<a href="javascript:downFile('${agen.path}')" title="${agen.filename}" target="_blank">${agen.filename!}</a>
+            					<a href="javascript:downFile('${agen.path}')" title="${agen.filename}" target="_blank">${agen.filename!}</a>&nbsp;
             					[/#list]
             					[/#if]
             					&nbsp;[#if meeting.invitation?? && (meeting.invitation?length>0)]
             					[#list invitationList as invit]
-            					<a href="javascript:downFile('${invit.path}')" title="${invit.filename}" target="_blank">${invit.filename!}</a>
+            					<a href="javascript:downFile('${invit.path}')" title="${invit.filename}" target="_blank">${invit.filename!}</a>&nbsp;
             					[/#list]
             					[/#if]
             					&nbsp;[#if meeting.relatedData?? && (meeting.relatedData?length>0)]
             					[#list relatedDataList as rd]
-            					<a href="javascript:downFile('${rd.path}')" title="${rd.filename}" target="_blank">${rd.filename!}</a>
+            					<a href="javascript:downFile('${rd.path}')" title="${rd.filename}" target="_blank">${rd.filename!}</a>&nbsp;
             					[/#list]
             					[/#if]
             		</td>

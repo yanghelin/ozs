@@ -6,10 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,12 +30,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.jeecms.cms.entity.meeting.MeetingAttachment;
 import com.jeecms.cms.entity.meeting.OutMeeting;
@@ -603,24 +601,87 @@ public class OutMeetingAct {
 		return "redirect:ticket_list.do";
 	}
 	
-	//导出报名信息
-	@RequestMapping("/out_meeting/ticket_export.do")
-	public void ticketExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	//导出报名信息和导出媒体信息 userType=0是报名信息 ==null 为媒体
+	@RequestMapping("/out_meeting/enroll_export.do")
+	public void enrollExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
-		String json = IOUtils.toString(request.getInputStream());
-		String jsonArr = json.substring(json.indexOf("=")+1);
-		String[] columnName = {"cnName","","","",""};
-		String[] title = {"姓名","护照号码","工作单位","机票信息","住宿信息"};
+		//String[] columnName = {"cnName","","","",""};
+		String[] title = {"姓名","工作单位","银行卡号（工行）","签名"};
 		//姓名	护照号码	工作单位	机票信息	住宿信息
-		Assert.notNull(jsonArr, "导出数据错误，数据为空");
 		//Map<String, Object> model = ExcelUtils.parseJSON2Map(URLDecoder.decode(jsonArr, StandardCharsets.UTF_8.name()));
 		//return new ModelAndView("exportExcelView", model);
 		
-		List<OutMeetingEroll> dataList = null;
+		List<OutMeetingEroll> dataList = enrollMng.findListByUserType(request.getParameter("mtName"), request.getParameter("userType"));
 		
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/octet-stream;charset=UTF-8");
+		javax.servlet.ServletOutputStream out = response.getOutputStream();
+		String fileName = "报名信息";
+		if(fileName==null || "".equals(fileName)){
+			fileName = String.valueOf(new Date().getTime());
+		}
+		/*火狐*/
+		String agent=request.getHeader("user-agent");
+		fileName = fileName.replaceAll("\\+", "");
+		String	fileFullName = new String(fileName.getBytes("gb2312"), "ISO-8859-1");
+		
+		response.setHeader("Content-disposition", "attachment;filename=" + fileFullName+".xls");
+		HSSFSheet sheet = workbook.createSheet(fileName);
+		for(int i = 0;i<=title.length;i++){
+			sheet.setColumnWidth(i, 32 * 150);// 对A列设置宽度为80像素  
+		}
+		
+		CellStyle style = workbook.createCellStyle();
+		CellStyle style1 = workbook.createCellStyle();
+		style.setAlignment(CellStyle.ALIGN_CENTER);
+		style1.setAlignment(CellStyle.ALIGN_CENTER);
+		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		style1.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		Font font = workbook.createFont();
+		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+		style.setFont(font);
+		
+		HSSFRow header = sheet.createRow(0);
+		for(int i = 0;i<title.length;i++){
+			header.createCell(i).setCellValue(title[i]);
+			header.getCell(i).setCellStyle(style);
+		}
+		
+		int rowIndex = 1;
+		for(OutMeetingEroll enroll:dataList){
+			HSSFRow aRow = sheet.createRow(rowIndex++);
+			aRow.createCell(0).setCellValue(enroll.getCnName());
+			aRow.getCell(0).setCellStyle(style1);
+			aRow.createCell(1).setCellValue(enroll.getUnit());
+			aRow.getCell(1).setCellStyle(style1);
+			aRow.createCell(2).setCellValue(enroll.getBankNo());
+			aRow.getCell(2).setCellStyle(style1);
+			aRow.createCell(3).setCellValue("");
+			aRow.getCell(3).setCellStyle(style1);
+			/*aRow.createCell(4).setCellValue(enroll.getCnName());
+       		aRow.getCell(4).setCellStyle(style1);*/
+		}
+		workbook.write(out);
+		out.flush();
+	}
+	
+	//导出机票信息
+	@RequestMapping("/out_meeting/ticket_export.do")
+	public void ticketExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		//String[] columnName = {"cnName","","","",""};
+		String[] title = {"姓名","护照号码","工作单位","机票信息"};
+		//姓名	护照号码	工作单位	机票信息	住宿信息
+		//Map<String, Object> model = ExcelUtils.parseJSON2Map(URLDecoder.decode(jsonArr, StandardCharsets.UTF_8.name()));
+		//return new ModelAndView("exportExcelView", model);
+		
+		List<OutMeetingEroll> dataList = enrollMng.findListByType(request.getParameter("mtName"), 2);
+		
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		javax.servlet.ServletOutputStream out = response.getOutputStream();
 		String fileName = "机票信息";
 		if(fileName==null || "".equals(fileName)){
 			fileName = String.valueOf(new Date().getTime());
@@ -642,6 +703,7 @@ public class OutMeetingAct {
         style1.setAlignment(CellStyle.ALIGN_CENTER);
         style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
         style1.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style1.setWrapText(true);
         Font font = workbook.createFont();
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
         style.setFont(font);
@@ -661,16 +723,130 @@ public class OutMeetingAct {
        		aRow.getCell(1).setCellStyle(style1);
        		aRow.createCell(2).setCellValue(enroll.getUnit());
        		aRow.getCell(2).setCellStyle(style1);
-       		aRow.createCell(3).setCellValue(enroll.getCnName());
+       		StringBuffer sb = new StringBuffer();
+       		if(enroll.getIsForeign() != null && enroll.getIsForeign()==1) {
+       			sb.append("外方英文名称：" + enroll.getOutName() +"\n");
+       			sb.append("外方出生日期：" + enroll.getOutBirthdayStr() +"\n");
+       			sb.append("外方性别：" + changeInfo(enroll.getOutSex()) +"\n");
+       			sb.append("国籍：" + enroll.getOutNational() +"\n");
+       			sb.append("护照号：" + enroll.getPassport() +"\n");
+       			sb.append("护照签发时间：" + format.format(enroll.getPassportDate()) +"\n");
+       			sb.append("护照有效期：" + format.format(enroll.getPassportValid()) +"\n");
+       			sb.append("出发地：" + enroll.getOutFrom() +"\n");
+       			sb.append("目的地：" + enroll.getOutArrive() +"\n");
+       			sb.append("出发时间：" + format.format(enroll.getOutGoTime()) +"\n");
+       			sb.append("回程时间：" + format.format(enroll.getOutBackTime()) +"\n");
+       			sb.append("来程航班：" + enroll.getOutGoFlight() +"\n");
+       			sb.append("回程航班：" + enroll.getOutBackFlight() +"\n");
+       		}
+       		if(enroll.getIsDomestic() != null && enroll.getIsDomestic()==1) {
+       			sb.append("中方姓名：" + enroll.getInName() +"\n");
+       			sb.append("中方出生日期：" + enroll.getInBirthdayStr() +"\n");
+       			sb.append("中方性别：" + changeInfo(enroll.getSex()) +"\n");
+       			sb.append("国籍：" + enroll.getInNational() +"\n");
+       			sb.append("身份证：" + enroll.getCard() +"\n");
+       			sb.append("出发地：" + enroll.getInFrom() +"\n");
+       			sb.append("目的地：" + enroll.getInArrive() +"\n");
+       			sb.append("出发时间：" + format.format(enroll.getInGoTime()) +"\n");
+       			sb.append("回程时间：" + format.format(enroll.getInBackTime()) +"\n");
+       			sb.append("来程航班：" + enroll.getInGoFlight() +"\n");
+       			sb.append("回程航班：" + enroll.getInBackFlight() +"\n");
+       		}
+       		aRow.createCell(3).setCellValue(sb.toString());
        		aRow.getCell(3).setCellStyle(style1);
        		/*aRow.createCell(4).setCellValue(enroll.getCnName());
        		aRow.getCell(4).setCellStyle(style1);*/
         }
+		workbook.write(out);
+		out.flush();
 	}
 	
-	//导出机票住宿信息
+	//导出住宿信息
+	@RequestMapping("/out_meeting/stay_export.do")
+	public void stayExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		//String[] columnName = {"cnName","","","",""};
+		String[] title = {"姓名","护照号码","工作单位","住宿信息"};
+		//姓名	护照号码	工作单位	机票信息	住宿信息
+		//Map<String, Object> model = ExcelUtils.parseJSON2Map(URLDecoder.decode(jsonArr, StandardCharsets.UTF_8.name()));
+		//return new ModelAndView("exportExcelView", model);
+		
+		List<OutMeetingEroll> dataList = enrollMng.findListByType(request.getParameter("mtName"), 2);
+		
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		javax.servlet.ServletOutputStream out = response.getOutputStream();
+		String fileName = "住宿信息";
+		if(fileName==null || "".equals(fileName)){
+			fileName = String.valueOf(new Date().getTime());
+		}
+		/*火狐*/
+		String agent=request.getHeader("user-agent");
+		fileName = fileName.replaceAll("\\+", "");
+		String	fileFullName = new String(fileName.getBytes("gb2312"), "ISO-8859-1");
+
+		response.setHeader("Content-disposition", "attachment;filename=" + fileFullName+".xls");
+		HSSFSheet sheet = workbook.createSheet(fileName);
+		for(int i = 0;i<=title.length;i++){
+			sheet.setColumnWidth(i, 32 * 150);// 对A列设置宽度为80像素  
+		}
+        
+        CellStyle style = workbook.createCellStyle();
+        CellStyle style1 = workbook.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style1.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style1.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style1.setWrapText(true);
+        Font font = workbook.createFont();
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        style.setFont(font);
+         
+        HSSFRow header = sheet.createRow(0);
+        for(int i = 0;i<title.length;i++){
+        	header.createCell(i).setCellValue(title[i]);
+            header.getCell(i).setCellStyle(style);
+		}
+         
+        int rowIndex = 1;
+        for(OutMeetingEroll enroll:dataList){
+        	HSSFRow aRow = sheet.createRow(rowIndex++);
+       		aRow.createCell(0).setCellValue(enroll.getCnName());
+       		aRow.getCell(0).setCellStyle(style1);
+       		aRow.createCell(1).setCellValue(enroll.getPassport());
+       		aRow.getCell(1).setCellStyle(style1);
+       		aRow.createCell(2).setCellValue(enroll.getUnit());
+       		aRow.getCell(2).setCellStyle(style1);
+       		StringBuffer sb = new StringBuffer("");
+       		if(enroll.getIsStay()==1) {
+       			if(enroll.getOutMeetingId() != null) {
+       				sb.append("住宿时间：" + format.format(enroll.getOutMeetingId().getStayStart())+"~"+format.format(enroll.getOutMeetingId().getStayEnd()) +"\n");
+       				sb.append("住宿酒店：" + enroll.getOutMeetingId().getStayHotel() +"\n");
+       			}
+       		}
+       		aRow.createCell(3).setCellValue(sb.toString());
+       		aRow.getCell(3).setCellStyle(style1);
+       		/*aRow.createCell(4).setCellValue(enroll.getCnName());
+       		aRow.getCell(4).setCellStyle(style1);*/
+        }
+        
+		workbook.write(out);
+		out.flush();
+	}
 	
+	private String changeInfo(Byte sex) {
+		if(sex == null) {
+			return "";
+		}else if(sex == 0) {
+			return "男";
+		}else if(sex == 1) {
+			return "女";
+		}
+		return "";
+	}
 	
+	private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	@Autowired
 	private OutMeetingMng outMeetingMng;

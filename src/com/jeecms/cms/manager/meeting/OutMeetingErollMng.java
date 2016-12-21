@@ -21,5 +21,9 @@ public interface OutMeetingErollMng {
 	public OutMeetingEroll deleteById(Integer id);
 
 	public OutMeetingEroll[] deleteByIds(Integer[] ids);
+	
+	public List<OutMeetingEroll> findListByUserType(String name, String userType);
+	
+	public List<OutMeetingEroll> findListByType(String name, Integer type);
 
 }

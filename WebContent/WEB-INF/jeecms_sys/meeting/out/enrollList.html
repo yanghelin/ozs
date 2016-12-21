@@ -20,6 +20,11 @@ function doDelete(){
 	f.action="delete.do";
 	f.submit();
 }
+
+function enrollExport() {
+	$("#mtName").val($("#meetingName").val());
+	$("#queryForm").submit();
+}
 </script>
 </head>
 <body>
@@ -37,10 +42,15 @@ function doDelete(){
 	<div class="clear"></div>
 </div>
 <div class="body-box">
+<form id="queryForm" action="enroll_export.do" method="post">
+	<input type="hidden" id="mtName" name="mtName" value="" />
+	<input type="hidden" name="userType" value="${userType!}"/>
+</form>
 <form action="enroll_list.do" method="post">
 <div style="padding-top:5px; padding-bottom:5px; text-indent:10px; border-bottom:1px solid #fff; border-top:1px solid #fff;">
-<@s.m "meeting.name"/>: <input type="text" name="meetingName" value="${meetingName!}" style="width:100px"/>
+<@s.m "meeting.name"/>: <input type="text" id="meetingName" name="meetingName" value="${meetingName!}" style="width:100px"/>
 <input class="query" type="submit" value="<@s.m "global.query"/>"/>
+<input class="query" type="button" value="导出" onclick="enrollExport()" />
 <input type="hidden" name="userType" value="${userType!}"/>
 </div>
 </form>

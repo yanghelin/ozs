@@ -163,7 +163,7 @@ function download(path) {
 			<!-- 其他附件部分开始 -->
 			<#if out.userType??><#if out.userType==2 || out.userType==3>
 			<tr>
-				<th><@s.m "out.other"/>:</th><td colspan="5"><#if out.other?? && (out.other?length>0)><#list otherList as oth><a href="javascript:download('${oth.path}')">${oth.filename!}</a></#list></#if></td>
+				<th><@s.m "out.other"/>:</th><td colspan="5"><#if out.other?? && (out.other?length>0)><#list otherList as oth><a href="javascript:download('${oth.path}')">${oth.filename!}</a>&nbsp;</#list></#if></td>
 			</tr>
 			</#if></#if>
 			<!-- 其他附件部分结束 -->

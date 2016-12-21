@@ -90,16 +90,16 @@ function download(path) {
 			<th><@s.m "meeting.contactEmail"/>:</th><td>${meeting.contactEmail!}</td>
 		</tr>
 		<tr>
-			<th><@s.m "meeting.content"/>:</th><td colspan="3"><textarea name="content" cols="70" rows="5" readonly>${meeting.content!}</textarea><#if meeting.contentAttachment?? && (meeting.contentAttachment?length>0)>&nbsp;<#list contentList as cont><a href="javascript:download('${cont.path}')">${cont.filename!}</a></#list></#if></td>
+			<th><@s.m "meeting.content"/>:</th><td colspan="3"><textarea name="content" cols="70" rows="5" readonly>${meeting.content!}</textarea><#if meeting.contentAttachment?? && (meeting.contentAttachment?length>0)>&nbsp;<#list contentList as cont><a href="javascript:download('${cont.path}')">${cont.filename!}</a>&nbsp;</#list></#if></td>
 		</tr>
 		<tr>
-			<th><@s.m "meeting.agenda"/>:</th><td colspan="3"><textarea name="agenda" cols="70" rows="5" readonly>${meeting.agenda!}</textarea><#if meeting.agendaAttachment?? && (meeting.agendaAttachment?length>0)>&nbsp;<#list agendaList as agen><a href="javascript:download('${agen.path}')">${agen.filename!}</a></#list></#if></td>
+			<th><@s.m "meeting.agenda"/>:</th><td colspan="3"><textarea name="agenda" cols="70" rows="5" readonly>${meeting.agenda!}</textarea><#if meeting.agendaAttachment?? && (meeting.agendaAttachment?length>0)>&nbsp;<#list agendaList as agen><a href="javascript:download('${agen.path}')">${agen.filename!}</a>&nbsp;</#list></#if></td>
 		</tr>
 		<tr>
-			<th><@s.m "meeting.invitation"/>:</th><td colspan="3"><#if meeting.invitation?? && (meeting.invitation?length>0)><#list invitationList as invit><a href="javascript:download('${invit.path}')">${invit.filename!}</a></#list></#if></td>
+			<th><@s.m "meeting.invitation"/>:</th><td colspan="3"><#if meeting.invitation?? && (meeting.invitation?length>0)><#list invitationList as invit><a href="javascript:download('${invit.path}')">${invit.filename!}</a>&nbsp;</#list></#if></td>
 		</tr>
 		<tr>
-			<th><@s.m "meeting.relatedData"/>:</th><td colspan="3"><#if meeting.relatedData?? && (meeting.relatedData?length>0)><#list relatedDataList as rd><a href="javascript:download('${rd.path}')">${rd.filename!}</a></#list></#if></td>
+			<th><@s.m "meeting.relatedData"/>:</th><td colspan="3"><#if meeting.relatedData?? && (meeting.relatedData?length>0)><#list relatedDataList as rd><a href="javascript:download('${rd.path}')">${rd.filename!}</a>&nbsp;</#list></#if></td>
 		</tr>
 		<tr>
 			<th><@s.m "meeting.hoster"/>:</th><td>${meeting.hoster!}</td>

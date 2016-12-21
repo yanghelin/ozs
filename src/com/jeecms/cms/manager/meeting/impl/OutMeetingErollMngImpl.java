@@ -27,6 +27,13 @@ public class OutMeetingErollMngImpl implements OutMeetingErollMng {
 		return page;
 	}
 	
+	public List<OutMeetingEroll> findListByType(String name, Integer type) {
+		return outMeetingErollDao.findListByType(name, type);
+	}
+	
+	public List<OutMeetingEroll> findListByUserType(String name, String userType) {
+		return outMeetingErollDao.findListByUserType(name, userType);
+	}
 	@Transactional(readOnly = true)
 	public List<OutMeetingEroll> getList(String name) {
 		List<OutMeetingEroll> list = outMeetingErollDao.getList(name);

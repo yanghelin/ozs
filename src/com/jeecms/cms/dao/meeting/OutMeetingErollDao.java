@@ -23,4 +23,8 @@ public interface OutMeetingErollDao{
 	public OutMeetingEroll updateByUpdater(Updater<OutMeetingEroll> updater);
 
 	public OutMeetingEroll deleteById(Integer id);
+	
+	public List<OutMeetingEroll> findListByUserType(String name, String userType);
+	
+	public List<OutMeetingEroll> findListByType(String name, Integer type);
 }
