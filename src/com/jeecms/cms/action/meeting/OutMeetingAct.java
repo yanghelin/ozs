@@ -670,6 +670,7 @@ public class OutMeetingAct {
 	@RequestMapping("/out_meeting/ticket_export.do")
 	public void ticketExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
+		System.out.println("=======entry ticketExport method=======");
 		//String[] columnName = {"cnName","","","",""};
 		String[] title = {"姓名","护照号码","工作单位","机票信息"};
 		//姓名	护照号码	工作单位	机票信息	住宿信息
@@ -696,7 +697,7 @@ public class OutMeetingAct {
 		for(int i = 0;i<=title.length;i++){
 			sheet.setColumnWidth(i, 32 * 150);// 对A列设置宽度为80像素  
 		}
-        
+		System.out.println("=======开始设置样式=======");
         CellStyle style = workbook.createCellStyle();
         CellStyle style1 = workbook.createCellStyle();
         style.setAlignment(CellStyle.ALIGN_CENTER);
@@ -707,13 +708,12 @@ public class OutMeetingAct {
         Font font = workbook.createFont();
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
         style.setFont(font);
-         
+        System.out.println("=======开始设置第一行=======");
         HSSFRow header = sheet.createRow(0);
         for(int i = 0;i<title.length;i++){
         	header.createCell(i).setCellValue(title[i]);
             header.getCell(i).setCellStyle(style);
 		}
-         
         int rowIndex = 1;
         for(OutMeetingEroll enroll:dataList){
         	HSSFRow aRow = sheet.createRow(rowIndex++);
@@ -730,12 +730,20 @@ public class OutMeetingAct {
        			sb.append("外方性别：" + changeInfo(enroll.getOutSex()) +"\n");
        			sb.append("国籍：" + enroll.getOutNational() +"\n");
        			sb.append("护照号：" + enroll.getPassport() +"\n");
-       			sb.append("护照签发时间：" + format.format(enroll.getPassportDate()) +"\n");
-       			sb.append("护照有效期：" + format.format(enroll.getPassportValid()) +"\n");
+       			if(enroll.getPassportDate() != null ) {
+       				sb.append("护照签发时间：" + format.format(enroll.getPassportDate()) +"\n");
+       			}
+       			if(enroll.getPassportValid() != null ) {
+       				sb.append("护照有效期：" + format.format(enroll.getPassportValid()) +"\n");
+       			}
        			sb.append("出发地：" + enroll.getOutFrom() +"\n");
        			sb.append("目的地：" + enroll.getOutArrive() +"\n");
-       			sb.append("出发时间：" + format.format(enroll.getOutGoTime()) +"\n");
-       			sb.append("回程时间：" + format.format(enroll.getOutBackTime()) +"\n");
+       			if(enroll.getOutGoTime() != null ) {
+       				sb.append("出发时间：" + format.format(enroll.getOutGoTime()) +"\n");
+       			}
+       			if(enroll.getOutBackTime() != null ) {
+       				sb.append("回程时间：" + format.format(enroll.getOutBackTime()) +"\n");
+       			}
        			sb.append("来程航班：" + enroll.getOutGoFlight() +"\n");
        			sb.append("回程航班：" + enroll.getOutBackFlight() +"\n");
        		}
@@ -747,8 +755,12 @@ public class OutMeetingAct {
        			sb.append("身份证：" + enroll.getCard() +"\n");
        			sb.append("出发地：" + enroll.getInFrom() +"\n");
        			sb.append("目的地：" + enroll.getInArrive() +"\n");
-       			sb.append("出发时间：" + format.format(enroll.getInGoTime()) +"\n");
-       			sb.append("回程时间：" + format.format(enroll.getInBackTime()) +"\n");
+       			if(enroll.getInGoTime() != null ) {
+       				sb.append("出发时间：" + format.format(enroll.getInGoTime()) +"\n");
+       			}
+       			if(enroll.getInBackTime() != null ) {
+       				sb.append("回程时间：" + format.format(enroll.getInBackTime()) +"\n");
+       			}
        			sb.append("来程航班：" + enroll.getInGoFlight() +"\n");
        			sb.append("回程航班：" + enroll.getInBackFlight() +"\n");
        		}
@@ -757,6 +769,7 @@ public class OutMeetingAct {
        		/*aRow.createCell(4).setCellValue(enroll.getCnName());
        		aRow.getCell(4).setCellStyle(style1);*/
         }
+        System.out.println("=======写完准备返回=======");
 		workbook.write(out);
 		out.flush();
 	}
