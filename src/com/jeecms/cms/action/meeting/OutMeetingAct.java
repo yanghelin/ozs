@@ -890,11 +890,12 @@ public class OutMeetingAct {
 	       		aRow.getCell(0).setCellStyle(style1);
 	       		aRow.createCell(1).setCellValue(enroll.getUnit());
 	       		aRow.getCell(1).setCellStyle(style1);
-	       		
+	       		StringBuffer sb = new StringBuffer("");
 	       		if(enroll.getIsDrive() !=null && enroll.getIsDrive()==1) {
-	       			aRow.createCell(2).setCellValue("车牌号："+enroll.getCarNo());
-		       		aRow.getCell(2).setCellStyle(style1);
+	       			sb.append("车牌号："+enroll.getCarNo());
 	       		}
+	       		aRow.createCell(2).setCellValue(sb.toString());
+	       		aRow.getCell(2).setCellStyle(style1);
 	        }
 	        
 			workbook.write(out);
