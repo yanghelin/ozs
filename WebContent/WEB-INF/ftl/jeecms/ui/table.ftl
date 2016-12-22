@@ -5,7 +5,7 @@
 	sytle：table的style样式。默认""。
 	width：表格的宽度。默认100%。
 -->
-<#macro table value listAction="v_list_member_regist.do" class="pn-ltable" style="" theadClass="pn-lthead" tbodyClass="pn-ltbody" width="100%" cellspacing="1">
+<#macro table value listAction="v_list.do" class="pn-ltable" style="" theadClass="pn-lthead" tbodyClass="pn-ltbody" width="100%" cellspacing="1">
 <table class="${class}" style="${style}" width="${width}" cellspacing="${cellspacing}" cellpadding="0" border="0">
 <#if value?is_sequence><#local pageList=value/><#else><#local pageList=value.list/></#if>
 <#list pageList as row>
