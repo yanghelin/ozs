@@ -723,7 +723,7 @@ public class OutMeetingAct {
        		aRow.getCell(1).setCellStyle(style1);
        		aRow.createCell(2).setCellValue(enroll.getUnit());
        		aRow.getCell(2).setCellStyle(style1);
-       		StringBuffer sb = new StringBuffer();
+       		StringBuffer sb = new StringBuffer("");
        		if(enroll.getIsForeign() != null && enroll.getIsForeign()==1) {
        			sb.append("外方英文名称：" + enroll.getOutName() +"\n");
        			sb.append("外方出生日期：" + enroll.getOutBirthdayStr() +"\n");
